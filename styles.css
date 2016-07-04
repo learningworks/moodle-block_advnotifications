@@ -1,0 +1,22 @@
+body .block.block_advanced_notifications
+{
+    box-shadow: none;
+    margin-bottom: 20px;
+    min-height: 0;
+}
+
+body:not(.editing) .block.block_advanced_notifications .header
+{
+    display: none;
+}
+
+body .block.block_advanced_notifications .content
+{
+    padding: 0;
+    background-color: transparent;
+}
+
+body .block.block_advanced_notifications .content .alert
+{
+    margin-bottom: 0;
+}
