@@ -23,4 +23,22 @@
 
             'clonepermissionsfrom' => 'moodle/site:manageblocks'
         ),
+
+        'block/advanced_notifications:managenotifications' => array(
+
+            'riskbitmask' => RISK_SPAM,
+
+            'captype' => 'write',
+            'contextlevel' => CONTEXT_SYSTEM,
+            'archetypes' => array(
+                'frontpage' => CAP_PREVENT,
+                'guest' => CAP_PREVENT,
+                'user' => CAP_PREVENT,
+                'student' => CAP_PREVENT,
+                'teacher' => CAP_PREVENT,
+                'editingteacher' => CAP_PREVENT,
+                'coursecreator' => CAP_PREVENT,
+                'manager' => CAP_ALLOW,
+            ),
+        ),
     );

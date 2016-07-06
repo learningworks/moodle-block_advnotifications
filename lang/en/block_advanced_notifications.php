@@ -1,13 +1,57 @@
 <?php
     $string['pluginname'] = 'Advanced Notifications';
-    $string['advanced_notifications'] = 'Advanced Notifications';
+
+    // Capabilities
     $string['advanced_notifications:addinstance'] = 'Add a new Advanced Notifications block';
     $string['advanced_notifications:myaddinstance'] = 'Add a new Advanced Notifications block to the My Moodle page';
+    $string['advanced_notifications:managenotifications'] = 'Manage notifications and the relative settings';
+
+    // Block Configuration
+    $string['advanced_notifications'] = 'Advanced Notifications';
     $string['advanced_notifications_enable'] = 'Enable:';
     $string['advanced_notifications_auto_delete'] = 'Auto-Delete:';
     $string['advanced_notifications_class'] = 'Block Class:';
-    $string['advanced_notifications_title'] = 'Notification Title:';
-    $string['advanced_notifications_message'] = 'Notification Message:';
-    $string['advanced_notifications_type'] = 'Notification Type:';
-    $string['advanced_notifications_icon'] = 'Notification Icon:';
-    $string['advanced_notifications_dismissible'] = 'Notification Dismissible:';
+
+    //Notifications Table Column Names & Table Related Lang Strings
+    $string['advanced_notifications_field_id'] = 'ID';
+    $string['advanced_notifications_field_title'] = 'Title';
+    $string['advanced_notifications_field_type'] = 'Type';
+    $string['advanced_notifications_field_date_from'] = 'From';
+    $string['advanced_notifications_field_date_to'] = 'To';
+    $string['advanced_notifications_field_dismissible'] = 'Dismissible';
+    $string['advanced_notifications_field_times'] = 'View Times';
+    $string['advanced_notifications_field_enabled'] = 'Enabled';
+    $string['advanced_notifications_field_actions'] = 'Actions';
+    $string['advanced_notifications_edit_label'] = 'Edit';
+    $string['advanced_notifications_delete_label'] = 'Delete';
+    $string['advanced_notifications_table_empty'] = 'No notifications to show!';
+
+    // Manage Advanced Notification Lang Strings
+    $string['advanced_notifications_table_title'] = 'Manage Notifications';
+    $string['advanced_notifications_table_heading'] = 'Advanced Notifications';
+
+    // New Notification Lang Strings
+    $string['advanced_notifications_enable'] = 'Enable/Disable?';
+    $string['advanced_notifications_title'] = 'Title';
+    $string['advanced_notifications_message'] = 'Message';
+    $string['advanced_notifications_type'] = 'Type';
+    $string['advanced_notifications_times'] = '# of times';
+    $string['advanced_notifications_times_label'] = 'Number of times to display the notification to the user (0 = forever)';
+    $string['advanced_notifications_icon'] = 'Display Icon?';
+    $string['advanced_notifications_dismissible'] = 'Dismissible?';
+    $string['advanced_notifications_date_from'] = 'From:';
+    $string['advanced_notifications_date_to'] = 'To:';
+    $string['advanced_notifications_save'] = 'Save';
+    $string['advanced_notifications_cancel'] = 'Cancel';
+
+    // Renderer
+    $string['advanced_notifications_add_heading'] = 'New Notification';
+
+    // Admin Settings
+    $string['setting/enable'] = 'Enable:';
+    $string['setting/enable_desc'] = 'Toggles whether all notifications are enabled/disabled';
+    $string['setting/enable_default'] = '';
+
+    $string['setting/auto_delete'] = 'Auto Delete:';
+    $string['setting/auto_delete_desc'] = 'Toggles whether a notification that go past the set end-date is automatically deleted.<br>(Helps with housekeeping/management)';
+    $string['setting/auto_delete_default'] = '';

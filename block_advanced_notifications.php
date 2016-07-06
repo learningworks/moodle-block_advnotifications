@@ -4,71 +4,18 @@ class block_advanced_notifications extends block_base
     public function init()
     {
         global $CFG, $PAGE;
-        $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/blocks/advanced_notifications/javascript/settings.js'));
+        $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/blocks/advanced_notifications/javascript/custom.js'));
         $this->title = get_string('advanced_notifications', 'block_advanced_notifications');
     }
 
     public function get_content() {
 
-        if ($this->config->enable === 1) {
-            $this->content = new stdClass;
+        global $PAGE, $USER;
+        if (get_config('block_advanced_notifications', 'enable')) {
 
-
-            $title = $this->config->titletext;
-            $messagetextarea = $this->config->messagetextarea;
-            $type = $this->config->type;
-            $icon = $this->config->icon;
-
-            $html = '';
-
-            // Get type to know which bootstrap class to apply
-            $alerttype = '';
-
-            // Allows for custom styling
-            if (!empty($title))
-            {
-                if ($type == "information")
-                {
-                    $alerttype = 'info';
-                }
-                elseif ($type == "success")
-                {
-                    $alerttype = 'success';
-                }
-                elseif ($type == "warning")
-                {
-                    $alerttype = 'warning';
-                }
-                elseif ($type == "danger")
-                {
-                    $alerttype = 'danger';
-                }
-                elseif ($type == "announcement")
-                {
-                    $alerttype = 'info announcement';
-                }
-            }
-            else
-            {
-                $alerttype = 'info';
-            }
-
-            // Open notification block
-            $html .= '<div class="notification-block-wrapper">
-                        <div class="alert alert-' . $alerttype . '">';
-
-            if (!empty($title))
-            {
-                $html .= '<strong>' . $title . '</strong> ';
-            }
-            if (!empty($messagetextarea))
-            {
-                $html .= $messagetextarea;
-            }
-
-            // Close notification block
-            $html .= '    </div>
-                      </div>';
+            // Get the renderer for this page
+            $renderer = $PAGE->get_renderer('block_advanced_notifications');
+            $html = $renderer->render_notification();
 
             $this->content->text = $html;
 
@@ -83,6 +30,14 @@ class block_advanced_notifications extends block_base
 //    public function hide_header() {
 //        return true;
 //    }
+
+    /* TODO This was only added to suppress an 'error' that would occur, as get_content would be called twice
+    *  TODO which affects the DB calls when we record the number of times an user has seen the notification
+    */
+    function is_empty()
+    {
+        return false;
+    }
 
     function instance_allow_multiple() {
         // Are you going to allow multiple instances of each block?
@@ -99,10 +54,13 @@ class block_advanced_notifications extends block_base
             $attributes['class'] .= " " . $this->config->class;
         }
 
-        if ($this->config->dismissible === 1) {
-
-            $attributes['class'] .= " dismissible";
-        }
         return $attributes;
+    }
+
+    /**
+     * Specifies that block has global configurations/admin settings
+     */
+    public function has_config() {
+        return true;
     }
 }
