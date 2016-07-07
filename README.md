@@ -11,3 +11,12 @@
 * Enable/Disable a/all notification(s)
 * Option to auto-delete notification after end date
 * Edit/Delete/Restore notifications
+
+### *Work-in-Progress*
+
+### Work still being done:
+
+* Refresh table when a new notification has been addded
+* Auto-delete notifications when they pass their end-date
+* Auto-cleanup deleted notifications older than 30 days
+* Restore notification feature
