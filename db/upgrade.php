@@ -18,7 +18,7 @@ function xmldb_block_advanced_notifications_upgrade($oldversion)
     global $DB;
     $dbman = $DB->get_manager();
 
-    if ($oldversion < 201607051512) {
+    if ($oldversion < 201607071321) {
 
         // Define table block_advanced_notifications to be created.
         $table = new xmldb_table('block_advanced_notifications');
@@ -35,6 +35,7 @@ function xmldb_block_advanced_notifications_upgrade($oldversion)
         $table->add_field('date_to', XMLDB_TYPE_INTEGER, '11', null, XMLDB_NOTNULL, null, '0000000000');
         $table->add_field('times', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '0');
         $table->add_field('deleted', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('deleted_at', XMLDB_TYPE_INTEGER, '11', null, XMLDB_NOTNULL, null, '0000000000');
 
         // Adding keys to table block_advanced_notifications.
         $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
@@ -63,7 +64,7 @@ function xmldb_block_advanced_notifications_upgrade($oldversion)
         }
 
         // Advanced_notifications savepoint reached.
-        upgrade_block_savepoint(true, 201607051512, 'advanced_notifications');
+        upgrade_block_savepoint(true, 201607071321, 'advanced_notifications');
     }
 
 }

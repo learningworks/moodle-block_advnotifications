@@ -10,7 +10,7 @@ class block_advanced_notifications extends block_base
 
     public function get_content() {
 
-        global $PAGE, $USER;
+        global $PAGE;
         if (get_config('block_advanced_notifications', 'enable')) {
 
             // Get the renderer for this page
@@ -31,8 +31,8 @@ class block_advanced_notifications extends block_base
 //        return true;
 //    }
 
-    /* TODO This was only added to suppress an 'error' that would occur, as get_content would be called twice
-    *  TODO which affects the DB calls when we record the number of times an user has seen the notification
+    /* TODO | This was only added to suppress an 'error' that would occur, as get_content would be called twice
+    *  TODO | which affects the DB calls when we record the number of times an user has seen the notification
     */
     function is_empty()
     {
@@ -62,5 +62,39 @@ class block_advanced_notifications extends block_base
      */
     public function has_config() {
         return true;
+    }
+
+    /**
+     * Remove old (or deleted) notifications from table block_advanced_notifications & cleanup table block_advanced_notifications_dismissed
+     */
+    public function cron() {
+        global $DB;
+
+        echo "\n\tCleaning Advanced Notifications\n";
+
+        if (get_config('block_advanced_notifications', 'auto_perma_delete')) {
+            echo "\n\t\t- Permanently delete notifications that's had the deleted flag for more than 30 days...\n";
+            // Permanently delete notifications that's had the deleted flag for more than 30 days
+            $DB->delete_records_select('block_advanced_notifications', 'deleted_at < :limit AND deleted_at <> 0 AND deleted = 1',
+                array('limit' => strtotime('-30 days')));
+        }
+
+        if (get_config('block_advanced_notifications', 'auto_delete')) {
+            echo "\t\t- Add deleted flag to notifications that's passed their end-date...\n";
+            // Add deleted flag to notifications that's passed their end-date
+            $DB->set_field_select('block_advanced_notifications', 'deleted', '1', 'date_to < :now', array('now' => time()));
+            $DB->set_field_select('block_advanced_notifications', 'deleted_at', time(), 'date_to < :now', array('now' => time()));
+        }
+
+        if (get_config('block_advanced_notifications', 'auto_delete_user_data')) {
+            echo "\t\t- Remove user records that relates to notifications that don't exist anymore...\n\n";
+            //Remove user records that relates to notifications that don't exist anymore
+            $todelete = $DB->get_records_sql('SELECT band.id
+                                            FROM {block_advanced_notifications_dismissed} AS band
+                                            LEFT JOIN {block_advanced_notifications} AS ban ON band.not_id = ban.id
+                                            WHERE ban.id IS NULL');
+
+            $DB->delete_records_list('block_advanced_notifications_dismissed', 'id', array_keys((array)$todelete));
+        }
     }
 }

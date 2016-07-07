@@ -86,6 +86,7 @@ if (!$table->is_downloading()) {
     $PAGE->set_title(get_string('advanced_notifications_table_title', 'block_advanced_notifications'));
     $PAGE->set_heading(get_string('advanced_notifications_table_heading', 'block_advanced_notifications'));
     $PAGE->requires->jquery();
+    $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/blocks/advanced_notifications/javascript/custom.js'));
 
     // Leaving next line for future reference
     //	$PAGE->requires->js(new moodle_url($CFG->wwwroot . '/local/moodec/js/catalogue.js'));

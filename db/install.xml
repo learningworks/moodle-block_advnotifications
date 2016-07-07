@@ -7,13 +7,14 @@
         <FIELD NAME="title" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="To be used for notification's title"/>
         <FIELD NAME="message" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="To be used as notification's message"/>
         <FIELD NAME="type" TYPE="char" LENGTH="30" NOTNULL="true" DEFAULT="info" SEQUENCE="false" COMMENT="What type of notification to be displayed"/>
-        <FIELD NAME="icon" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="Toggle whether an icon should be displayed or not."/>
+        <FIELD NAME="icon" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="Toggle whether an icon should be displayed or not"/>
         <FIELD NAME="enabled" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="Toggle whether notification is enabled/displayed or not"/>
-        <FIELD NAME="dismissible" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="Toggles whether notification is dismissible by user or not."/>
+        <FIELD NAME="dismissible" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="Toggles whether notification is dismissible by user or not"/>
         <FIELD NAME="date_from" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false" COMMENT="From when the notification should be displayed."/>
         <FIELD NAME="date_to" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false" COMMENT="Until when the notification will be displayed to users"/>
         <FIELD NAME="times" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Number of times a user has to see the notification"/>
         <FIELD NAME="deleted" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="A flag to keep track of whether the notification has been deleted"/>
+        <FIELD NAME="deleted_at" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false" COMMENT="Record of when the notification was deleted"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
@@ -23,7 +24,7 @@
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="user_id" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="User related to occurrence of notification"/>
-        <FIELD NAME="not_id" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="Notification user interaction relates to."/>
+        <FIELD NAME="not_id" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="Notification user interaction relates to"/>
         <FIELD NAME="dismissed" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="Flag of whether user dismissed occurrence of notification or not"/>
         <FIELD NAME="seen" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Record of number of times a user has seen the notification"/>
       </FIELDS>

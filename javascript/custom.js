@@ -100,6 +100,11 @@ $(document).ready(function(){
     $('#add_notification_wrapper_id #add_notification_cancel').on('click', function(e) {
         e.preventDefault();
         $('#add_notification_form')[0].reset();
+
+        // Change save button back to normal
+        var savebutton = $('#add_notification_save');
+        savebutton.removeClass('update');
+        savebutton.val('Save');
     });
 
     // Managing more notifications

@@ -127,6 +127,7 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
                 $DB->update_record('block_advanced_notifications_dismissed', $upseenrecord);
             }
             echo json_encode("Di: Successful");
+            exit();
         }
 
         //Handle Delete/Edit early as it requires few resources, and then we can quickly exit() - this is the new AJAX/JS deletion/editing method
@@ -147,6 +148,7 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
                 $dnotification = new stdClass();
                 $dnotification->id = $tableaction;
                 $dnotification->deleted = 1;
+                $dnotification->deleted_at = time();
 
                 $DB->update_record('block_advanced_notifications', $dnotification);
 

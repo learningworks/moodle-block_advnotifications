@@ -52,6 +52,14 @@
     $string['setting/enable_desc'] = 'Toggles whether all notifications are enabled/disabled';
     $string['setting/enable_default'] = '';
 
+    $string['setting/auto_perma_delete'] = 'Auto Permanent Delete:';
+    $string['setting/auto_perma_delete_desc'] = 'Toggles whether notifications that have been deleted for more than 30 days are automatically permanently deleted from the database.<br>(Helps with housekeeping/management)';
+    $string['setting/auto_perma_delete_default'] = '';
+
     $string['setting/auto_delete'] = 'Auto Delete:';
-    $string['setting/auto_delete_desc'] = 'Toggles whether a notification that go past the set end-date is automatically deleted.<br>(Helps with housekeeping/management)';
+    $string['setting/auto_delete_desc'] = 'Toggles whether a notification that go past the set end-date is automatically deleted - but can be restored again.<br>(Helps with housekeeping/management)';
     $string['setting/auto_delete_default'] = '';
+
+    $string['setting/auto_delete_user_data'] = 'Auto Delete User Data:';
+    $string['setting/auto_delete_user_data_desc'] = 'Toggles whether user data (such as whether the user has seen/dismissed notifications that don\'t exist anymore, etc) related to advanced notifications is automatically deleted.<br>(Helps with housekeeping/management)';
+    $string['setting/auto_delete_user_data_default'] = '';

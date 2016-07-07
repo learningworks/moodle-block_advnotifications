@@ -22,6 +22,18 @@ if ($ADMIN->fulltree) {
     );
 
     /**
+     * AUTO-PERMADELETE OLD DELETED NOTIFICATIONS
+     */
+    $settings->add(
+        new admin_setting_configcheckbox(
+            'block_advanced_notifications/auto_perma_delete',									// NAME
+            get_string('setting/auto_perma_delete', 'block_advanced_notifications'), 			// TITLE
+            get_string('setting/auto_perma_delete_desc', 'block_advanced_notifications'),		// DESCRIPTION
+            get_string('setting/auto_perma_delete_default', 'block_advanced_notifications')	// DEFAULT
+        )
+    );
+
+    /**
      * AUTO-DELETE TOGGLE
      */
     $settings->add(
@@ -30,6 +42,18 @@ if ($ADMIN->fulltree) {
             get_string('setting/auto_delete', 'block_advanced_notifications'), 			// TITLE
             get_string('setting/auto_delete_desc', 'block_advanced_notifications'),		// DESCRIPTION
             get_string('setting/auto_delete_default', 'block_advanced_notifications')	// DEFAULT
+        )
+    );
+
+    /**
+     * AUTO-DELETE USER DATA TOGGLE
+     */
+    $settings->add(
+        new admin_setting_configcheckbox(
+            'block_advanced_notifications/auto_delete_user_data',									// NAME
+            get_string('setting/auto_delete_user_data', 'block_advanced_notifications'), 			// TITLE
+            get_string('setting/auto_delete_user_data_desc', 'block_advanced_notifications'),		// DESCRIPTION
+            get_string('setting/auto_delete_user_data_default', 'block_advanced_notifications')	// DEFAULT
         )
     );
 
