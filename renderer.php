@@ -23,7 +23,7 @@ class block_advanced_notifications_renderer extends plugin_renderer_base
 
     function render_notification()
     {
-        global $DB, $USER;
+        global $DB, $USER, $CFG;
 
         // CONDITIONS
         // Initialise/Declare
@@ -105,26 +105,34 @@ class block_advanced_notifications_renderer extends plugin_renderer_base
 
                 // Get type to know which bootstrap class to apply
                 $alerttype = '';
+                $icon = '';
 
                 // Allows for custom styling and a basic filter (by specifying specific strings) if anything unwanted was somehow submitted
                 if (!empty($notification)) {
                     if ($notification->type == "info") {
                         $alerttype = 'info';
+                        $icon = 'info';
                     } elseif ($notification->type == "success") {
                         $alerttype = 'success';
+                        $icon = 'success';
                     } elseif ($notification->type == "warning") {
                         $alerttype = 'warning';
+                        $icon = 'warning';
                     } elseif ($notification->type == "danger") {
                         $alerttype = 'danger';
+                        $icon = 'danger';
                     } elseif ($notification->type == "announcement") {
                         $alerttype = 'info announcement';
+                        $icon = 'info';
                     }
                     else
                     {
                         $alerttype = 'info';
+                        $icon = 'info';
                     }
                 } else {
                     $alerttype = 'info';
+                    $icon = 'info';
                 }
 
                 // Extra classes to add to the notification wrapper - at least having the type of alert
@@ -146,6 +154,14 @@ class block_advanced_notifications_renderer extends plugin_renderer_base
                 $html .= '<div class="notification-block-wrapper' . $extraclasses . '" data-dismiss="' . $notification->id . '">
                             <div class="alert alert-' . $alerttype . '">';
 
+                if (!empty($notification->icon) && $notification->icon == 1) {
+                    $svgurl = file_get_contents($CFG->wwwroot . '/blocks/advanced_notifications/pix/' . $icon . '.svg');
+
+                    // Check if getting the svg file contents was successful
+                    if ($svgurl != false) {
+                        $html .= $svgurl;
+                    }
+                }
                 if (!empty($notification->title)) {
                     $html .= '<strong>' . $notification->title . '</strong> ';
                 }

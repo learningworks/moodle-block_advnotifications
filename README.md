@@ -4,7 +4,8 @@
 
 * Customisable title
 * Customisable message
-* Multiple types of notifications to select from & their respective icons
+* Multiple types of notifications
+* Type-based icons optional setting (icons *must* be of svg type)
 * Dismissible/Non-Dismissible
 * Customisable date range to show notification from and to
 * Display a notification to the user a set amount of times
@@ -19,5 +20,4 @@
 
 #### Work still being done:
 
-* Notification icons
 * Live Preview when making/editing a notification

@@ -84,6 +84,10 @@ $(document).ready(function(){
                         var form = $('#add_notification_form');
 
                         // Because we're doing a standard submit, we need extra inputs to pass params
+                        // But first, remove old hidden inputs
+                        $('#add_notification_id').remove();
+                        $('#add_notification_call').remove();
+                        $('#add_notification_purpose').remove();
                         form.prepend('<input type="hidden" id="add_notification_id" name="id" value="' + value + '"/>');
                         form.prepend('<input type="hidden" id="add_notification_call" name="call" value="ajax"/>');
                         form.prepend('<input type="hidden" id="add_notification_purpose" name="purpose" value="update"/>');
@@ -199,8 +203,9 @@ $(document).ready(function(){
 
                     // Change save button back to normal
                     savebutton.removeClass('update');
-                    form.remove('#add_notification_call');
-                    form.remove('#add_notification_purpose');
+                    $('#add_notification_id').remove();
+                    $('#add_notification_call').remove();
+                    $('#add_notification_purpose').remove();
                     savebutton.val('Save');
                 });
             }, 2500);
