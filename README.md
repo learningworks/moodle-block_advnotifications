@@ -20,3 +20,4 @@
 #### Work still being done:
 
 * Notification icons
+* Live Preview when making/editing a notification

@@ -108,7 +108,7 @@ class block_advanced_notifications_renderer extends plugin_renderer_base
 
                 // Allows for custom styling and a basic filter (by specifying specific strings) if anything unwanted was somehow submitted
                 if (!empty($notification)) {
-                    if ($notification->type == "information") {
+                    if ($notification->type == "info") {
                         $alerttype = 'info';
                     } elseif ($notification->type == "success") {
                         $alerttype = 'success';
@@ -118,6 +118,10 @@ class block_advanced_notifications_renderer extends plugin_renderer_base
                         $alerttype = 'danger';
                     } elseif ($notification->type == "announcement") {
                         $alerttype = 'info announcement';
+                    }
+                    else
+                    {
+                        $alerttype = 'info';
                     }
                 } else {
                     $alerttype = 'info';
