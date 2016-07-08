@@ -12,13 +12,11 @@
 * Edit/Delete/Restore notifications
 * Option to auto-delete notification after end date
 * Option to permanently delete notifications that's had the deleted flag for more than 30 days
-* Automatically remove user (dismissed/seen) records that relates to notifications that don't exist anymore
+* Option to automatically remove user (dismissed/seen) records that relates to notifications that don't exist anymore
+* AJAX used to improve user-experience and simplify (managing) processes
 
 #### *Work-in-Progress!*
 
 #### Work still being done:
 
-* Refresh table when a new notification has been added
-* Restore notification feature
 * Notification icons
-* Update Notifications

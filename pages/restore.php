@@ -10,18 +10,15 @@ require_once dirname(__FILE__) . '/../../../config.php';
 // Load in Moodle's Tablelib lib
 require_once $CFG->dirroot . '/lib/tablelib.php';
 // Call in block's table file
-require_once $CFG->dirroot . '/blocks/advanced_notifications/classes/notifications_table.php';
+require_once $CFG->dirroot . '/blocks/advanced_notifications/classes/restore_table.php';
 
 global $CFG;
 
 // PARAMS
 $params = array();
 
-// Determines if the user want to start creating a new notification
-$new = optional_param('new', null, PARAM_BOOL);
-
-// Determines which notification the user wishes to edit
-$edit = optional_param('edit', null, PARAM_INT);
+// Determines which notification the user wishes to restore
+$restore = optional_param('restore', null, PARAM_INT);
 
 // Determines which notification the user wishes to delete
 $delete = optional_param('delete', null, PARAM_INT);
@@ -29,36 +26,20 @@ $delete = optional_param('delete', null, PARAM_INT);
 // Determines whether or not to download the table
 $download = optional_param('download', '', PARAM_ALPHA);
 
-// Build params array (used to build url later)
-if( !!$new ) {
-    $params['new'] = 1;
-}
-
 if( !!$download ) {
     $params['download'] = 1;
 }
 
 global $DB, $USER, $PAGE;
 
-if( !!$edit ) {
-    $toEdit = $DB->get_record('block_advanced_notifications', array('id'=>$edit));
-}
-
 if( !!$delete ) {
     //If wanting to delete a notification, delete from DB immediately before the table is rendered
 
-    $toDelete = new stdClass();
-
-    $toDelete->id = $delete;
-    $toDelete->deleted = 1;
-    $toDelete->enabled = 0;
-    $sql = $DB->update_record('block_advanced_notifications', $toDelete);
-
-//    redirect(new moodle_url($CFG->wwwroot .'/local/moodec/pages/product_setup.php'));
+    $DB->delete_records('block_advanced_notifications', array('id'=>$delete));
 }
 
 $context = context_system::instance();
-$url = new moodle_url($CFG->wwwroot . '/blocks/advanced_notifications/pages/notifications.php');
+$url = new moodle_url($CFG->wwwroot . '/blocks/advanced_notifications/pages/restore.php');
 
 // Set PAGE variables
 $PAGE->set_context($context);
@@ -75,43 +56,47 @@ if ( !has_capability('block/advanced_notifications:managenotifications', $contex
 $PAGE->set_pagelayout('adv_notifications'); // Moodle automatically falls back to the "standard" layout if this is not in the theme's config.php "layouts" array
 
 // Get the renderer for this page
-$renderer = $PAGE->get_renderer('block_advanced_notifications');
+//$renderer = $PAGE->get_renderer('block_advanced_notifications');
 
-$table = new advanced_notifications_notifications_table('advanced-notifications-list');
-$table->is_downloading($download, 'advanced-notifications-list', 'Advanced Notifications List');
+$table = new advanced_notifications_restore_table('advanced-notifications-list-restore');
+$table->is_downloading($download, 'advanced-notifications-list-restore', 'Advanced Notifications List Restore');
 
 if (!$table->is_downloading()) {
     // Only print headers if not asked to download data
     // Print the page header
-    $PAGE->set_title(get_string('advanced_notifications_table_title', 'block_advanced_notifications'));
-    $PAGE->set_heading(get_string('advanced_notifications_table_heading', 'block_advanced_notifications'));
+    $PAGE->set_title(get_string('advanced_notifications_restore_table_title', 'block_advanced_notifications'));
+    $PAGE->set_heading(get_string('advanced_notifications_restore_table_heading', 'block_advanced_notifications'));
     $PAGE->requires->jquery();
     $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/blocks/advanced_notifications/javascript/custom.js'));
 
     echo $OUTPUT->header();
 
-    printf('<h1 class="page__title">%s</h1>', get_string('advanced_notifications_table_title', 'block_advanced_notifications'));
-
-//    echo $renderer->product_filter($params, $url);
+    printf('<h1 class="page__title">%s</h1>', get_string('advanced_notifications_restore_table_title', 'block_advanced_notifications'));
 }
 
 // Configure the table
 $table->define_baseurl($url, $params);
 
-$table->set_attribute('class', 'admin_table general_table notifications_table');
+$table->set_attribute('class', 'admin_table general_table notifications_restore_table');
 $table->collapsible(false);
 
 $table->is_downloadable(true);
 $table->show_download_buttons_at(array(TABLE_P_BOTTOM));
 
-$table->set_sql('*', "{block_advanced_notifications}", "deleted = 0");
+$table->set_sql('*', "{block_advanced_notifications}", "deleted = 1");
+
+//Print warning about permanently deleting notifications
+echo '<div class="restore_notification-block-wrapper">
+        <div class="alert alert-danger">
+            ' . get_string('advanced_notifications_restore_table_warning', 'block_advanced_notifications') . '
+        </div>
+      </div>';
+
 
 // Add a wrapper with an id, which makes reloading the table easier (when using ajax)
-echo '<div id="advanced_notifications_table_wrapper">';
+echo '<div id="advanced_notifications_restore_table_wrapper">';
 $table->out(20, true);
 echo '</div>';
-
-echo $renderer->add_notification($params);
 
 if (!$table->is_downloading()) {
     echo $OUTPUT->footer();

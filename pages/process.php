@@ -21,6 +21,8 @@ header('HTTP/1.0 200 OK');
 
 global $DB, $USER;
 
+// TODO - Check if insertions/updates/deletions were successful, and return appropriate message
+
 // GET PARAMETERS
 // Check if ajax or other type of call
 $callType = optional_param('call','',PARAM_TEXT);
@@ -77,18 +79,12 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
     //Change to checkbox values to integers for DB
     if ($enable == 'on') {
         $enable = 1;
-    } else {
-        $enable = 0;
     }
     if ($icon == 'on') {
         $icon = 1;
-    } else {
-        $icon = 0;
     }
     if ($dismissible == 'on') {
         $dismissible = 1;
-    } else {
-        $dismissible = 0;
     }
 
     //TODO How to check if successful?
@@ -155,6 +151,54 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
                 echo json_encode(array("done"=>$tableaction));
                 exit();
             }
+            elseif ($purpose == 'restore')
+            {
+                $rnotification = new stdClass();
+                $rnotification->id = $tableaction;
+                $rnotification->deleted = 0;
+                $rnotification->deleted_at = 0;
+
+                $DB->update_record('block_advanced_notifications', $rnotification);
+
+                echo json_encode(array("done"=>$tableaction));
+                exit();
+            }
+            elseif ($purpose == 'permdelete')
+            {
+                $DB->delete_records('block_advanced_notifications', array('id'=>$tableaction));
+
+                echo json_encode(array("done"=>$tableaction));
+                exit();
+            }
+        }
+
+        //Update existing notification, instead of inserting a new one
+        if ($purpose == 'update')
+        {
+            //Only check for id parameter when updating
+            $id = optional_param('id', '', PARAM_INT);
+
+//            echo json_encode($enable);
+//            exit();
+
+            //Update an existing notification
+            $urow = new stdClass();
+
+            $urow->id = $id;
+            $urow->title = $title;
+            $urow->message = $message;
+            $urow->type = $type;
+            $urow->icon = $icon;
+            $urow->enabled = $enable;
+            $urow->dismissible = $dismissible;
+            $urow->date_from = $date_from;
+            $urow->date_to = $date_to;
+            $urow->times = $times;
+
+            $DB->update_record('block_advanced_notifications', $urow);
+
+            echo json_encode(array("updated"=>$title));
+            exit();
         }
 
         echo json_encode("Aj: Successful");
@@ -163,7 +207,7 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
 
     } elseif (isloggedin()) {
 
-        //Create a new notification - NON-JS method
+        //Create a new notification - Used for both Ajax Calls & NON-JS method atm
         $row = new stdClass();
 
         $row->title = $title;
@@ -174,9 +218,11 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
         $row->dismissible = $dismissible;
         $row->date_from = $date_from;
         $row->date_to = $date_to;
+        $row->times = $times;
         $row->deleted = 0;
+        $row->deleted_at = 0;
 
-        $insertedrowid = $DB->insert_record('block_advanced_notifications', $row);
+        $DB->insert_record('block_advanced_notifications', $row);
 
         //Return Successful
         echo json_encode("I: Successful");

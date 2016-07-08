@@ -12,8 +12,7 @@ require_once dirname(__FILE__) . '/../../../config.php';
 // Load Tablelib lib
 require_once $CFG->dirroot .'/lib/tablelib.php';
 
-// The word 'notifications' is used twice, as I'm using the 'pluginname_filename' convention
-class advanced_notifications_notifications_table extends table_sql {
+class advanced_notifications_restore_table extends table_sql {
 
     /**
      * Constructor
@@ -153,11 +152,11 @@ class advanced_notifications_notifications_table extends table_sql {
         global $CFG;
 
         if ($this->is_downloading()) {
-            return get_string('advanced_notifications_edit_label', 'block_advanced_notifications') . ' | ' . get_string('advanced_notifications_delete_label', 'block_advanced_notifications');
+            return get_string('advanced_notifications_restore_label', 'block_advanced_notifications') . ' | ' . get_string('advanced_notifications_delete_label', 'block_advanced_notifications');
         } else {
             return sprintf(
-                '<a id="tr'.$values->id.'" data-edit="' . $values->id . '" href="' . $CFG->wwwroot . '/blocks/advanced_notifications/pages/process.php?sesskey=' . sesskey() . '&edit=' . $values->id . '">%s</a> | <a data-delete="' . $values->id . '" href="' . $CFG->wwwroot . '/blocks/advanced_notifications/pages/process.php?sesskey=' . sesskey() . '&delete=' . $values->id . '">%s</a>',
-                get_string('advanced_notifications_edit_label', 'block_advanced_notifications'),
+                '<a id="tr'.$values->id.'" data-restore="' . $values->id . '" href="' . $CFG->wwwroot . '/blocks/advanced_notifications/pages/process.php?sesskey=' . sesskey() . '&restore=' . $values->id . '">%s</a> | <a data-permdelete="' . $values->id . '" href="' . $CFG->wwwroot . '/blocks/advanced_notifications/pages/process.php?sesskey=' . sesskey() . '&permdelete=' . $values->id . '">%s</a>',
+                get_string('advanced_notifications_restore_label', 'block_advanced_notifications'),
                 get_string('advanced_notifications_delete_label', 'block_advanced_notifications')
             );
         }

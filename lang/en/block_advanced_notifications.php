@@ -24,11 +24,17 @@
     $string['advanced_notifications_field_actions'] = 'Actions';
     $string['advanced_notifications_edit_label'] = 'Edit';
     $string['advanced_notifications_delete_label'] = 'Delete';
+    $string['advanced_notifications_restore_label'] = 'Restore';
     $string['advanced_notifications_table_empty'] = 'No notifications to show!';
+
+    $string['advanced_notifications_restore_table_warning'] = '<strong>Warning!</strong> Deleting notifications from this table will permanently delete it from the database. We recommend using the auto-delete features of the plugin...';
 
     // Manage Advanced Notification Lang Strings
     $string['advanced_notifications_table_title'] = 'Manage Notifications';
     $string['advanced_notifications_table_heading'] = 'Advanced Notifications';
+
+    $string['advanced_notifications_restore_table_title'] = 'Restore Notifications';
+    $string['advanced_notifications_restore_table_heading'] = 'Advanced Notifications Restore';
 
     // New Notification Lang Strings
     $string['advanced_notifications_enable'] = 'Enable/Disable?';
