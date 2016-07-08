@@ -54,6 +54,11 @@
     $string['advanced_notifications_add_heading'] = 'New Notification';
 
     // Admin Settings
+    $string['setting/navigation'] = 'Navigation:';
+    $string['setting/navigation_desc'] = '{$a->manage}&nbsp;&nbsp;&nbsp;{$a->restore}';
+
+    $string['setting/settings'] = 'Settings:';
+
     $string['setting/enable'] = 'Enable:';
     $string['setting/enable_desc'] = 'Toggles whether all notifications are enabled/disabled';
     $string['setting/enable_default'] = '';

@@ -85,13 +85,17 @@ $table->show_download_buttons_at(array(TABLE_P_BOTTOM));
 
 $table->set_sql('*', "{block_advanced_notifications}", "deleted = 1");
 
-//Print warning about permanently deleting notifications
+// Print warning about permanently deleting notifications
 echo '<div class="restore_notification-block-wrapper">
         <div class="alert alert-danger">
             ' . get_string('advanced_notifications_restore_table_warning', 'block_advanced_notifications') . '
         </div>
       </div>';
 
+// Add navigation controls before the table
+echo '<a class="btn" href="' . $CFG->wwwroot . '/blocks/advanced_notifications/pages/notifications.php">Manage</a>&nbsp;&nbsp;
+      <a class="btn" href="' . $CFG->wwwroot . '/blocks/advanced_notifications/pages/notifications.php#add_notification_wrapper_id">New</a>&nbsp;&nbsp;
+      <a class="btn" href="' . $CFG->wwwroot . '/admin/settings.php?section=blocksettingadvanced_notifications">Settings</a><br><br>';
 
 // Add a wrapper with an id, which makes reloading the table easier (when using ajax)
 echo '<div id="advanced_notifications_restore_table_wrapper">';
