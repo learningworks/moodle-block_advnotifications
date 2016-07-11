@@ -53,13 +53,13 @@ $(document).ready(function(){
 
     // MANAGING NOTIFICATIONS
     //This should be checked on 'edit block', 'restore', 'manage', 'settings'
-    if ( $( "#add_notification_form" ).length ) {
-        var binstance = getUrlParameter('blockid');
-
-        if (binstance != undefined) {
-            $(this).prepend('<input type="hidden" id="add_notification_instance" name="instance" value="' + binstance + '"/>');
-        }
-    }
+    //if ( $( "#add_notification_form" ).length ) {
+    //    var binstance = getUrlParameter('blockid');
+    //
+    //    if (binstance != undefined) {
+    //        $(this).prepend('<input type="hidden" id="add_notification_instance" name="instance" value="' + binstance + '"/>');
+    //    }
+    //}
 
     $('html').on('click', '#region-main .notifications_table tr > td a', function(e) {
 
