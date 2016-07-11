@@ -52,9 +52,6 @@ $blockinstance = '';
 $delete = optional_param('delete','',PARAM_INT);
 $edit = optional_param('edit','',PARAM_INT);
 
-//echo json_encode($_POST);
-//exit();
-
 //Handle Delete/Edit first as it requires few resources, and then we can quickly exit() - this is now a non-JS fallback
 //DELETE
 if (isset($delete) && $delete != "")

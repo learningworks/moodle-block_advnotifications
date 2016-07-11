@@ -208,7 +208,7 @@ class block_advanced_notifications_renderer extends plugin_renderer_base
 
         // Form inputs
         $html .= '          <input type="checkbox" id="add_notification_enable" name="enable"/><label for="add_notification_enable">' . get_string('advanced_notifications_enable', 'block_advanced_notifications') . '</label><br>' .
-            ((array_key_exists('blockid', $params)) ? '<input type="checkbox" id="add_notification_global" name="global"/><label for="add_notification_global">' . get_string('advanced_notifications_global', 'block_advanced_notifications') . '</label><br><input type="hidden" id="add_notification_blockid" name="blockid" value="' . $params['blockid'] . '"/>' : '') . '
+            ((array_key_exists('blockid', $params)) ? '<input type="checkbox" id="add_notification_global" name="global"/><label for="add_notification_global">' . get_string('advanced_notifications_global', 'block_advanced_notifications') . '</label><br><input type="hidden" id="add_notification_blockid" name="blockid" value="' . $params['blockid'] . '"/>' : '<input type="hidden" id="add_notification_global" name="global" value="1"/>') . '
                             <input type="text" id="add_notification_title" name="title" placeholder="' . get_string('advanced_notifications_title', 'block_advanced_notifications') . '"/><br>
                             <input type="text" id="add_notification_message" name="message" placeholder="' . get_string('advanced_notifications_message', 'block_advanced_notifications') . '"/><br>
                             <select id="add_notification_type" name="type" required>
