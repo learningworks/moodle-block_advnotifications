@@ -1,6 +1,30 @@
 $(document).ready(function(){
-    // User dismissing/clicking on a notification
-    $('.block_advanced_notifications').on('click', '.dismissible', function() {
+    // BLOCK INSTANCE ID LOGIC MANAGEMENT
+    $('html').on('click', '#advanced_notifications_manage a', function () {
+        if ($(this).hasClass('instance'))
+        {
+            var binstance = getUrlParameter('bui_editid');
+            if (binstance == undefined)
+            {
+                binstance = getUrlParameter('blockid');
+            }
+
+            if (binstance != undefined) {
+                var link = $(this).attr('href');
+
+                // Determine if '?' or '&' is needed for parameter
+                var divider = '?';
+                if (link.indexOf("?") > -1) {
+                    divider = '&';
+                }
+
+                $(this).attr('href', link + divider +'blockid=' + binstance);
+            }
+        }
+    });
+
+    // USER DISMISSING/CLICKING ON A NOTIFICATION
+    $('html').on('click', '.block_advanced_notifications .dismissible', function() {
 
         var dismiss = $(this).attr('data-dismiss');
 
@@ -27,8 +51,17 @@ $(document).ready(function(){
         });
     });
 
-    // Managing notifications
-    $('#region-main').on('click', '.notifications_table tr > td a', function(e) {
+    // MANAGING NOTIFICATIONS
+    //This should be checked on 'edit block', 'restore', 'manage', 'settings'
+    if ( $( "#add_notification_form" ).length ) {
+        var binstance = getUrlParameter('blockid');
+
+        if (binstance != undefined) {
+            $(this).prepend('<input type="hidden" id="add_notification_instance" name="instance" value="' + binstance + '"/>');
+        }
+    }
+
+    $('html').on('click', '#region-main .notifications_table tr > td a', function(e) {
 
         e.preventDefault();
         var senddata = {};          //Data Object
@@ -115,7 +148,7 @@ $(document).ready(function(){
     });
 
     // Restore & Permanently delete notifications
-    $('#region-main').on('click', '.notifications_restore_table tr > td a', function(e) {
+    $('html').on('click', '#region-main .notifications_restore_table tr > td a', function(e) {
 
         e.preventDefault();
         var senddata = {};          //Data Object
@@ -157,18 +190,21 @@ $(document).ready(function(){
     });
 
     //Clear form
-    $('#add_notification_wrapper_id #add_notification_cancel').on('click', function(e) {
+    $('html').on('click', '#add_notification_wrapper_id #add_notification_cancel', function(e) {
         e.preventDefault();
         $('#add_notification_form')[0].reset();
 
         // Change save button back to normal
         var savebutton = $('#add_notification_save');
         savebutton.removeClass('update');
+        $('#add_notification_id').remove();
+        $('#add_notification_call').remove();
+        $('#add_notification_purpose').remove();
         savebutton.val('Save');
     });
 
     // Managing more notifications
-    $('#add_notification_form').on('submit', function(e) {
+    $('html').on('submit', '#add_notification_form', function(e) {
         e.preventDefault();
         var status = $('#add_notification_status');
         var savebutton = $('#add_notification_save');
@@ -214,3 +250,20 @@ $(document).ready(function(){
         });
     });
 });
+
+// FUNCTIONS
+
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};

@@ -21,7 +21,7 @@ require_once dirname(dirname(dirname(__FILE__))) . '/config.php';
 class block_advanced_notifications_renderer extends plugin_renderer_base
 {
 
-    function render_notification()
+    function render_notification($instanceid)
     {
         global $DB, $USER, $CFG;
 
@@ -50,8 +50,6 @@ class block_advanced_notifications_renderer extends plugin_renderer_base
             // ***********************************************************************
             $userseen = $DB->get_record('block_advanced_notifications_dismissed', array('user_id' => $USER->id, 'not_id' => $notification->id));
 
-
-
             // Get notification settings to determine whether to render it or not
             $render = false;
 
@@ -75,6 +73,12 @@ class block_advanced_notifications_renderer extends plugin_renderer_base
                 {
                     $render = false;
                 }
+            }
+
+            //Don't render if notification isn't a global notification and the instanceid's/blockid's don't match
+            if ($notification->blockid != $instanceid && $notification->global == 0)
+            {
+                $render = false;
             }
 
             if ($render) {
@@ -103,7 +107,7 @@ class block_advanced_notifications_renderer extends plugin_renderer_base
 
             // ***********************************************************************
 
-                // Get type to know which bootstrap class to apply
+                // Get type to know which (bootstrap) class to apply
                 $alerttype = '';
                 $icon = '';
 
@@ -155,11 +159,11 @@ class block_advanced_notifications_renderer extends plugin_renderer_base
                             <div class="alert alert-' . $alerttype . '">';
 
                 if (!empty($notification->icon) && $notification->icon == 1) {
-                    $svgurl = file_get_contents($CFG->wwwroot . '/blocks/advanced_notifications/pix/' . $icon . '.svg');
+                    $pixurl = $CFG->wwwroot . '/blocks/advanced_notifications/pix/' . $icon . '.png';
 
-                    // Check if getting the svg file contents was successful
-                    if ($svgurl != false) {
-                        $html .= $svgurl;
+                    // Check if pixurl is set ?needed?
+                    if ($pixurl != false) {
+                        $html .= '<img class="notification_icon" src="' . $pixurl . '"/>';
                     }
                 }
                 if (!empty($notification->title)) {
@@ -203,7 +207,8 @@ class block_advanced_notifications_renderer extends plugin_renderer_base
                         <form id="add_notification_form" action="' . $CFG->wwwroot . '/blocks/advanced_notifications/pages/process.php" method="POST">';
 
         // Form inputs
-        $html .= '          <input type="checkbox" id="add_notification_enable" name="enable"/><label for="add_notification_enable">' . get_string('advanced_notifications_enable', 'block_advanced_notifications') . '</label><br>
+        $html .= '          <input type="checkbox" id="add_notification_enable" name="enable"/><label for="add_notification_enable">' . get_string('advanced_notifications_enable', 'block_advanced_notifications') . '</label><br>' .
+            ((array_key_exists('blockid', $params)) ? '<input type="checkbox" id="add_notification_global" name="global"/><label for="add_notification_global">' . get_string('advanced_notifications_global', 'block_advanced_notifications') . '</label><br><input type="hidden" id="add_notification_blockid" name="blockid" value="' . $params['blockid'] . '"/>' : '') . '
                             <input type="text" id="add_notification_title" name="title" placeholder="' . get_string('advanced_notifications_title', 'block_advanced_notifications') . '"/><br>
                             <input type="text" id="add_notification_message" name="message" placeholder="' . get_string('advanced_notifications_message', 'block_advanced_notifications') . '"/><br>
                             <select id="add_notification_type" name="type" required>

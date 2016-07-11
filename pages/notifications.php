@@ -29,6 +29,9 @@ $delete = optional_param('delete', null, PARAM_INT);
 // Determines whether or not to download the table
 $download = optional_param('download', '', PARAM_ALPHA);
 
+// Determines whether notification is global or instance-based
+$blockinstance = optional_param('blockid','', PARAM_INT);
+
 // Build params array (used to build url later)
 if( !!$new ) {
     $params['new'] = 1;
@@ -36,6 +39,11 @@ if( !!$new ) {
 
 if( !!$download ) {
     $params['download'] = 1;
+}
+
+if (isset($blockinstance) && $blockinstance != "")
+{
+    $params['blockid'] = $blockinstance;
 }
 
 global $DB, $USER, $PAGE;
@@ -107,8 +115,8 @@ $table->show_download_buttons_at(array(TABLE_P_BOTTOM));
 $table->set_sql('*', "{block_advanced_notifications}", "deleted = 0");
 
 // Add navigation controls before the table
-echo '<a class="btn" href="' . $CFG->wwwroot . '/blocks/advanced_notifications/pages/restore.php">Restore</a>&nbsp;&nbsp;
-      <a class="btn" href="' . $CFG->wwwroot . '/admin/settings.php?section=blocksettingadvanced_notifications">Settings</a><br><br>';
+echo '<div id="advanced_notifications_manage"><a class="btn instance" href="' . $CFG->wwwroot . '/blocks/advanced_notifications/pages/restore.php">Restore</a>&nbsp;&nbsp;
+      <a class="btn instance" href="' . $CFG->wwwroot . '/admin/settings.php?section=blocksettingadvanced_notifications">Settings</a><br><br></div>';
 
 // Add a wrapper with an id, which makes reloading the table easier (when using ajax)
 echo '<div id="advanced_notifications_table_wrapper">';

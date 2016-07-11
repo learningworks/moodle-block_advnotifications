@@ -15,7 +15,7 @@ if ($ADMIN->fulltree) {
         new admin_setting_heading(
             'block_advanced_notifications/navigation',									            // NAME
             get_string('setting/navigation', 'block_advanced_notifications'), 			            // TITLE
-            get_string('setting/navigation_desc', 'block_advanced_notifications', array('manage'=>'<a class="btn" href="' . $CFG->wwwroot . '/blocks/advanced_notifications/pages/notifications.php">Manage</a>', 'restore'=>'<a class="btn" href="' . $CFG->wwwroot . '/blocks/advanced_notifications/pages/restore.php">Restore</a>'))	                // DESCRIPTION
+            get_string('setting/navigation_desc', 'block_advanced_notifications', array('manage'=>'<a class="btn instance" href="' . $CFG->wwwroot . '/blocks/advanced_notifications/pages/notifications.php">Manage</a>', 'restore'=>'<a class="btn instance" href="' . $CFG->wwwroot . '/blocks/advanced_notifications/pages/restore.php">Restore</a>'))	                // DESCRIPTION
         )
     );
 

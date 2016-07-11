@@ -17,6 +17,12 @@ try{
     exit();
 }
 
+$context = context_system::instance();
+
+if ( !has_capability('block/advanced_notifications:managenotifications', $context) ) {
+    require_capability('block/advanced_notifications:managenotifications', $context);
+}
+
 header('HTTP/1.0 200 OK');
 
 global $DB, $USER;
@@ -37,10 +43,17 @@ $icon = optional_param('icon','',PARAM_TEXT);
 $dismissible = optional_param('dismissible','',PARAM_TEXT);
 $date_from = optional_param('date_from','',PARAM_TEXT);
 $date_to = optional_param('date_to','',PARAM_TEXT);
+$global = optional_param('global','',PARAM_TEXT);
+
+//Param that will be required later, depending on $global's value
+$blockinstance = '';
 
 // Notification management actions
 $delete = optional_param('delete','',PARAM_INT);
 $edit = optional_param('edit','',PARAM_INT);
+
+//echo json_encode($_POST);
+//exit();
 
 //Handle Delete/Edit first as it requires few resources, and then we can quickly exit() - this is now a non-JS fallback
 //DELETE
@@ -70,6 +83,19 @@ if (isset($edit) && $edit != "")
 
     echo json_encode("E: Successful");
     exit();
+}
+
+//GLOBAL
+//Sort out whether global or instance-based
+if (isset($global) && $global != "")
+{
+    $global = 1;
+    $blockinstance = 1;
+}
+else
+{
+    $global = 0;
+    $blockinstance = optional_param('blockid', '', PARAM_INT);
 }
 
 // Check if notifications are enabled 'globally'
@@ -190,6 +216,8 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
             $urow->type = $type;
             $urow->icon = $icon;
             $urow->enabled = $enable;
+            $urow->global = $global;
+            $urow->blockid = $blockinstance;
             $urow->dismissible = $dismissible;
             $urow->date_from = $date_from;
             $urow->date_to = $date_to;
@@ -215,12 +243,17 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
         $row->type = $type;
         $row->icon = $icon;
         $row->enabled = $enable;
+        $row->global = $global;
+        $row->blockid = $blockinstance;
         $row->dismissible = $dismissible;
         $row->date_from = $date_from;
         $row->date_to = $date_to;
         $row->times = $times;
         $row->deleted = 0;
         $row->deleted_at = 0;
+
+//        echo json_encode($row);
+//        exit();
 
         $DB->insert_record('block_advanced_notifications', $row);
 

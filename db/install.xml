@@ -9,6 +9,8 @@
         <FIELD NAME="type" TYPE="char" LENGTH="30" NOTNULL="true" DEFAULT="info" SEQUENCE="false" COMMENT="What type of notification to be displayed"/>
         <FIELD NAME="icon" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="Toggle whether an icon should be displayed or not"/>
         <FIELD NAME="enabled" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="Toggle whether notification is enabled/displayed or not"/>
+        <FIELD NAME="global" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="Toggles whether notification is a global or instance-based"/>
+        <FIELD NAME="blockid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Toggles whether notification is a global or instance-based"/>
         <FIELD NAME="dismissible" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="Toggles whether notification is dismissible by user or not"/>
         <FIELD NAME="date_from" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false" COMMENT="From when the notification should be displayed."/>
         <FIELD NAME="date_to" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false" COMMENT="Until when the notification will be displayed to users"/>

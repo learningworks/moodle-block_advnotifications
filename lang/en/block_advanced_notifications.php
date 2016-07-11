@@ -38,6 +38,7 @@
 
     // New Notification Lang Strings
     $string['advanced_notifications_enable'] = 'Enable/Disable?';
+    $string['advanced_notifications_global'] = 'Global Notification?';
     $string['advanced_notifications_title'] = 'Title';
     $string['advanced_notifications_message'] = 'Message';
     $string['advanced_notifications_type'] = 'Type';
@@ -55,7 +56,7 @@
 
     // Admin Settings
     $string['setting/navigation'] = 'Navigation:';
-    $string['setting/navigation_desc'] = '{$a->manage}&nbsp;&nbsp;&nbsp;{$a->restore}';
+    $string['setting/navigation_desc'] = '<div id="advanced_notifications_manage">{$a->manage}&nbsp;&nbsp;&nbsp;{$a->restore}</div>';
 
     $string['setting/settings'] = 'Settings:';
 

@@ -40,7 +40,7 @@ body .block.block_advanced_notifications .content .notification-block-wrapper.ic
     padding-left: 3em;
 }
 
-body .block.block_advanced_notifications .content .notification-block-wrapper.icon .alert > svg
+body .block.block_advanced_notifications .content .notification-block-wrapper.icon .alert > .notification_icon
 {
     height: 1.5em;
     position: absolute;
@@ -48,26 +48,6 @@ body .block.block_advanced_notifications .content .notification-block-wrapper.ic
     bottom: 50%;
     margin-left: -2em;
     transform: translateY(-50%);
-}
-
-body .block.block_advanced_notifications .content .notification-block-wrapper.icon.info .alert > svg
-{
-    fill: #347094;
-}
-
-body .block.block_advanced_notifications .content .notification-block-wrapper.icon.success .alert > svg
-{
-    fill: #416E35;
-}
-
-body .block.block_advanced_notifications .content .notification-block-wrapper.icon.warning .alert > svg
-{
-    fill: #7B623A;
-}
-
-body .block.block_advanced_notifications .content .notification-block-wrapper.icon.danger .alert > svg
-{
-    fill: #B34546;
 }
 
 body .block.block_advanced_notifications .content .notification-block-wrapper .alert .notification-block-close

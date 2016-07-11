@@ -24,7 +24,7 @@ $restore = optional_param('restore', null, PARAM_INT);
 $delete = optional_param('delete', null, PARAM_INT);
 
 // Determines whether or not to download the table
-$download = optional_param('download', '', PARAM_ALPHA);
+$download = optional_param('download', null, PARAM_ALPHA);
 
 if( !!$download ) {
     $params['download'] = 1;
@@ -93,9 +93,8 @@ echo '<div class="restore_notification-block-wrapper">
       </div>';
 
 // Add navigation controls before the table
-echo '<a class="btn" href="' . $CFG->wwwroot . '/blocks/advanced_notifications/pages/notifications.php">Manage</a>&nbsp;&nbsp;
-      <a class="btn" href="' . $CFG->wwwroot . '/blocks/advanced_notifications/pages/notifications.php#add_notification_wrapper_id">New</a>&nbsp;&nbsp;
-      <a class="btn" href="' . $CFG->wwwroot . '/admin/settings.php?section=blocksettingadvanced_notifications">Settings</a><br><br>';
+echo '<div id="advanced_notifications_manage"><a class="btn instance" href="' . $CFG->wwwroot . '/blocks/advanced_notifications/pages/notifications.php">Manage</a>&nbsp;&nbsp;
+      <a class="btn instance" href="' . $CFG->wwwroot . '/admin/settings.php?section=blocksettingadvanced_notifications">Settings</a><br><br></div>';
 
 // Add a wrapper with an id, which makes reloading the table easier (when using ajax)
 echo '<div id="advanced_notifications_restore_table_wrapper">';

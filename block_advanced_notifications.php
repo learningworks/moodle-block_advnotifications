@@ -15,7 +15,7 @@ class block_advanced_notifications extends block_base
 
             // Get the renderer for this page
             $renderer = $PAGE->get_renderer('block_advanced_notifications');
-            $html = $renderer->render_notification();
+            $html = $renderer->render_notification($this->instance->id);
 
             $this->content->text = $html;
 
