@@ -1,6 +1,6 @@
 $(document).ready(function(){
     // BLOCK INSTANCE ID LOGIC MANAGEMENT
-    $('html').on('click', '#advanced_notifications_manage a', function () {
+    $('#advanced_notifications_manage').on('click', 'a', function () {
         if ($(this).hasClass('instance'))
         {
             var binstance = getUrlParameter('bui_editid');
@@ -24,7 +24,7 @@ $(document).ready(function(){
     });
 
     // USER DISMISSING/CLICKING ON A NOTIFICATION
-    $('html').on('click', '.block_advanced_notifications .dismissible', function() {
+    $('.block_advanced_notifications').on('click', '.dismissible', function() {
 
         var dismiss = $(this).attr('data-dismiss');
 
@@ -52,16 +52,7 @@ $(document).ready(function(){
     });
 
     // MANAGING NOTIFICATIONS
-    //This should be checked on 'edit block', 'restore', 'manage', 'settings'
-    //if ( $( "#add_notification_form" ).length ) {
-    //    var binstance = getUrlParameter('blockid');
-    //
-    //    if (binstance != undefined) {
-    //        $(this).prepend('<input type="hidden" id="add_notification_instance" name="instance" value="' + binstance + '"/>');
-    //    }
-    //}
-
-    $('html').on('click', '#region-main .notifications_table tr > td a', function(e) {
+    $('#region-main').on('click', '.notifications_table tr > td a', function(e) {
 
         e.preventDefault();
         var senddata = {};          //Data Object
@@ -148,7 +139,7 @@ $(document).ready(function(){
     });
 
     // Restore & Permanently delete notifications
-    $('html').on('click', '#region-main .notifications_restore_table tr > td a', function(e) {
+    $('#region-main').on('click', '.notifications_restore_table tr > td a', function(e) {
 
         e.preventDefault();
         var senddata = {};          //Data Object
@@ -190,7 +181,7 @@ $(document).ready(function(){
     });
 
     //Clear form
-    $('html').on('click', '#add_notification_wrapper_id #add_notification_cancel', function(e) {
+    $('#add_notification_wrapper_id').on('click', '#add_notification_cancel', function(e) {
         e.preventDefault();
         $('#add_notification_form')[0].reset();
 
@@ -204,7 +195,7 @@ $(document).ready(function(){
     });
 
     // Managing more notifications
-    $('html').on('submit', '#add_notification_form', function(e) {
+    $('#region-main').on('submit', '#add_notification_form', function(e) {
         e.preventDefault();
         var status = $('#add_notification_status');
         var savebutton = $('#add_notification_save');
@@ -249,6 +240,66 @@ $(document).ready(function(){
             $('#advanced_notifications_table_wrapper').load('# #advanced_notifications_table_wrapper > *');
         });
     });
+
+    // LIVE PREVIEW
+    // Prepend live preview alert
+    $('#add_notification_wrapper_id').prepend('<div><strong>Preview:</strong><br></div><div class="alert preview-alert"><div class="preview-icon" style="display: none;"><img src="" /></div><strong class="preview-title">Title</strong> <div class="preview-message">Message</div> <div class="preview-alert-dismissible" style="display: none;"><strong>&times;</strong></div></div>');
+
+    // Dynamically update preview alert as user changes textbox content
+    $('#add_notification_wrapper_id').on('input propertychange paste', '#add_notification_title, #add_notification_message', function () {
+        $('#add_notification_wrapper_id').find('.preview-' + $(this).attr('name')).text($(this).val());
+    });
+
+    // Dynamically update preview alert type
+    $('#add_notification_type').on('change', function() {
+        var alerttype = $(this).val();
+        var previewalert = $('#add_notification_wrapper_id .preview-alert');
+
+        console.log(alerttype);
+
+        if (alerttype != 'info' && alerttype != 'success' && alerttype != 'warning' && alerttype != 'danger')
+        {
+            alerttype = 'info';
+        }
+
+        previewalert.removeClass('alert-info');
+        previewalert.removeClass('alert-success');
+        previewalert.removeClass('alert-danger');
+        previewalert.removeClass('alert-warning');
+        previewalert.addClass('alert-' + alerttype);
+
+        $('.preview-icon').find('> img').attr('src', M.cfg.wwwroot + '/blocks/advanced_notifications/pix/' + alerttype + '.png')
+    });
+
+    $('#add_notification_dismissible').on('change', function() {
+        if (!this.checked) {
+            $('.preview-alert-dismissible').hide();
+        }
+        else
+        {
+            $('.preview-alert-dismissible').show();
+        }
+    });
+
+    $('#add_notification_icon').on('change', function() {
+        if (!this.checked) {
+            $('.preview-icon').hide();
+        }
+        else
+        {
+            $('.preview-icon').show();
+        }
+    });
+
+    // THE BELOW IS NOW HANDLED BY PHP
+    //This should be checked on 'edit block', 'restore', 'manage', 'settings'
+    //if ( $( "#add_notification_form" ).length ) {
+    //    var binstance = getUrlParameter('blockid');
+    //
+    //    if (binstance != undefined) {
+    //        $(this).prepend('<input type="hidden" id="add_notification_instance" name="instance" value="' + binstance + '"/>');
+    //    }
+    //}
 });
 
 // FUNCTIONS

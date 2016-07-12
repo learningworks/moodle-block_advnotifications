@@ -82,8 +82,8 @@ class block_advanced_notifications extends block_base
         if (get_config('block_advanced_notifications', 'auto_delete')) {
             echo "\t\t- Add deleted flag to notifications that's passed their end-date...\n";
             // Add deleted flag to notifications that's passed their end-date
-            $DB->set_field_select('block_advanced_notifications', 'deleted', '1', 'date_to < :now', array('now' => time()));
-            $DB->set_field_select('block_advanced_notifications', 'deleted_at', time(), 'date_to < :now', array('now' => time()));
+            $DB->set_field_select('block_advanced_notifications', 'deleted', '1', 'date_to < :now AND date_from <> date_to', array('now' => time()));
+            $DB->set_field_select('block_advanced_notifications', 'deleted_at', time(), 'deleted = 1');
         }
 
         if (get_config('block_advanced_notifications', 'auto_delete_user_data')) {

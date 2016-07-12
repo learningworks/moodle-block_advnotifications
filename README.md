@@ -15,10 +15,10 @@
 * Option to permanently delete notifications that's had the deleted flag for more than 30 days
 * Option to automatically remove user (dismissed/seen) records that relates to notifications that don't exist anymore
 * AJAX used to improve user-experience and simplify (managing) processes
+* Instance/Context-based or global/site-wide notifications
 
 #### *Work-in-Progress!*
 
 #### Work still being done:
 
 * Live Preview when making/editing a notification
-* Instance/Context-based notifications

@@ -70,6 +70,36 @@ body #add_notification_wrapper_id
     margin-top: 2em;
 }
 
+body #add_notification_wrapper_id .alert.preview-alert
+{
+    position: relative;
+}
+
+body #add_notification_wrapper_id .alert.preview-alert > *
+{
+    display: inline;
+}
+
+body #add_notification_wrapper_id .alert.preview-alert > .preview-icon
+{
+    margin-left: 2em;
+}
+
+body #add_notification_wrapper_id .alert.preview-alert > .preview-icon img
+{
+    height: 1.5em;
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    margin-left: -2em;
+    transform: translateY(-50%);
+}
+
+body #add_notification_wrapper_id .alert.preview-alert > .preview-alert-dismissible
+{
+    float: right;
+}
+
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form #add_notification_status
 {
     display: none;
