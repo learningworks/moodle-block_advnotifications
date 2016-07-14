@@ -16,9 +16,10 @@
 * Option to automatically remove user (dismissed/seen) records that relates to notifications that don't exist anymore
 * AJAX used to improve user-experience and simplify (managing) processes
 * Instance/Context-based or global/site-wide notifications
+* Live preview when making/editing a notification
 
 #### *Work-in-Progress!*
 
 #### Work still being done:
 
-* Live Preview when making/editing a notification
+* Nothing currently.....

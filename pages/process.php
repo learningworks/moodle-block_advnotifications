@@ -46,26 +46,26 @@ global $DB, $USER;
 
 // GET PARAMETERS.
 // Check if ajax or other type of call.
-$calltype = optional_param('call', '', PARAM_TEXT);
+$calltype = optional_param('call', null, PARAM_TEXT);
 
 // Notification details.
-$enable = optional_param('enable', '', PARAM_TEXT);
-$title = optional_param('title', '', PARAM_TEXT);
-$message = optional_param('message', '', PARAM_TEXT);
-$type = optional_param('type', '', PARAM_TEXT);
-$times = optional_param('times', '', PARAM_TEXT);
-$icon = optional_param('icon', '', PARAM_TEXT);
-$dismissible = optional_param('dismissible', '', PARAM_TEXT);
-$datefrom = optional_param('date_from', '', PARAM_TEXT);
-$dateto = optional_param('date_to', '', PARAM_TEXT);
-$global = optional_param('global', '', PARAM_TEXT);
+$enable = optional_param('enable', null, PARAM_TEXT);
+$title = optional_param('title', null, PARAM_TEXT);
+$message = optional_param('message', null, PARAM_TEXT);
+$type = optional_param('type', null, PARAM_TEXT);
+$times = optional_param('times', null, PARAM_TEXT);
+$icon = optional_param('icon', null, PARAM_TEXT);
+$dismissible = optional_param('dismissible', null, PARAM_TEXT);
+$datefrom = optional_param('date_from', null, PARAM_TEXT);
+$dateto = optional_param('date_to', null, PARAM_TEXT);
+$global = optional_param('global', null, PARAM_TEXT);
 
 // Param that will be required later, depending on $global's value.
 $blockinstance = '';
 
 // Notification management actions.
-$delete = optional_param('delete', '', PARAM_INT);
-$edit = optional_param('edit', '', PARAM_INT);
+$delete = optional_param('delete', null, PARAM_INT);
+$edit = optional_param('edit', null, PARAM_INT);
 
 // Handle Delete/Edit first as it requires few resources, and then we can quickly exit() - this is now a non-JS fallback.
 // DELETE.
@@ -96,28 +96,34 @@ if (isset($edit) && $edit != "") {
 }
 
 // GLOBAL.
-// Sort out whether global or instance-based.
+// Sort out whether global or instance-based - if the global variable contains anything it is assumed to be global.
 if (isset($global) && $global != "") {
     $global = 1;
     $blockinstance = 1;
 } else {
     $global = 0;
-    $blockinstance = optional_param('blockid', '', PARAM_INT);
+    $blockinstance = optional_param('blockid', null, PARAM_INT);
 }
 
 // Check if notifications are enabled 'globally'.
 if (get_config('block_advanced_notifications', 'enable') == 1) {
 
     // NEW NOTIFICATION.
-    // Change to checkbox values to integers for DB.
-    if ($enable == 'on') {
+    // Change to checkbox values to integers for DB - another level of security.
+    if ($enable == 'on' || $enable == '1') {
         $enable = 1;
+    } else {
+        $enable = 0;
     }
-    if ($icon == 'on') {
+    if ($icon == 'on' || $icon == '1') {
         $icon = 1;
+    } else {
+        $icon = 0;
     }
-    if ($dismissible == 'on') {
+    if ($dismissible == 'on' || $dismissible == '1') {
         $dismissible = 1;
+    } else {
+        $dismissible = 0;
     }
 
     // TODO How to check if successful?
@@ -127,9 +133,9 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
     $dateto = strtotime($dateto);
 
     if ($calltype == 'ajax' && isloggedin()) {
-        $dismiss = optional_param('dismiss', '', PARAM_TEXT);
-        $purpose = optional_param('purpose', '', PARAM_TEXT);
-        $tableaction = optional_param('tableaction', '', PARAM_TEXT);
+        $dismiss = optional_param('dismiss', null, PARAM_TEXT);
+        $purpose = optional_param('purpose', null, PARAM_TEXT);
+        $tableaction = optional_param('tableaction', null, PARAM_TEXT);
 
         if (isset($dismiss) && $dismiss != '') {
             $notification = $DB->get_record('block_advanced_notifications',
@@ -203,7 +209,7 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
         // Update existing notification, instead of inserting a new one.
         if ($purpose == 'update') {
             // Only check for id parameter when updating.
-            $id = optional_param('id', '', PARAM_INT);
+            $id = optional_param('id', null, PARAM_INT);
 
             // Update an existing notification.
             $urow = new stdClass();

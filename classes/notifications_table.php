@@ -30,6 +30,10 @@ require_once($CFG->dirroot .'/lib/tablelib.php');
 // The word 'notifications' is used twice, as I'm using the 'pluginname_filename' convention.
 class advanced_notifications_notifications_table extends table_sql {
 
+    // Lang strings that get re-used below is stored in variables to improve efficiency (Don't have to get strings many times).
+    private $yes = NULL;
+    private $no = NULL;
+
     /**
      * Constructor
      * @param int $uniqueid all tables have to have a unique id, this is used
@@ -71,6 +75,10 @@ class advanced_notifications_notifications_table extends table_sql {
 
         $this->sortable(true, 'id', SORT_DESC);
         $this->no_sorting('actions');
+
+        // Lang string initialisation.
+        $this->yes = get_string('advanced_notifications_cell_yes', 'block_advanced_notifications'); // Yes.
+        $this->no = get_string('advanced_notifications_cell_no', 'block_advanced_notifications');   // No.
     }
 
     /**
@@ -114,29 +122,29 @@ class advanced_notifications_notifications_table extends table_sql {
      * @return $string Return whether notification is enabled or not
      */
     public function col_enabled($values) {
-        return ($values->enabled == 1 ? "Yes" : "No");
+        return ($values->enabled == 1 ? $this->yes : $this->no);
     }
 
     /**
      * This function is called for each data row to allow processing of the
-     * enabled value.
+     * global value.
      *
      * @param object $values Contains object with all the values of record.
      * @return $string Return whether notification is enabled or not
      */
     public function col_global($values) {
-        return ($values->global == 1 ? "Yes" : "No");
+        return ($values->global == 1 ? $this->yes : $this->no);
     }
 
     /**
      * This function is called for each data row to allow processing of the
-     * enabled value.
+     * icon value.
      *
      * @param object $values Contains object with all the values of record.
      * @return $string Return whether notification is enabled or not
      */
     public function col_icon($values) {
-        return ($values->icon == 1 ? "Yes" : "No");
+        return ($values->icon == 1 ? $this->yes : $this->no);
     }
 
     /**
@@ -147,7 +155,7 @@ class advanced_notifications_notifications_table extends table_sql {
      * @return $string Return whether notification is dismissible or not
      */
     public function col_dismissible($values) {
-        return ($values->dismissible == 1 ? "Yes" : "No");
+        return ($values->dismissible == 1 ? $this->yes : $this->no);
     }
 
     /**
