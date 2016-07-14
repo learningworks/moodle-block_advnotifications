@@ -1,4 +1,19 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Created by LearningWorks Ltd.
  * Date: 4/07/16
@@ -7,12 +22,12 @@
 
 global $CFG;
 
-// Load Moodle config
-require_once dirname(__FILE__) . '/../../../config.php';
-// Load Tablelib lib
-require_once $CFG->dirroot .'/lib/tablelib.php';
+// Load Moodle config.
+require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php');
+// Load Tablelib lib.
+require_once($CFG->dirroot .'/lib/tablelib.php');
 
-// The word 'notifications' is used twice, as I'm using the 'pluginname_filename' convention
+// The word 'notifications' is used twice, as I'm using the 'pluginname_filename' convention.
 class advanced_notifications_notifications_table extends table_sql {
 
     /**
@@ -20,33 +35,37 @@ class advanced_notifications_notifications_table extends table_sql {
      * @param int $uniqueid all tables have to have a unique id, this is used
      *      as a key when storing table properties like sort order in the session.
      */
-    function __construct($uniqueid) {
+    public function __construct($uniqueid) {
         parent::__construct($uniqueid);
         // Define the list of columns to show.
         $columns = array(
             'id',
             'title',
             'type',
-            'date_from',
-            'date_to',
+            'enabled',
+            'global',
+            'icon',
             'dismissible',
             'times',
-            'enabled',
+            'date_from',
+            'date_to',
             'actions'
         );
         $this->define_columns($columns);
 
-        // Define the titles of columns to show in header from lang file.                               // Examples
+        // Define the titles of columns to show in header from lang file.                           // Examples.
         $headers = array(
-            get_string('advanced_notifications_field_id', 'block_advanced_notifications'),              // 1
-            get_string('advanced_notifications_field_title', 'block_advanced_notifications'),           // Site Maintenance
-            get_string('advanced_notifications_field_type', 'block_advanced_notifications'),            // Information
-            get_string('advanced_notifications_field_date_from', 'block_advanced_notifications'),       // dd/mm/yyyy
-            get_string('advanced_notifications_field_date_to', 'block_advanced_notifications'),         // dd/mm/yyyy
-            get_string('advanced_notifications_field_dismissible', 'block_advanced_notifications'),     // Yes
-            get_string('advanced_notifications_field_times', 'block_advanced_notifications'),           // 10
-            get_string('advanced_notifications_field_enabled', 'block_advanced_notifications'),         // Yes
-            get_string('advanced_notifications_field_actions', 'block_advanced_notifications'),         // Edit | Delete
+            get_string('advanced_notifications_field_id', 'block_advanced_notifications'),          // Id: 1.
+            get_string('advanced_notifications_field_title', 'block_advanced_notifications'),       // Title: Site Maintenance.
+            get_string('advanced_notifications_field_type', 'block_advanced_notifications'),        // Type: info.
+            get_string('advanced_notifications_field_enabled', 'block_advanced_notifications'),     // Enabled: Yes.
+            get_string('advanced_notifications_field_global', 'block_advanced_notifications'),      // Global: Yes.
+            get_string('advanced_notifications_field_icon', 'block_advanced_notifications'),        // Icon: Yes.
+            get_string('advanced_notifications_field_dismissible', 'block_advanced_notifications'), // Dismissible: Yes.
+            get_string('advanced_notifications_field_times', 'block_advanced_notifications'),       // Times: 10.
+            get_string('advanced_notifications_field_date_from', 'block_advanced_notifications'),   // Date From: dd/mm/yyyy.
+            get_string('advanced_notifications_field_date_to', 'block_advanced_notifications'),     // Date To: dd/mm/yyyy.
+            get_string('advanced_notifications_field_actions', 'block_advanced_notifications'),     // Actions: Edit | Delete.
         );
         $this->define_headers($headers);
 
@@ -61,7 +80,7 @@ class advanced_notifications_notifications_table extends table_sql {
      * @param object $values Contains object with all the values of record.
      * @return integer Returns notification ids - easier sorting
      */
-    function col_id($values) {
+    public function col_id($values) {
         return $values->id;
     }
 
@@ -72,7 +91,7 @@ class advanced_notifications_notifications_table extends table_sql {
      * @param object $values Contains object with all the values of record.
      * @return $string Returns notification's title - easier sorting
      */
-    function col_title($values) {
+    public function col_title($values) {
         return $values->title;
     }
 
@@ -83,30 +102,41 @@ class advanced_notifications_notifications_table extends table_sql {
      * @param object $values Contains object with all the values of record.
      * @return $string Return notification type (for styling purposes)
      */
-    function col_type($values){
+    public function col_type($values) {
         return $values->type;
     }
 
     /**
      * This function is called for each data row to allow processing of the
-     * date_from value.
+     * enabled value.
      *
      * @param object $values Contains object with all the values of record.
-     * @return integer Return value from when the notification should be displayed
+     * @return $string Return whether notification is enabled or not
      */
-    function col_date_from($values){
-        return date('d/m/Y', $values->date_from);
+    public function col_enabled($values) {
+        return ($values->enabled == 1 ? "Yes" : "No");
     }
 
     /**
      * This function is called for each data row to allow processing of the
-     * date_to value.
+     * enabled value.
      *
      * @param object $values Contains object with all the values of record.
-     * @return integer Return value until when the notification should be displayed
+     * @return $string Return whether notification is enabled or not
      */
-    function col_date_to($values){
-        return date('d/m/Y', $values->date_to);
+    public function col_global($values) {
+        return ($values->global == 1 ? "Yes" : "No");
+    }
+
+    /**
+     * This function is called for each data row to allow processing of the
+     * enabled value.
+     *
+     * @param object $values Contains object with all the values of record.
+     * @return $string Return whether notification is enabled or not
+     */
+    public function col_icon($values) {
+        return ($values->icon == 1 ? "Yes" : "No");
     }
 
     /**
@@ -116,7 +146,7 @@ class advanced_notifications_notifications_table extends table_sql {
      * @param object $values Contains object with all the values of record.
      * @return $string Return whether notification is dismissible or not
      */
-    function col_dismissible($values){
+    public function col_dismissible($values) {
         return ($values->dismissible == 1 ? "Yes" : "No");
     }
 
@@ -127,19 +157,30 @@ class advanced_notifications_notifications_table extends table_sql {
      * @param object $values Contains object with all the values of record.
      * @return $string Return number of times the user should view the notification
      */
-    function col_times($values){
+    public function col_times($values) {
         return $values->times;
     }
 
     /**
      * This function is called for each data row to allow processing of the
-     * enabled value.
+     * date_from value.
      *
      * @param object $values Contains object with all the values of record.
-     * @return $string Return whether notification is enabled or not
+     * @return integer Return value from when the notification should be displayed
      */
-    function col_enabled($values){
-        return ($values->enabled == 1 ? "Yes" : "No");
+    public function col_date_from($values) {
+        return date('d/m/Y', $values->date_from);
+    }
+
+    /**
+     * This function is called for each data row to allow processing of the
+     * date_to value.
+     *
+     * @param object $values Contains object with all the values of record.
+     * @return integer Return value until when the notification should be displayed
+     */
+    public function col_date_to($values) {
+        return date('d/m/Y', $values->date_to);
     }
 
     /**
@@ -149,14 +190,19 @@ class advanced_notifications_notifications_table extends table_sql {
      * @param object $values Contains object with all the values of record.
      * @return $string Return url to view the individual transaction
      */
-    function col_actions($values) {
+    public function col_actions($values) {
         global $CFG;
 
         if ($this->is_downloading()) {
-            return get_string('advanced_notifications_edit_label', 'block_advanced_notifications') . ' | ' . get_string('advanced_notifications_delete_label', 'block_advanced_notifications');
+            return get_string('advanced_notifications_edit_label', 'block_advanced_notifications') . ' | ' .
+                    get_string('advanced_notifications_delete_label', 'block_advanced_notifications');
         } else {
             return sprintf(
-                '<a id="tr'.$values->id.'" data-edit="' . $values->id . '" href="' . $CFG->wwwroot . '/blocks/advanced_notifications/pages/process.php?sesskey=' . sesskey() . '&edit=' . $values->id . '">%s</a> | <a data-delete="' . $values->id . '" href="' . $CFG->wwwroot . '/blocks/advanced_notifications/pages/process.php?sesskey=' . sesskey() . '&delete=' . $values->id . '">%s</a>',
+                '<a id="tr'.$values->id.'" data-edit="' . $values->id . '" href="' . $CFG->wwwroot .
+                '/blocks/advanced_notifications/pages/process.php?sesskey=' . sesskey() . '&edit=' . $values->id .
+                '">%s</a> | <a data-delete="' . $values->id . '" href="' . $CFG->wwwroot .
+                '/blocks/advanced_notifications/pages/process.php?sesskey=' . sesskey() . '&delete=' . $values->id .
+                '">%s</a>',
                 get_string('advanced_notifications_edit_label', 'block_advanced_notifications'),
                 get_string('advanced_notifications_delete_label', 'block_advanced_notifications')
             );
@@ -169,19 +215,14 @@ class advanced_notifications_notifications_table extends table_sql {
      * @return string return processed value. Return NULL if no change has
      *     been made.
      */
-    function other_cols($colname, $value) {
-        // --- Leaving here for future reference ---
-
-        // For security reasons we don't want to show the password hash.
-        // if ($colname == 'password') {
-        //     return "****";
-        // }
+    public function other_cols($colname, $value) {
+        // Leaving here for future reference.
     }
 
     /**
      * This function is not part of the public api.
      */
-    function print_nothing_to_display() {
+    public function print_nothing_to_display() {
         global $OUTPUT;
         $this->print_initials_bar();
 

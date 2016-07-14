@@ -1,4 +1,19 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Created by LearningWorks Ltd
  * Date: 4/07/16
@@ -6,14 +21,14 @@
  */
 define('AJAX_SCRIPT', true);
 
-// Load in Moodle config
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php';
+// Load in Moodle config.
+require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php');
 
-try{
+try {
     require_sesskey();
-}catch(EXCEPTION $e){
+} catch (EXCEPTION $e) {
     header('HTTP/1.0 403 Forbidden');
-    echo json_encode(array("result"=>"Failed","Notification"=>"Your changes were not saved, please login again..."));
+    echo json_encode(array("result" => "Failed", "Notification" => "Your changes were not saved, please login again..."));
     exit();
 }
 
@@ -27,35 +42,34 @@ header('HTTP/1.0 200 OK');
 
 global $DB, $USER;
 
-// TODO - Check if insertions/updates/deletions were successful, and return appropriate message
+// TODO - Check if insertions/updates/deletions were successful, and return appropriate message.
 
-// GET PARAMETERS
-// Check if ajax or other type of call
-$callType = optional_param('call','',PARAM_TEXT);
+// GET PARAMETERS.
+// Check if ajax or other type of call.
+$calltype = optional_param('call', '', PARAM_TEXT);
 
-// Notification details
-$enable = optional_param('enable','',PARAM_TEXT);
-$title = optional_param('title','',PARAM_TEXT);
-$message = optional_param('message','',PARAM_TEXT);
-$type = optional_param('type','',PARAM_TEXT);
-$times = optional_param('times','',PARAM_TEXT);
-$icon = optional_param('icon','',PARAM_TEXT);
-$dismissible = optional_param('dismissible','',PARAM_TEXT);
-$date_from = optional_param('date_from','',PARAM_TEXT);
-$date_to = optional_param('date_to','',PARAM_TEXT);
-$global = optional_param('global','',PARAM_TEXT);
+// Notification details.
+$enable = optional_param('enable', '', PARAM_TEXT);
+$title = optional_param('title', '', PARAM_TEXT);
+$message = optional_param('message', '', PARAM_TEXT);
+$type = optional_param('type', '', PARAM_TEXT);
+$times = optional_param('times', '', PARAM_TEXT);
+$icon = optional_param('icon', '', PARAM_TEXT);
+$dismissible = optional_param('dismissible', '', PARAM_TEXT);
+$datefrom = optional_param('date_from', '', PARAM_TEXT);
+$dateto = optional_param('date_to', '', PARAM_TEXT);
+$global = optional_param('global', '', PARAM_TEXT);
 
-//Param that will be required later, depending on $global's value
+// Param that will be required later, depending on $global's value.
 $blockinstance = '';
 
-// Notification management actions
-$delete = optional_param('delete','',PARAM_INT);
-$edit = optional_param('edit','',PARAM_INT);
+// Notification management actions.
+$delete = optional_param('delete', '', PARAM_INT);
+$edit = optional_param('edit', '', PARAM_INT);
 
-//Handle Delete/Edit first as it requires few resources, and then we can quickly exit() - this is now a non-JS fallback
-//DELETE
-if (isset($delete) && $delete != "")
-{
+// Handle Delete/Edit first as it requires few resources, and then we can quickly exit() - this is now a non-JS fallback.
+// DELETE.
+if (isset($delete) && $delete != "") {
 
     $drow = new stdClass();
 
@@ -68,9 +82,8 @@ if (isset($delete) && $delete != "")
     exit();
 }
 
-//EDIT
-if (isset($edit) && $edit != "")
-{
+// EDIT.
+if (isset($edit) && $edit != "") {
 
     $erow = new stdClass();
 
@@ -82,24 +95,21 @@ if (isset($edit) && $edit != "")
     exit();
 }
 
-//GLOBAL
-//Sort out whether global or instance-based
-if (isset($global) && $global != "")
-{
+// GLOBAL.
+// Sort out whether global or instance-based.
+if (isset($global) && $global != "") {
     $global = 1;
     $blockinstance = 1;
-}
-else
-{
+} else {
     $global = 0;
     $blockinstance = optional_param('blockid', '', PARAM_INT);
 }
 
-// Check if notifications are enabled 'globally'
+// Check if notifications are enabled 'globally'.
 if (get_config('block_advanced_notifications', 'enable') == 1) {
 
-    //NEW NOTIFICATION
-    //Change to checkbox values to integers for DB
+    // NEW NOTIFICATION.
+    // Change to checkbox values to integers for DB.
     if ($enable == 'on') {
         $enable = 1;
     }
@@ -110,25 +120,28 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
         $dismissible = 1;
     }
 
-    //TODO How to check if successful?
-    //Convert dates to epoch for DB
-    $date_from = strtotime($date_from);
+    // TODO How to check if successful?
+    // Convert dates to epoch for DB.
+    $datefrom = strtotime($datefrom);
 
-    $date_to = strtotime($date_to);
+    $dateto = strtotime($dateto);
 
-    if ($callType == 'ajax' && isloggedin()) {
+    if ($calltype == 'ajax' && isloggedin()) {
         $dismiss = optional_param('dismiss', '', PARAM_TEXT);
         $purpose = optional_param('purpose', '', PARAM_TEXT);
         $tableaction = optional_param('tableaction', '', PARAM_TEXT);
 
         if (isset($dismiss) && $dismiss != '') {
-            $notification = $DB->get_record('block_advanced_notifications', array('id' => $dismiss));
-            $userdissed = $DB->get_record('block_advanced_notifications_dismissed', array('user_id' => $USER->id, 'not_id' => $dismiss));
+            $notification = $DB->get_record('block_advanced_notifications',
+                                            array('id' => $dismiss)
+            );
+            $userdissed = $DB->get_record('block_advanced_notifications_dismissed',
+                                            array('user_id' => $USER->id, 'not_id' => $dismiss)
+            );
 
-            // Update if the user has dismissed the notification
-            //TODO Is the first if statement even necessary? Or is that logic already handled by 'seen' in renderer.php?
-            if ($userdissed === false)
-            {
+            // Update if the user has dismissed the notification.
+            // TODO Is the first if statement even necessary? Or is that logic already handled by 'seen' in renderer.php?
+            if ($userdissed === false) {
                 $seenrecord = new stdClass();
                 $seenrecord->user_id = $USER->id;
                 $seenrecord->not_id = $dismiss;
@@ -136,34 +149,30 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
                 $seenrecord->seen = 1;
 
                 $DB->insert_record('block_advanced_notifications_dismissed', $seenrecord);
-            }
-            else
-            {
+            } else {
                 $upseenrecord = new stdClass();
                 $upseenrecord->id = $userdissed->id;
                 $upseenrecord->dismissed = 1;
 
                 $DB->update_record('block_advanced_notifications_dismissed', $upseenrecord);
             }
+
             echo json_encode("Di: Successful");
             exit();
         }
 
-        //Handle Delete/Edit early as it requires few resources, and then we can quickly exit() - this is the new AJAX/JS deletion/editing method
-        if (isset($tableaction) && $tableaction != '')
-        {
-            if ($purpose == 'edit')
-            {
-                $enotification = $DB->get_record('block_advanced_notifications', array('id'=>$tableaction));
+        // Handle Delete/Edit early as it requires few resources, and then we can quickly exit(),
+        // this is the new AJAX/JS deletion/editing method.
+        if (isset($tableaction) && $tableaction != '') {
+            if ($purpose == 'edit') {
+                $enotification = $DB->get_record('block_advanced_notifications', array('id' => $tableaction));
 
                 $enotification->date_from = date('Y-m-d', $enotification->date_from);
                 $enotification->date_to = date('Y-m-d', $enotification->date_to);
 
-                echo json_encode(array("edit"=>$enotification));
+                echo json_encode(array("edit" => $enotification));
                 exit();
-            }
-            elseif ($purpose == 'delete')
-            {
+            } else if ($purpose == 'delete') {
                 $dnotification = new stdClass();
                 $dnotification->id = $tableaction;
                 $dnotification->deleted = 1;
@@ -171,11 +180,9 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
 
                 $DB->update_record('block_advanced_notifications', $dnotification);
 
-                echo json_encode(array("done"=>$tableaction));
+                echo json_encode(array("done" => $tableaction));
                 exit();
-            }
-            elseif ($purpose == 'restore')
-            {
+            } else if ($purpose == 'restore') {
                 $rnotification = new stdClass();
                 $rnotification->id = $tableaction;
                 $rnotification->deleted = 0;
@@ -183,28 +190,22 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
 
                 $DB->update_record('block_advanced_notifications', $rnotification);
 
-                echo json_encode(array("done"=>$tableaction));
+                echo json_encode(array("done" => $tableaction));
                 exit();
-            }
-            elseif ($purpose == 'permdelete')
-            {
-                $DB->delete_records('block_advanced_notifications', array('id'=>$tableaction));
+            } else if ($purpose == 'permdelete') {
+                $DB->delete_records('block_advanced_notifications', array('id' => $tableaction));
 
-                echo json_encode(array("done"=>$tableaction));
+                echo json_encode(array("done" => $tableaction));
                 exit();
             }
         }
 
-        //Update existing notification, instead of inserting a new one
-        if ($purpose == 'update')
-        {
-            //Only check for id parameter when updating
+        // Update existing notification, instead of inserting a new one.
+        if ($purpose == 'update') {
+            // Only check for id parameter when updating.
             $id = optional_param('id', '', PARAM_INT);
 
-//            echo json_encode($enable);
-//            exit();
-
-            //Update an existing notification
+            // Update an existing notification.
             $urow = new stdClass();
 
             $urow->id = $id;
@@ -216,13 +217,13 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
             $urow->global = $global;
             $urow->blockid = $blockinstance;
             $urow->dismissible = $dismissible;
-            $urow->date_from = $date_from;
-            $urow->date_to = $date_to;
+            $urow->date_from = $datefrom;
+            $urow->date_to = $dateto;
             $urow->times = $times;
 
             $DB->update_record('block_advanced_notifications', $urow);
 
-            echo json_encode(array("updated"=>$title));
+            echo json_encode(array("updated" => $title));
             exit();
         }
 
@@ -230,9 +231,8 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
         exit();
 
 
-    } elseif (isloggedin()) {
-
-        //Create a new notification - Used for both Ajax Calls & NON-JS method atm
+    } else if (isloggedin()) {
+        // Create a new notification - Used for both Ajax Calls & NON-JS method atm.
         $row = new stdClass();
 
         $row->title = $title;
@@ -243,18 +243,15 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
         $row->global = $global;
         $row->blockid = $blockinstance;
         $row->dismissible = $dismissible;
-        $row->date_from = $date_from;
-        $row->date_to = $date_to;
+        $row->date_from = $datefrom;
+        $row->date_to = $dateto;
         $row->times = $times;
         $row->deleted = 0;
         $row->deleted_at = 0;
 
-//        echo json_encode($row);
-//        exit();
-
         $DB->insert_record('block_advanced_notifications', $row);
 
-        //Return Successful
+        // Return Successful.
         echo json_encode("I: Successful");
         exit();
     }

@@ -1,5 +1,5 @@
-$(document).ready(function(){
-    // BLOCK INSTANCE ID LOGIC MANAGEMENT
+$(document).ready(function() {
+    // BLOCK INSTANCE ID LOGIC MANAGEMENT.
     $('#advanced_notifications_manage').on('click', 'a', function () {
         if ($(this).hasClass('instance'))
         {
@@ -12,18 +12,18 @@ $(document).ready(function(){
             if (binstance != undefined) {
                 var link = $(this).attr('href');
 
-                // Determine if '?' or '&' is needed for parameter
+                // Determine if '?' or '&' is needed for parameter.
                 var divider = '?';
                 if (link.indexOf("?") > -1) {
                     divider = '&';
                 }
 
-                $(this).attr('href', link + divider +'blockid=' + binstance);
+                $(this).attr('href', link + divider + 'blockid=' + binstance);
             }
         }
     });
 
-    // USER DISMISSING/CLICKING ON A NOTIFICATION
+    // USER DISMISSING/CLICKING ON A NOTIFICATION.
     $('.block_advanced_notifications').on('click', '.dismissible', function() {
 
         var dismiss = $(this).attr('data-dismiss');
@@ -32,13 +32,13 @@ $(document).ready(function(){
             $(this).remove();
         });
 
-        var senddata = {};          //Data Object
+        var senddata = {};          // Data Object.
         senddata.call = 'ajax';
         senddata.dismiss = dismiss;
 
         var callpath = M.cfg.wwwroot + "/blocks/advanced_notifications/pages/process.php?sesskey=" + M.cfg.sesskey;
 
-        //Update user preferences
+        // Update user preferences.
         $.post(callpath, senddata, function (data) {
         }).fail(function (data) {
             try {
@@ -46,25 +46,25 @@ $(document).ready(function(){
             } catch (e) {
             }
         }).done(function (data) {
-            //user dismissed notification
+            // User dismissed notification.
 
         });
     });
 
-    // MANAGING NOTIFICATIONS
+    // MANAGING NOTIFICATIONS.
     $('#region-main').on('click', '.notifications_table tr > td a', function(e) {
 
         e.preventDefault();
-        var senddata = {};          //Data Object
+        var senddata = {};          // Data Object.
         senddata.call = 'ajax';
         senddata.purpose = '';
         senddata.tableaction = '';
 
-        //Chcek if user wants to edit/delete
+        // Check if user wants to edit/delete.
         var eattr = $(this).attr('data-edit');
         var dattr = $(this).attr('data-delete');
 
-        //Check if anchor element has attribute, retrieved from above
+        // Check if anchor element has attribute, retrieved from above.
         if (typeof eattr !== typeof undefined && eattr !== false) {
             senddata.purpose = 'edit';
             senddata.tableaction = $(this).attr('data-edit');
@@ -81,7 +81,7 @@ $(document).ready(function(){
 
         var callpath = M.cfg.wwwroot + "/blocks/advanced_notifications/pages/process.php?sesskey=" + M.cfg.sesskey;
 
-        // Perform tableaction
+        // Perform tableaction.
         $.post(callpath, senddata, function (data) {
         }).fail(function (data) {
             try {
@@ -89,7 +89,7 @@ $(document).ready(function(){
             } catch (e) {
             }
         }).done(function (data) {
-            //user deleted/edited notification
+            // User deleted/edited notification.
             if (parseInt(data.done) > 0){
                 $('#tr' + data.done).closest("tr").remove();
             }
@@ -97,18 +97,18 @@ $(document).ready(function(){
             {
                 $.each(data.edit, function(index, value) {
 
-                    //Quickfix for uses of 'enabled' and 'enable'
+                    // Quickfix for uses of 'enabled' and 'enable'.
                     if (index == "enabled")
                     {
                         index = "enable";
                     }
 
-                    // Need this for updating
+                    // Need this for updating.
                     if (index == "id") {
                         var form = $('#add_notification_form');
 
-                        // Because we're doing a standard submit, we need extra inputs to pass params
-                        // But first, remove old hidden inputs
+                        // Because we're doing a standard submit, we need extra inputs to pass params.
+                        // But first, remove old hidden inputs.
                         $('#add_notification_id').remove();
                         $('#add_notification_call').remove();
                         $('#add_notification_purpose').remove();
@@ -119,8 +119,8 @@ $(document).ready(function(){
 
                     var affectelement = $('#add_notification_wrapper_id').find('#add_notification_' + index);
 
-                    // Check whether checkboxes should be checked or not
-                    // We also don't assign a value to checkbox input fields
+                    // Check whether checkboxes should be checked or not.
+                    // We also don't assign a value to checkbox input fields.
                     if ((index == 'enable' || index == 'dismissible' || index == 'icon') && value == 1)
                     {
                         affectelement.prop('checked', true);
@@ -138,20 +138,20 @@ $(document).ready(function(){
         });
     });
 
-    // Restore & Permanently delete notifications
+    // Restore & Permanently delete notifications.
     $('#region-main').on('click', '.notifications_restore_table tr > td a', function(e) {
 
         e.preventDefault();
-        var senddata = {};          //Data Object
+        var senddata = {};          // Data Object.
         senddata.call = 'ajax';
         senddata.purpose = '';
         senddata.tableaction = '';
 
-        //Chcek if user wants to edit/delete
+        // Check if user wants to restore/delete.
         var rattr = $(this).attr('data-restore');
         var pdattr = $(this).attr('data-permdelete');
 
-        //Check if anchor element has attribute, retrieved from above
+        // Check if anchor element has attribute, retrieved from above.
         if (typeof rattr !== typeof undefined && rattr !== false) {
             senddata.purpose = 'restore';
             senddata.tableaction = $(this).attr('data-restore');
@@ -164,7 +164,7 @@ $(document).ready(function(){
 
         var callpath = M.cfg.wwwroot + "/blocks/advanced_notifications/pages/process.php?sesskey=" + M.cfg.sesskey;
 
-        // Perform tableaction
+        // Perform tableaction.
         $.post(callpath, senddata, function (data) {
         }).fail(function (data) {
             try {
@@ -172,20 +172,20 @@ $(document).ready(function(){
             } catch (e) {
             }
         }).done(function (data) {
-            // user deleted/restored notification
-            // done is returned for both restore & delete
+            // User deleted/restored notification.
+            // Object 'done' is returned for both restore & delete.
             if (parseInt(data.done) > 0){
                 $('#tr' + data.done).closest("tr").remove();
             }
         });
     });
 
-    //Clear form
+    // Clear form.
     $('#add_notification_wrapper_id').on('click', '#add_notification_cancel', function(e) {
         e.preventDefault();
         $('#add_notification_form')[0].reset();
 
-        // Change save button back to normal
+        // Change save button back to normal.
         var savebutton = $('#add_notification_save');
         savebutton.removeClass('update');
         $('#add_notification_id').remove();
@@ -194,7 +194,7 @@ $(document).ready(function(){
         savebutton.val('Save');
     });
 
-    // Managing more notifications
+    // Managing more notifications.
     $('#region-main').on('submit', '#add_notification_form', function(e) {
         e.preventDefault();
         var status = $('#add_notification_status');
@@ -203,13 +203,13 @@ $(document).ready(function(){
 
         status.show();
 
-        var senddata = $(this).serialize();
+        var senddata = $(this).serialize();  // Data Object.
         senddata.call = 'ajax';
         senddata.purpose = 'add';
 
         var callpath = M.cfg.wwwroot + "/blocks/advanced_notifications/pages/process.php?sesskey=" + M.cfg.sesskey;
 
-        // Perform tableaction
+        // Perform tableaction.
         $.post(callpath, senddata, function (data) {
         }).fail(function (data) {
             try {
@@ -217,7 +217,7 @@ $(document).ready(function(){
             } catch (e) {
             }
         }).done(function (data) {
-            //user managed notification
+            // User saved notification.
             status.find('.saving').hide();
             status.find('.done').show();
 
@@ -228,7 +228,7 @@ $(document).ready(function(){
                     status.slideUp();
                     form[0].reset();
 
-                    // Change save button back to normal
+                    // Change save button back to normal.
                     savebutton.removeClass('update');
                     $('#add_notification_id').remove();
                     $('#add_notification_call').remove();
@@ -241,21 +241,19 @@ $(document).ready(function(){
         });
     });
 
-    // LIVE PREVIEW
-    // Prepend live preview alert
+    // LIVE PREVIEW.
+    // Prepend live preview alert.
     $('#add_notification_wrapper_id').prepend('<div><strong>Preview:</strong><br></div><div class="alert preview-alert"><div class="preview-icon" style="display: none;"><img src="" /></div><strong class="preview-title">Title</strong> <div class="preview-message">Message</div> <div class="preview-alert-dismissible" style="display: none;"><strong>&times;</strong></div></div>');
 
-    // Dynamically update preview alert as user changes textbox content
+    // Dynamically update preview alert as user changes textbox content.
     $('#add_notification_wrapper_id').on('input propertychange paste', '#add_notification_title, #add_notification_message', function () {
         $('#add_notification_wrapper_id').find('.preview-' + $(this).attr('name')).text($(this).val());
     });
 
-    // Dynamically update preview alert type
+    // Dynamically update preview alert type.
     $('#add_notification_type').on('change', function() {
         var alerttype = $(this).val();
         var previewalert = $('#add_notification_wrapper_id .preview-alert');
-
-        console.log(alerttype);
 
         if (alerttype != 'info' && alerttype != 'success' && alerttype != 'warning' && alerttype != 'danger')
         {
@@ -290,20 +288,9 @@ $(document).ready(function(){
             $('.preview-icon').show();
         }
     });
-
-    // THE BELOW IS NOW HANDLED BY PHP
-    //This should be checked on 'edit block', 'restore', 'manage', 'settings'
-    //if ( $( "#add_notification_form" ).length ) {
-    //    var binstance = getUrlParameter('blockid');
-    //
-    //    if (binstance != undefined) {
-    //        $(this).prepend('<input type="hidden" id="add_notification_instance" name="instance" value="' + binstance + '"/>');
-    //    }
-    //}
 });
 
-// FUNCTIONS
-
+// FUNCTIONS.
 var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
         sURLVariables = sPageURL.split('&'),
