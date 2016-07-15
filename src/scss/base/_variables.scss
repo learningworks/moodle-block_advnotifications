@@ -1,0 +1,35 @@
+// 
+// VARIABLES FILE
+// 
+
+
+// SASS Map containing plugin's colours
+$colors: (
+	white: 							#FFFFFF,
+	black: 							#000000,
+	green--light: 					#95C11F,
+	green: 							#749719,
+	green--dark: 					#638015,
+	
+	// Utility
+	border: 						#d1d1d1,
+	shadow: 						rgba(0, 0, 0, 0.45),
+	light-shadow: 					rgba(0, 0, 0, 0.15),
+	dark-shadow: 					rgba(0, 0, 0, 1),
+	light_hover: 					rgba(0, 0, 0, 0.075),
+	darker_hover: 					rgba(0, 0, 0, 0.20),
+	light_background: 				rgba(255, 255, 255, 0.5),
+);
+
+// Keeping for future reference.
+// SASS Map containing our theme's font styles
+// $fonts: (
+// 	 body: (
+//	 	 family: unquote("'ProximaNova', 'Helvetica Neue', Helvetica, Arial, sans-serif;"),
+//		 weight: 300,
+//	 ),
+//	 heading: (
+//		 family: unquote("'Helvetica LT 63 Medium Extended', 'MavenPro', 'Open Sans', Helvetica, Arial, sans-serif;"),
+//		 weight: 500,
+//	 )
+// );

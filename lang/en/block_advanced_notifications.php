@@ -72,6 +72,13 @@ $string['advanced_notifications_cancel'] = 'Cancel';
 
 // Renderer.
 $string['advanced_notifications_add_heading'] = 'New Notification';
+$string['advanced_notifications_add_option_info'] = 'Information';
+$string['advanced_notifications_add_option_success'] = 'Success';
+$string['advanced_notifications_add_option_warning'] = 'Warning';
+$string['advanced_notifications_add_option_danger'] = 'Danger';
+$string['advanced_notifications_add_option_announcement'] = 'Announcement';
+$string['advanced_notifications_add_saving'] = 'Saving...';
+$string['advanced_notifications_add_done'] = 'Done!';
 
 // Admin Settings.
 $string['setting/navigation'] = 'Navigation:';
@@ -95,7 +102,17 @@ $string['setting/auto_delete_user_data'] = 'Auto Delete User Data:';
 $string['setting/auto_delete_user_data_desc'] = 'Toggles whether user data (such as whether the user has seen/dismissed notifications that don\'t exist anymore, etc) related to advanced notifications is automatically deleted.<br>(Helps with housekeeping/management)';
 $string['setting/auto_delete_user_data_default'] = '';
 
-// Navigation Links
+// Navigation Links.
+$string['advanced_notifications_nav_heading'] = 'Notifications:';
 $string['advanced_notifications_nav_manage'] = 'Manage';
 $string['advanced_notifications_nav_restore'] = 'Restore';
 $string['advanced_notifications_nav_settings'] = 'Settings';
+
+// Error Messages.
+$string['advanced_notifications_err_forbidden'] = 'Forbidden, please login again...';
+
+// Cron Messages.
+$string['advanced_notifications_cron_heading'] = 'Cleaning Advanced Notifications';
+$string['advanced_notifications_cron_auto_perma_delete'] = 'Permanently delete notifications that\'s had the deleted flag for more than 30 days...';
+$string['advanced_notifications_cron_auto_delete'] = 'Add deleted flag to notifications that\'s passed their end-date...';
+$string['advanced_notifications_cron_auto_delete_udata'] = 'Remove user records that relates to notifications that don\'t exist anymore...';

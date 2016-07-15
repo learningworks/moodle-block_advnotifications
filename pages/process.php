@@ -28,7 +28,8 @@ try {
     require_sesskey();
 } catch (EXCEPTION $e) {
     header('HTTP/1.0 403 Forbidden');
-    echo json_encode(array("result" => "Failed", "Notification" => "Your changes were not saved, please login again..."));
+    echo json_encode(array("result" => "Failed",
+                            "Notification" => get_string('advanced_notifications_err_forbidden', 'block_advanced_notifications')));
     exit();
 }
 

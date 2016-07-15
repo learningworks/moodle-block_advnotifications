@@ -31,8 +31,8 @@ require_once($CFG->dirroot .'/lib/tablelib.php');
 class advanced_notifications_notifications_table extends table_sql {
 
     // Lang strings that get re-used below is stored in variables to improve efficiency (Don't have to get strings many times).
-    private $yes = NULL;
-    private $no = NULL;
+    private $yes = null;
+    private $no = null;
 
     /**
      * Constructor

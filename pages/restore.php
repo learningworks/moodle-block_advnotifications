@@ -109,10 +109,12 @@ echo '<div class="restore_notification-block-wrapper">
 
 // Add navigation controls before the table.
 echo '<div id="advanced_notifications_manage">
-      <a class="btn instance" href="' . $CFG->wwwroot .
-        '/blocks/advanced_notifications/pages/notifications.php">Manage</a>&nbsp;&nbsp;
-      <a class="btn instance" href="' . $CFG->wwwroot .
-        '/admin/settings.php?section=blocksettingadvanced_notifications">Settings</a><br><br></div>';
+      <a class="btn instance" href="' . $CFG->wwwroot . '/blocks/advanced_notifications/pages/notifications.php">' .
+          get_string('advanced_notifications_nav_manage', 'block_advanced_notifications') .
+      '</a>&nbsp;&nbsp;
+      <a class="btn instance" href="' . $CFG->wwwroot . '/admin/settings.php?section=blocksettingadvanced_notifications">' .
+          get_string('advanced_notifications_nav_settings', 'block_advanced_notifications') .
+      '</a><br><br></div>';
 
 // Add a wrapper with an id, which makes reloading the table easier (when using ajax).
 echo '<div id="advanced_notifications_restore_table_wrapper">';

@@ -224,12 +224,23 @@ class block_advanced_notifications_renderer extends plugin_renderer_base
                                 get_string('advanced_notifications_message', 'block_advanced_notifications') . '"/><br>
                             <select id="add_notification_type" name="type" required>
                                 <option selected disabled>' .
-                                    get_string('advanced_notifications_type', 'block_advanced_notifications') . '</option>
-                                <option value="info">Information</option>
-                                <option value="success">Success</option>
-                                <option value="warning">Warning</option>
-                                <option value="danger">Danger</option>
-                                <option value="announcement">Announcement</option>
+                                    get_string('advanced_notifications_type', 'block_advanced_notifications') .
+                                '</option>
+                                <option value="info">' .
+                                    get_string('advanced_notifications_add_option_info', 'block_advanced_notifications') .
+                                '</option>
+                                <option value="success">' .
+                                    get_string('advanced_notifications_add_option_success', 'block_advanced_notifications') .
+                                '</option>
+                                <option value="warning">' .
+                                    get_string('advanced_notifications_add_option_warning', 'block_advanced_notifications') .
+                                '</option>
+                                <option value="danger">' .
+                                    get_string('advanced_notifications_add_option_danger', 'block_advanced_notifications') .
+                                '</option>
+                                <option value="announcement">' .
+                                    get_string('advanced_notifications_add_option_announcement', 'block_advanced_notifications') .
+                                '</option>
                             </select><br>
                             <select id="add_notification_times" name="times" required>
                                 <option selected disabled>' .
@@ -265,8 +276,12 @@ class block_advanced_notifications_renderer extends plugin_renderer_base
                                 get_string('advanced_notifications_cancel', 'block_advanced_notifications') . '</a><br>
                             <div id="add_notification_status">
                                 <div class="signal"></div>
-                                <div class="saving">Saving...</div>
-                                <div class="done">Done</div>
+                                <div class="saving">' .
+                                    get_string('advanced_notifications_add_saving', 'block_advanced_notifications') .
+                                '</div>
+                                <div class="done">' .
+                                    get_string('advanced_notifications_add_done', 'block_advanced_notifications') .
+                                '</div>
                             </div>';
 
         // Close Form.

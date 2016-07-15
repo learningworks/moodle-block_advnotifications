@@ -74,11 +74,11 @@ class block_advanced_notifications extends block_base
     public function cron() {
         global $DB;
 
-        echo "\n\tCleaning Advanced Notifications\n";
+        echo "\n\t" . get_string('advanced_notifications_cron_heading', 'block_advanced_notifications') . "\n";
 
         // Auto-Permanent Delete Feature.
         if (get_config('block_advanced_notifications', 'auto_perma_delete')) {
-            echo "\n\t\t- Permanently delete notifications that's had the deleted flag for more than 30 days...\n";
+            echo "\n\t\t- " . get_string('advanced_notifications_cron_auto_perma_delete', 'block_advanced_notifications') . "\n";
 
             // Permanently delete notifications that's had the deleted flag for more than 30 days.
             $DB->delete_records_select('block_advanced_notifications',
@@ -89,7 +89,7 @@ class block_advanced_notifications extends block_base
 
         // Auto Delete Flagging Feature.
         if (get_config('block_advanced_notifications', 'auto_delete')) {
-            echo "\t\t- Add deleted flag to notifications that's passed their end-date...\n";
+            echo "\t\t- " . get_string('advanced_notifications_cron_auto_delete', 'block_advanced_notifications') . "\n";
 
             // Add deleted flag to notifications that's passed their end-date.
             $DB->set_field_select('block_advanced_notifications',
@@ -109,7 +109,7 @@ class block_advanced_notifications extends block_base
 
         // Auto User Data Deletion Feature.
         if (get_config('block_advanced_notifications', 'auto_delete_user_data')) {
-            echo "\t\t- Remove user records that relates to notifications that don't exist anymore...\n\n";
+            echo "\t\t- " . get_string('advanced_notifications_cron_auto_delete_udata', 'block_advanced_notifications') . "\n\n";
 
             // Remove user records that relates to notifications that don't exist anymore.
             $todelete = $DB->get_records_sql('SELECT band.id

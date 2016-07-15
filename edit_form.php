@@ -24,13 +24,22 @@ class block_advanced_notifications_edit_form extends block_edit_form {
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
 
         $mform->addElement('html',
-                            '<div id="advanced_notifications_manage" class="manage_notifications"><h3>Notifications:</h3>
+                            '<div id="advanced_notifications_manage" class="manage_notifications">
+                                <h3>' .
+                                    get_string('advanced_notifications_nav_heading', 'block_advanced_notifications') .
+                                '</h3>
                                 <a class="btn instance" href="' . $CFG->wwwroot .
-                                    '/blocks/advanced_notifications/pages/notifications.php">Manage</a>&nbsp;&nbsp;
+                                    '/blocks/advanced_notifications/pages/notifications.php">' .
+                                    get_string('advanced_notifications_nav_manage', 'block_advanced_notifications') .
+                                '</a>&nbsp;&nbsp;
                                 <a class="btn" href="' . $CFG->wwwroot .
-                                    '/blocks/advanced_notifications/pages/restore.php">Restore</a>&nbsp;&nbsp;
+                                    '/blocks/advanced_notifications/pages/restore.php">' .
+                                    get_string('advanced_notifications_nav_restore', 'block_advanced_notifications') .
+                                '</a>&nbsp;&nbsp;
                                 <a class="btn" href="' . $CFG->wwwroot .
-                                    '/admin/settings.php?section=blocksettingadvanced_notifications">Settings</a><br><br>
+                                    '/admin/settings.php?section=blocksettingadvanced_notifications">' .
+                                    get_string('advanced_notifications_nav_settings', 'block_advanced_notifications') .
+                                '</a><br><br>
                             </div>'
         );
 
