@@ -14,19 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-class block_advanced_notifications extends block_base
+class block_advnotifications extends block_base
 {
     public function init() {
         global $CFG, $PAGE;
-        $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/blocks/advanced_notifications/javascript/custom.js'));
-        $this->title = get_string('advanced_notifications', 'block_advanced_notifications');
+        $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/blocks/advnotifications/javascript/custom.js'));
+        $this->title = get_string('advnotifications', 'block_advnotifications');
     }
 
     public function get_content() {
         global $PAGE;
-        if (get_config('block_advanced_notifications', 'enable')) {
+        if (get_config('block_advnotifications', 'enable')) {
             // Get the renderer for this page.
-            $renderer = $PAGE->get_renderer('block_advanced_notifications');
+            $renderer = $PAGE->get_renderer('block_advnotifications');
             $html = $renderer->render_notification($this->instance->id);
 
             $this->content->text = $html;
@@ -68,31 +68,31 @@ class block_advanced_notifications extends block_base
     }
 
     /**
-     * Remove old (or deleted) notifications from table block_advanced_notifications & cleanup table
-     * block_advanced_notifications_dismissed
+     * Remove old (or deleted) notifications from table block_advnotifications & cleanup table
+     * block_advnotifications_dismissed
      */
     public function cron() {
         global $DB;
 
-        echo "\n\t" . get_string('advanced_notifications_cron_heading', 'block_advanced_notifications') . "\n";
+        echo "\n\t" . get_string('advnotifications_cron_heading', 'block_advnotifications') . "\n";
 
         // Auto-Permanent Delete Feature.
-        if (get_config('block_advanced_notifications', 'auto_perma_delete')) {
-            echo "\n\t\t- " . get_string('advanced_notifications_cron_auto_perma_delete', 'block_advanced_notifications') . "\n";
+        if (get_config('block_advnotifications', 'auto_perma_delete')) {
+            echo "\n\t\t- " . get_string('advnotifications_cron_auto_perma_delete', 'block_advnotifications') . "\n";
 
             // Permanently delete notifications that's had the deleted flag for more than 30 days.
-            $DB->delete_records_select('block_advanced_notifications',
+            $DB->delete_records_select('block_advnotifications',
                                         'deleted_at < :limit AND deleted_at <> 0 AND deleted = 1',
                                         array('limit' => strtotime('-30 days'))
             );
         }
 
         // Auto Delete Flagging Feature.
-        if (get_config('block_advanced_notifications', 'auto_delete')) {
-            echo "\t\t- " . get_string('advanced_notifications_cron_auto_delete', 'block_advanced_notifications') . "\n";
+        if (get_config('block_advnotifications', 'auto_delete')) {
+            echo "\t\t- " . get_string('advnotifications_cron_auto_delete', 'block_advnotifications') . "\n";
 
             // Add deleted flag to notifications that's passed their end-date.
-            $DB->set_field_select('block_advanced_notifications',
+            $DB->set_field_select('block_advnotifications',
                                     'deleted',
                                     '1',
                                     'date_to < :now AND date_from <> date_to',
@@ -100,7 +100,7 @@ class block_advanced_notifications extends block_base
             );
 
             // Record time of setting 'deleted' flag.
-            $DB->set_field_select('block_advanced_notifications',
+            $DB->set_field_select('block_advnotifications',
                                     'deleted_at',
                                     time(),
                                     'deleted = 1'
@@ -108,16 +108,16 @@ class block_advanced_notifications extends block_base
         }
 
         // Auto User Data Deletion Feature.
-        if (get_config('block_advanced_notifications', 'auto_delete_user_data')) {
-            echo "\t\t- " . get_string('advanced_notifications_cron_auto_delete_udata', 'block_advanced_notifications') . "\n\n";
+        if (get_config('block_advnotifications', 'auto_delete_user_data')) {
+            echo "\t\t- " . get_string('advnotifications_cron_auto_delete_udata', 'block_advnotifications') . "\n\n";
 
             // Remove user records that relates to notifications that don't exist anymore.
             $todelete = $DB->get_records_sql('SELECT band.id
-                                            FROM {block_advanced_notifications_dismissed} band
-                                            LEFT JOIN {block_advanced_notifications} ban ON band.not_id = ban.id
+                                            FROM {block_advnotifications_dismissed} band
+                                            LEFT JOIN {block_advnotifications} ban ON band.not_id = ban.id
                                             WHERE ban.id IS NULL');
 
-            $DB->delete_records_list('block_advanced_notifications_dismissed',
+            $DB->delete_records_list('block_advnotifications_dismissed',
                                         'id',
                                         array_keys((array)$todelete)
             );

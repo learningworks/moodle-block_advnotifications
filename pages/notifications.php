@@ -28,7 +28,7 @@ global $CFG;
 // Load in Moodle's Tablelib lib.
 require_once($CFG->dirroot . '/lib/tablelib.php');
 // Call in block's table file.
-require_once($CFG->dirroot . '/blocks/advanced_notifications/classes/notifications_table.php');
+require_once($CFG->dirroot . '/blocks/advnotifications/classes/notifications_table.php');
 
 // PARAMS.
 $params = array();
@@ -64,7 +64,7 @@ if (isset($blockinstance) && $blockinstance != "") {
 global $DB, $USER, $PAGE;
 
 if ( !!$edit ) {
-    $toedit = $DB->get_record('block_advanced_notifications', array('id' => $edit));
+    $toedit = $DB->get_record('block_advnotifications', array('id' => $edit));
 }
 
 if ( !!$delete ) {
@@ -75,11 +75,11 @@ if ( !!$delete ) {
     $todelete->id = $delete;
     $todelete->deleted = 1;
     $todelete->enabled = 0;
-    $sql = $DB->update_record('block_advanced_notifications', $todelete);
+    $sql = $DB->update_record('block_advnotifications', $todelete);
 }
 
 $context = context_system::instance();
-$url = new moodle_url($CFG->wwwroot . '/blocks/advanced_notifications/pages/notifications.php');
+$url = new moodle_url($CFG->wwwroot . '/blocks/advnotifications/pages/notifications.php');
 
 // Set PAGE variables.
 $PAGE->set_context($context);
@@ -88,8 +88,8 @@ $PAGE->set_url($url, $params);
 // Force the user to login/create an account to access this page.
 require_login();
 
-if ( !has_capability('block/advanced_notifications:managenotifications', $context) ) {
-    require_capability('block/advanced_notifications:managenotifications', $context);
+if ( !has_capability('block/advnotifications:managenotifications', $context) ) {
+    require_capability('block/advnotifications:managenotifications', $context);
 }
 
 // Set the layout - allows for customisation.
@@ -97,22 +97,22 @@ if ( !has_capability('block/advanced_notifications:managenotifications', $contex
 $PAGE->set_pagelayout('adv_notifications');
 
 // Get the renderer for this page.
-$renderer = $PAGE->get_renderer('block_advanced_notifications');
+$renderer = $PAGE->get_renderer('block_advnotifications');
 
-$table = new advanced_notifications_notifications_table('advanced-notifications-list');
-$table->is_downloading($download, 'advanced-notifications-list', 'Advanced Notifications List');
+$table = new advnotifications_notifications_table('advnotifications-list');
+$table->is_downloading($download, 'advnotifications-list', 'Advanced Notifications List');
 
 if (!$table->is_downloading()) {
     // Only print headers if not asked to download data.
     // Print the page header.
-    $PAGE->set_title(get_string('advanced_notifications_table_title', 'block_advanced_notifications'));
-    $PAGE->set_heading(get_string('advanced_notifications_table_heading', 'block_advanced_notifications'));
+    $PAGE->set_title(get_string('advnotifications_table_title', 'block_advnotifications'));
+    $PAGE->set_heading(get_string('advnotifications_table_heading', 'block_advnotifications'));
     $PAGE->requires->jquery();
-    $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/blocks/advanced_notifications/javascript/custom.js'));
+    $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/blocks/advnotifications/javascript/custom.js'));
 
     echo $OUTPUT->header();
 
-    printf('<h1 class="page__title">%s</h1>', get_string('advanced_notifications_table_title', 'block_advanced_notifications'));
+    printf('<h1 class="page__title">%s</h1>', get_string('advnotifications_table_title', 'block_advnotifications'));
 }
 
 // Configure the table.
@@ -124,20 +124,20 @@ $table->collapsible(false);
 $table->is_downloadable(true);
 $table->show_download_buttons_at(array(TABLE_P_BOTTOM));
 
-$table->set_sql('*', "{block_advanced_notifications}", "deleted = 0");
+$table->set_sql('*', "{block_advnotifications}", "deleted = 0");
 
 // Add navigation controls before the table.
-echo '<div id="advanced_notifications_manage">
-        <a class="btn instance" href="' . $CFG->wwwroot . '/blocks/advanced_notifications/pages/restore.php">' .
-            get_string('advanced_notifications_nav_restore', 'block_advanced_notifications') .
+echo '<div id="advnotifications_manage">
+        <a class="btn instance" href="' . $CFG->wwwroot . '/blocks/advnotifications/pages/restore.php">' .
+            get_string('advnotifications_nav_restore', 'block_advnotifications') .
         '</a>&nbsp;&nbsp;
-        <a class="btn instance" href="' . $CFG->wwwroot . '/admin/settings.php?section=blocksettingadvanced_notifications">' .
-            get_string('advanced_notifications_nav_settings', 'block_advanced_notifications') .
+        <a class="btn instance" href="' . $CFG->wwwroot . '/admin/settings.php?section=blocksettingadvnotifications">' .
+            get_string('advnotifications_nav_settings', 'block_advnotifications') .
         '</a><br><br>
       </div>';
 
 // Add a wrapper with an id, which makes reloading the table easier (when using ajax).
-echo '<div id="advanced_notifications_table_wrapper">';
+echo '<div id="advnotifications_table_wrapper">';
 $table->out(20, true);
 echo '</div>';
 

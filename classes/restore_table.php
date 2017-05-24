@@ -27,7 +27,7 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php');
 // Load Tablelib lib.
 require_once($CFG->dirroot .'/lib/tablelib.php');
 
-class advanced_notifications_restore_table extends table_sql {
+class advnotifications_restore_table extends table_sql {
 
     // Lang strings that get re-used below is stored in variables to improve efficiency (Don't have to get strings many times).
     private $yes = null;
@@ -58,17 +58,17 @@ class advanced_notifications_restore_table extends table_sql {
 
         // Define the titles of columns to show in header from lang file.                           // Examples.
         $headers = array(
-            get_string('advanced_notifications_field_id', 'block_advanced_notifications'),          // Id: 1.
-            get_string('advanced_notifications_field_title', 'block_advanced_notifications'),       // Title: Site Maintenance.
-            get_string('advanced_notifications_field_type', 'block_advanced_notifications'),        // Type: info.
-            get_string('advanced_notifications_field_enabled', 'block_advanced_notifications'),     // Enabled: Yes.
-            get_string('advanced_notifications_field_global', 'block_advanced_notifications'),      // Global: Yes.
-            get_string('advanced_notifications_field_icon', 'block_advanced_notifications'),        // Icon: Yes.
-            get_string('advanced_notifications_field_dismissible', 'block_advanced_notifications'), // Dismissible: Yes.
-            get_string('advanced_notifications_field_times', 'block_advanced_notifications'),       // Times: 10.
-            get_string('advanced_notifications_field_date_from', 'block_advanced_notifications'),   // Date From: dd/mm/yyyy.
-            get_string('advanced_notifications_field_date_to', 'block_advanced_notifications'),     // Date To: dd/mm/yyyy.
-            get_string('advanced_notifications_field_actions', 'block_advanced_notifications'),     // Actions: Edit | Delete.
+            get_string('advnotifications_field_id', 'block_advnotifications'),          // Id: 1.
+            get_string('advnotifications_field_title', 'block_advnotifications'),       // Title: Site Maintenance.
+            get_string('advnotifications_field_type', 'block_advnotifications'),        // Type: info.
+            get_string('advnotifications_field_enabled', 'block_advnotifications'),     // Enabled: Yes.
+            get_string('advnotifications_field_global', 'block_advnotifications'),      // Global: Yes.
+            get_string('advnotifications_field_icon', 'block_advnotifications'),        // Icon: Yes.
+            get_string('advnotifications_field_dismissible', 'block_advnotifications'), // Dismissible: Yes.
+            get_string('advnotifications_field_times', 'block_advnotifications'),       // Times: 10.
+            get_string('advnotifications_field_date_from', 'block_advnotifications'),   // Date From: dd/mm/yyyy.
+            get_string('advnotifications_field_date_to', 'block_advnotifications'),     // Date To: dd/mm/yyyy.
+            get_string('advnotifications_field_actions', 'block_advnotifications'),     // Actions: Edit | Delete.
         );
         $this->define_headers($headers);
 
@@ -76,8 +76,8 @@ class advanced_notifications_restore_table extends table_sql {
         $this->no_sorting('actions');
 
         // Lang string initialisation.
-        $this->yes = get_string('advanced_notifications_cell_yes', 'block_advanced_notifications'); // Yes.
-        $this->no = get_string('advanced_notifications_cell_no', 'block_advanced_notifications');   // No.
+        $this->yes = get_string('advnotifications_cell_yes', 'block_advnotifications'); // Yes.
+        $this->no = get_string('advnotifications_cell_no', 'block_advnotifications');   // No.
     }
 
     /**
@@ -201,17 +201,17 @@ class advanced_notifications_restore_table extends table_sql {
         global $CFG;
 
         if ($this->is_downloading()) {
-            return get_string('advanced_notifications_restore_label', 'block_advanced_notifications') . ' | ' .
-                    get_string('advanced_notifications_delete_label', 'block_advanced_notifications');
+            return get_string('advnotifications_restore_label', 'block_advnotifications') . ' | ' .
+                    get_string('advnotifications_delete_label', 'block_advnotifications');
         } else {
             return sprintf(
                 '<a id="tr'.$values->id.'" data-restore="' . $values->id . '" href="' . $CFG->wwwroot .
-                '/blocks/advanced_notifications/pages/process.php?sesskey=' . sesskey() . '&restore=' . $values->id .
+                '/blocks/advnotifications/pages/process.php?sesskey=' . sesskey() . '&restore=' . $values->id .
                 '">%s</a> | <a data-permdelete="' . $values->id . '" href="' . $CFG->wwwroot .
-                '/blocks/advanced_notifications/pages/process.php?sesskey=' . sesskey() . '&permdelete=' . $values->id .
+                '/blocks/advnotifications/pages/process.php?sesskey=' . sesskey() . '&permdelete=' . $values->id .
                 '">%s</a>',
-                get_string('advanced_notifications_restore_label', 'block_advanced_notifications'),
-                get_string('advanced_notifications_delete_label', 'block_advanced_notifications')
+                get_string('advnotifications_restore_label', 'block_advnotifications'),
+                get_string('advnotifications_delete_label', 'block_advnotifications')
             );
         }
     }
@@ -235,7 +235,7 @@ class advanced_notifications_restore_table extends table_sql {
 
         printf(
             '<p class="notifications--empty">%s</p>',
-            get_string('advanced_notifications_table_empty', 'block_advanced_notifications')
+            get_string('advnotifications_table_empty', 'block_advnotifications')
         );
     }
 }

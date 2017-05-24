@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PATH="blocks/advanced_notifications/db" VERSION="20160704" COMMENT="XMLDB file for Moodle blocks/advanced_notifications" xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
+<XMLDB xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PATH="blocks/advnotifications/db" VERSION="20160704" COMMENT="XMLDB file for Moodle blocks/advnotifications" xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
   <TABLES>
-    <TABLE NAME="block_advanced_notifications" COMMENT="A record of all advanced notifications">
+    <TABLE NAME="block_advnotifications" COMMENT="A record of all advanced notifications">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="title" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="To be used for notification's title"/>
@@ -22,7 +22,7 @@
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="block_advanced_notifications_dismissed" COMMENT="Keeps track of user interaction with advanced notifications">
+    <TABLE NAME="block_advnotifications_dismissed" COMMENT="Keeps track of user interaction with advanced notifications">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="user_id" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="User related to occurrence of notification"/>

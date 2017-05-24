@@ -16,7 +16,7 @@
 
     $capabilities = array(
 
-        'block/advanced_notifications:myaddinstance' => array(
+        'block/advnotifications:myaddinstance' => array(
             'captype' => 'write',
             'contextlevel' => CONTEXT_SYSTEM,
             'archetypes' => array(
@@ -26,7 +26,7 @@
             'clonepermissionsfrom' => 'moodle/my:manageblocks'
         ),
 
-        'block/advanced_notifications:addinstance' => array(
+        'block/advnotifications:addinstance' => array(
             'riskbitmask' => RISK_SPAM | RISK_XSS,
 
             'captype' => 'write',
@@ -39,7 +39,7 @@
             'clonepermissionsfrom' => 'moodle/site:manageblocks'
         ),
 
-        'block/advanced_notifications:managenotifications' => array(
+        'block/advnotifications:managenotifications' => array(
 
             'riskbitmask' => RISK_SPAM,
 

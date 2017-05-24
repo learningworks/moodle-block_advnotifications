@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // BLOCK INSTANCE ID LOGIC MANAGEMENT.
-    $('#advanced_notifications_manage').on('click', 'a', function () {
+    $('#advnotifications_manage').on('click', 'a', function () {
         if ($(this).hasClass('instance'))
         {
             var binstance = getUrlParameter('bui_editid');
@@ -24,7 +24,7 @@ $(document).ready(function() {
     });
 
     // USER DISMISSING/CLICKING ON A NOTIFICATION.
-    $('.block_advanced_notifications').on('click', '.dismissible', function() {
+    $('.block_advnotifications').on('click', '.dismissible', function() {
 
         var dismiss = $(this).attr('data-dismiss');
 
@@ -36,7 +36,7 @@ $(document).ready(function() {
         senddata.call = 'ajax';
         senddata.dismiss = dismiss;
 
-        var callpath = M.cfg.wwwroot + "/blocks/advanced_notifications/pages/process.php?sesskey=" + M.cfg.sesskey;
+        var callpath = M.cfg.wwwroot + "/blocks/advnotifications/pages/process.php?sesskey=" + M.cfg.sesskey;
 
         // Update user preferences.
         $.post(callpath, senddata, function (data) {
@@ -79,7 +79,7 @@ $(document).ready(function() {
             senddata.tableaction = $(this).attr('data-delete');
         }
 
-        var callpath = M.cfg.wwwroot + "/blocks/advanced_notifications/pages/process.php?sesskey=" + M.cfg.sesskey;
+        var callpath = M.cfg.wwwroot + "/blocks/advnotifications/pages/process.php?sesskey=" + M.cfg.sesskey;
 
         // Perform tableaction.
         $.post(callpath, senddata, function (data) {
@@ -162,7 +162,7 @@ $(document).ready(function() {
             senddata.tableaction = $(this).attr('data-permdelete');
         }
 
-        var callpath = M.cfg.wwwroot + "/blocks/advanced_notifications/pages/process.php?sesskey=" + M.cfg.sesskey;
+        var callpath = M.cfg.wwwroot + "/blocks/advnotifications/pages/process.php?sesskey=" + M.cfg.sesskey;
 
         // Perform tableaction.
         $.post(callpath, senddata, function (data) {
@@ -207,7 +207,7 @@ $(document).ready(function() {
         senddata.call = 'ajax';
         senddata.purpose = 'add';
 
-        var callpath = M.cfg.wwwroot + "/blocks/advanced_notifications/pages/process.php?sesskey=" + M.cfg.sesskey;
+        var callpath = M.cfg.wwwroot + "/blocks/advnotifications/pages/process.php?sesskey=" + M.cfg.sesskey;
 
         // Perform tableaction.
         $.post(callpath, senddata, function (data) {
@@ -237,7 +237,7 @@ $(document).ready(function() {
                 });
             }, 2500);
 
-            $('#advanced_notifications_table_wrapper').load('# #advanced_notifications_table_wrapper > *');
+            $('#advnotifications_table_wrapper').load('# #advnotifications_table_wrapper > *');
         });
     });
 
@@ -266,7 +266,7 @@ $(document).ready(function() {
         previewalert.removeClass('alert-warning');
         previewalert.addClass('alert-' + alerttype);
 
-        $('.preview-icon').find('> img').attr('src', M.cfg.wwwroot + '/blocks/advanced_notifications/pix/' + alerttype + '.png')
+        $('.preview-icon').find('> img').attr('src', M.cfg.wwwroot + '/blocks/advnotifications/pix/' + alerttype + '.png')
     });
 
     $('#add_notification_dismissible').on('change', function() {

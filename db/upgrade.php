@@ -28,16 +28,16 @@
  * @throws downgrade_exception
  * @throws upgrade_exception
  */
-function xmldb_block_advanced_notifications_upgrade($oldversion) {
+function xmldb_block_advnotifications_upgrade($oldversion) {
     global $DB;
     $dbman = $DB->get_manager();
 
     if ($oldversion < 201607071321) {
 
-        // Define table block_advanced_notifications to be created.
-        $table = new xmldb_table('block_advanced_notifications');
+        // Define table block_advnotifications to be created.
+        $table = new xmldb_table('block_advnotifications');
 
-        // Adding fields to table block_advanced_notifications.
+        // Adding fields to table block_advnotifications.
         $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
         $table->add_field('title', XMLDB_TYPE_TEXT, null, null, null, null, null);
         $table->add_field('message', XMLDB_TYPE_TEXT, null, null, null, null, null);
@@ -53,34 +53,34 @@ function xmldb_block_advanced_notifications_upgrade($oldversion) {
         $table->add_field('deleted', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, null);
         $table->add_field('deleted_at', XMLDB_TYPE_INTEGER, '11', null, XMLDB_NOTNULL, null, '0000000000');
 
-        // Adding keys to table block_advanced_notifications.
+        // Adding keys to table block_advnotifications.
         $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
 
-        // Conditionally launch create table for block_advanced_notifications.
+        // Conditionally launch create table for block_advnotifications.
         if (!$dbman->table_exists($table)) {
             $dbman->create_table($table);
         }
 
-        // Define table block_advanced_notifications_dismissed to be created.
-        $table = new xmldb_table('block_advanced_notifications_dismissed');
+        // Define table block_advnotifications_dismissed to be created.
+        $table = new xmldb_table('block_advnotifications_dismissed');
 
-        // Adding fields to table block_advanced_notifications_dismissed.
+        // Adding fields to table block_advnotifications_dismissed.
         $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
         $table->add_field('user_id', XMLDB_TYPE_INTEGER, '20', null, XMLDB_NOTNULL, null, null);
         $table->add_field('not_id', XMLDB_TYPE_INTEGER, '20', null, XMLDB_NOTNULL, null, null);
         $table->add_field('dismissed', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, null);
         $table->add_field('seen', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '0');
 
-        // Adding keys to table block_advanced_notifications_dismissed.
+        // Adding keys to table block_advnotifications_dismissed.
         $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
 
-        // Conditionally launch create table for block_advanced_notifications_dismissed.
+        // Conditionally launch create table for block_advnotifications_dismissed.
         if (!$dbman->table_exists($table)) {
             $dbman->create_table($table);
         }
 
-        // Advanced_notifications savepoint reached.
-        upgrade_block_savepoint(true, 201607071321, 'advanced_notifications');
+        // Advnotifications savepoint reached.
+        upgrade_block_savepoint(true, 201607071321, 'advnotifications');
     }
 
 }

@@ -24,7 +24,7 @@
 /**
  * Advanced Notifications Renderer
  *
- * @package    block_advanced_notifications
+ * @package    block_advnotifications
  * @copyright  LearningWorks Ltd
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -33,7 +33,7 @@ defined('MOODLE_INTERNAL') || die;
 // Load in Moodle config.
 require_once(dirname(dirname(dirname(__FILE__))) . '/config.php');
 
-class block_advanced_notifications_renderer extends plugin_renderer_base
+class block_advnotifications_renderer extends plugin_renderer_base
 {
 
     public function render_notification($instanceid) {
@@ -50,7 +50,7 @@ class block_advanced_notifications_renderer extends plugin_renderer_base
         $conditions['enabled'] = 1;
 
         // Get notifications with conditions from above.
-        $allnotifications = $DB->get_records('block_advanced_notifications', $conditions);
+        $allnotifications = $DB->get_records('block_advnotifications', $conditions);
 
         $html = '';
 
@@ -61,7 +61,7 @@ class block_advanced_notifications_renderer extends plugin_renderer_base
 
             // DO NOT CHANGE THIS IF YOU DO A RENDER OVERRIDE - START to END.
             // START.
-            $userseen = $DB->get_record('block_advanced_notifications_dismissed',
+            $userseen = $DB->get_record('block_advnotifications_dismissed',
                                         array('user_id' => $USER->id, 'not_id' => $notification->id)
             );
 
@@ -98,13 +98,13 @@ class block_advanced_notifications_renderer extends plugin_renderer_base
                     $seenrecord->dismissed = 0;
                     $seenrecord->seen = 1;
 
-                    $DB->insert_record('block_advanced_notifications_dismissed', $seenrecord);
+                    $DB->insert_record('block_advnotifications_dismissed', $seenrecord);
                 } else {
                     $upseenrecord = new stdClass();
                     $upseenrecord->id = $userseen->id;
                     $upseenrecord->seen = $userseen->seen + 1;
 
-                    $DB->update_record('block_advanced_notifications_dismissed', $upseenrecord);
+                    $DB->update_record('block_advnotifications_dismissed', $upseenrecord);
                 }
 
                 // END (close if).
@@ -156,7 +156,7 @@ class block_advanced_notifications_renderer extends plugin_renderer_base
                             <div class="alert alert-' . $alerttype . '">';
 
                 if (!empty($notification->icon) && $notification->icon == 1) {
-                    $pixurl = $CFG->wwwroot . '/blocks/advanced_notifications/pix/' . $icon . '.png';
+                    $pixurl = $CFG->wwwroot . '/blocks/advnotifications/pix/' . $icon . '.png';
 
                     // Check if pixurl is set? TODO Check needed?
                     if ($pixurl != false) {
@@ -198,53 +198,53 @@ class block_advanced_notifications_renderer extends plugin_renderer_base
         // New Notification Form.
         $html .= '<div id="add_notification_wrapper_id" class="add_notification_wrapper' . $extraclasses . '">
                     <div class="add_notification_header"><h2>' .
-                        get_string('advanced_notifications_add_heading', 'block_advanced_notifications') .
+                        get_string('advnotifications_add_heading', 'block_advnotifications') .
                         '</h2>
                     </div>
                     <div class="add_notification_form_wrapper">
                         <form id="add_notification_form" action="' . $CFG->wwwroot .
-                            '/blocks/advanced_notifications/pages/process.php" method="POST">';
+                            '/blocks/advnotifications/pages/process.php" method="POST">';
 
         // Form inputs.
         $html .= '          <input type="checkbox" id="add_notification_enable" name="enable"/>
                             <label for="add_notification_enable">' .
-                                get_string('advanced_notifications_enable', 'block_advanced_notifications') .
+                                get_string('advnotifications_enable', 'block_advnotifications') .
                             '</label><br>' .
                             ((array_key_exists('blockid', $params)) ? '
                             <input type="checkbox" id="add_notification_global" name="global"/>
                             <label for="add_notification_global">' .
-                                    get_string('advanced_notifications_global', 'block_advanced_notifications') .
+                                    get_string('advnotifications_global', 'block_advnotifications') .
                                 '</label><br>
                             <input type="hidden" id="add_notification_blockid" name="blockid" value="' . $params['blockid'] .
                                 '"/>' : '
                             <input type="hidden" id="add_notification_global" name="global" value="1"/>') .
                             '<input type="text" id="add_notification_title" name="title" placeholder="' .
-                                get_string('advanced_notifications_title', 'block_advanced_notifications') . '"/><br>
+                                get_string('advnotifications_title', 'block_advnotifications') . '"/><br>
                             <input type="text" id="add_notification_message" name="message" placeholder="' .
-                                get_string('advanced_notifications_message', 'block_advanced_notifications') . '"/><br>
+                                get_string('advnotifications_message', 'block_advnotifications') . '"/><br>
                             <select id="add_notification_type" name="type" required>
                                 <option selected disabled>' .
-                                    get_string('advanced_notifications_type', 'block_advanced_notifications') .
+                                    get_string('advnotifications_type', 'block_advnotifications') .
                                 '</option>
                                 <option value="info">' .
-                                    get_string('advanced_notifications_add_option_info', 'block_advanced_notifications') .
+                                    get_string('advnotifications_add_option_info', 'block_advnotifications') .
                                 '</option>
                                 <option value="success">' .
-                                    get_string('advanced_notifications_add_option_success', 'block_advanced_notifications') .
+                                    get_string('advnotifications_add_option_success', 'block_advnotifications') .
                                 '</option>
                                 <option value="warning">' .
-                                    get_string('advanced_notifications_add_option_warning', 'block_advanced_notifications') .
+                                    get_string('advnotifications_add_option_warning', 'block_advnotifications') .
                                 '</option>
                                 <option value="danger">' .
-                                    get_string('advanced_notifications_add_option_danger', 'block_advanced_notifications') .
+                                    get_string('advnotifications_add_option_danger', 'block_advnotifications') .
                                 '</option>
                                 <option value="announcement">' .
-                                    get_string('advanced_notifications_add_option_announcement', 'block_advanced_notifications') .
+                                    get_string('advnotifications_add_option_announcement', 'block_advnotifications') .
                                 '</option>
                             </select><br>
                             <select id="add_notification_times" name="times" required>
                                 <option selected disabled>' .
-                                    get_string('advanced_notifications_times', 'block_advanced_notifications') . '</option>
+                                    get_string('advnotifications_times', 'block_advnotifications') . '</option>
                                 <option value="0">0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -257,30 +257,30 @@ class block_advanced_notifications_renderer extends plugin_renderer_base
                                 <option value="9">9</option>
                                 <option value="10">10</option>
                             </select><label for="add_notification_times_label">' .
-                                get_string('advanced_notifications_times_label', 'block_advanced_notifications') . '</label><br>
+                                get_string('advnotifications_times_label', 'block_advnotifications') . '</label><br>
                             <input type="checkbox" id="add_notification_icon" name="icon"/><label for="add_notification_icon">' .
-                                get_string('advanced_notifications_icon', 'block_advanced_notifications') . '</label><br>
+                                get_string('advnotifications_icon', 'block_advnotifications') . '</label><br>
                             <input type="checkbox" id="add_notification_dismissible" name="dismissible"/>
                             <label for="add_notification_dismissible">' .
-                                get_string('advanced_notifications_dismissible', 'block_advanced_notifications') . '</label><br>
+                                get_string('advnotifications_dismissible', 'block_advnotifications') . '</label><br>
                             <label for="add_notification_date_from">' .
-                                get_string('advanced_notifications_date_from', 'block_advanced_notifications') . '</label>
+                                get_string('advnotifications_date_from', 'block_advnotifications') . '</label>
                             <input type="date" id="add_notification_date_from" name="date_from" placeholder="dd/mm/yyyy"/>
                             &nbsp;&nbsp;&nbsp;&nbsp;<label for="add_notification_to">' .
-                                get_string('advanced_notifications_date_to', 'block_advanced_notifications') . '</label>
+                                get_string('advnotifications_date_to', 'block_advnotifications') . '</label>
                             <input type="date" id="add_notification_date_to" name="date_to" placeholder="dd/mm/yyyy"/><br>
                             <input type="hidden" id="add_notification_sesskey" name="sesskey" value="' . sesskey() . '"/>
                             <input type="submit" id="add_notification_save" name="save" value="' .
-                                get_string('advanced_notifications_save', 'block_advanced_notifications') . '"/>
+                                get_string('advnotifications_save', 'block_advnotifications') . '"/>
                             &nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="add_notification_cancel" class="btn" name="cancel">' .
-                                get_string('advanced_notifications_cancel', 'block_advanced_notifications') . '</a><br>
+                                get_string('advnotifications_cancel', 'block_advnotifications') . '</a><br>
                             <div id="add_notification_status">
                                 <div class="signal"></div>
                                 <div class="saving">' .
-                                    get_string('advanced_notifications_add_saving', 'block_advanced_notifications') .
+                                    get_string('advnotifications_add_saving', 'block_advnotifications') .
                                 '</div>
                                 <div class="done">' .
-                                    get_string('advanced_notifications_add_done', 'block_advanced_notifications') .
+                                    get_string('advnotifications_add_done', 'block_advnotifications') .
                                 '</div>
                             </div>';
 

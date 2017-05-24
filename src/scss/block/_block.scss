@@ -1,6 +1,6 @@
 // Displaying the actual block/notification.
 body {
-  .block.block_advanced_notifications {
+  .block.block_advnotifications {
     box-shadow: none;
     margin-bottom: 0;
     min-height: 0;
@@ -45,7 +45,7 @@ body {
     }
   }
   &:not(.editing) {
-    .block.block_advanced_notifications {
+    .block.block_advnotifications {
       .header {
         display: none;
       }

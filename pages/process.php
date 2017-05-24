@@ -29,14 +29,14 @@ try {
 } catch (EXCEPTION $e) {
     header('HTTP/1.0 403 Forbidden');
     echo json_encode(array("result" => "Failed",
-                            "Notification" => get_string('advanced_notifications_err_forbidden', 'block_advanced_notifications')));
+                            "Notification" => get_string('advnotifications_err_forbidden', 'block_advnotifications')));
     exit();
 }
 
 $context = context_system::instance();
 
-if ( !has_capability('block/advanced_notifications:managenotifications', $context) ) {
-    require_capability('block/advanced_notifications:managenotifications', $context);
+if ( !has_capability('block/advnotifications:managenotifications', $context) ) {
+    require_capability('block/advnotifications:managenotifications', $context);
 }
 
 header('HTTP/1.0 200 OK');
@@ -77,7 +77,7 @@ if (isset($delete) && $delete != "") {
     $drow->id = $delete;
     $drow->deleted = 1;
 
-    $deletedrowid = $DB->update_record('block_advanced_notifications', $drow);
+    $deletedrowid = $DB->update_record('block_advnotifications', $drow);
 
     echo json_encode("D: Successful");
     exit();
@@ -90,7 +90,7 @@ if (isset($edit) && $edit != "") {
 
     $erow->id = $edit;
 
-    $editedrowid = $DB->get_record('block_advanced_notifications', $erow);
+    $editedrowid = $DB->get_record('block_advnotifications', $erow);
 
     echo json_encode("E: Successful");
     exit();
@@ -107,7 +107,7 @@ if (isset($global) && $global != "") {
 }
 
 // Check if notifications are enabled 'globally'.
-if (get_config('block_advanced_notifications', 'enable') == 1) {
+if (get_config('block_advnotifications', 'enable') == 1) {
 
     // NEW NOTIFICATION.
     // Change to checkbox values to integers for DB - another level of security.
@@ -139,10 +139,10 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
         $tableaction = optional_param('tableaction', null, PARAM_TEXT);
 
         if (isset($dismiss) && $dismiss != '') {
-            $notification = $DB->get_record('block_advanced_notifications',
+            $notification = $DB->get_record('block_advnotifications',
                                             array('id' => $dismiss)
             );
-            $userdissed = $DB->get_record('block_advanced_notifications_dismissed',
+            $userdissed = $DB->get_record('block_advnotifications_dismissed',
                                             array('user_id' => $USER->id, 'not_id' => $dismiss)
             );
 
@@ -155,13 +155,13 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
                 $seenrecord->dismissed = 1;
                 $seenrecord->seen = 1;
 
-                $DB->insert_record('block_advanced_notifications_dismissed', $seenrecord);
+                $DB->insert_record('block_advnotifications_dismissed', $seenrecord);
             } else {
                 $upseenrecord = new stdClass();
                 $upseenrecord->id = $userdissed->id;
                 $upseenrecord->dismissed = 1;
 
-                $DB->update_record('block_advanced_notifications_dismissed', $upseenrecord);
+                $DB->update_record('block_advnotifications_dismissed', $upseenrecord);
             }
 
             echo json_encode("Di: Successful");
@@ -172,7 +172,7 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
         // this is the new AJAX/JS deletion/editing method.
         if (isset($tableaction) && $tableaction != '') {
             if ($purpose == 'edit') {
-                $enotification = $DB->get_record('block_advanced_notifications', array('id' => $tableaction));
+                $enotification = $DB->get_record('block_advnotifications', array('id' => $tableaction));
 
                 $enotification->date_from = date('Y-m-d', $enotification->date_from);
                 $enotification->date_to = date('Y-m-d', $enotification->date_to);
@@ -185,7 +185,7 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
                 $dnotification->deleted = 1;
                 $dnotification->deleted_at = time();
 
-                $DB->update_record('block_advanced_notifications', $dnotification);
+                $DB->update_record('block_advnotifications', $dnotification);
 
                 echo json_encode(array("done" => $tableaction));
                 exit();
@@ -195,12 +195,12 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
                 $rnotification->deleted = 0;
                 $rnotification->deleted_at = 0;
 
-                $DB->update_record('block_advanced_notifications', $rnotification);
+                $DB->update_record('block_advnotifications', $rnotification);
 
                 echo json_encode(array("done" => $tableaction));
                 exit();
             } else if ($purpose == 'permdelete') {
-                $DB->delete_records('block_advanced_notifications', array('id' => $tableaction));
+                $DB->delete_records('block_advnotifications', array('id' => $tableaction));
 
                 echo json_encode(array("done" => $tableaction));
                 exit();
@@ -228,7 +228,7 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
             $urow->date_to = $dateto;
             $urow->times = $times;
 
-            $DB->update_record('block_advanced_notifications', $urow);
+            $DB->update_record('block_advnotifications', $urow);
 
             echo json_encode(array("updated" => $title));
             exit();
@@ -256,7 +256,7 @@ if (get_config('block_advanced_notifications', 'enable') == 1) {
         $row->deleted = 0;
         $row->deleted_at = 0;
 
-        $DB->insert_record('block_advanced_notifications', $row);
+        $DB->insert_record('block_advnotifications', $row);
 
         // Return Successful.
         echo json_encode("I: Successful");

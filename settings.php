@@ -29,22 +29,22 @@ if ($ADMIN->fulltree) {
     // SETTINGS' NAVIGATIONAL LINKS HEADING & LINKS.
     $settings->add(
         new admin_setting_heading(
-            'block_advanced_notifications/navigation',                                              // NAME.
-            get_string('setting/navigation', 'block_advanced_notifications'),                       // TITLE.
+            'block_advnotifications/navigation',                                              // NAME.
+            get_string('setting/navigation', 'block_advnotifications'),                       // TITLE.
             get_string('setting/navigation_desc',
-                        'block_advanced_notifications',
+                        'block_advnotifications',
                         array('manage' => '<a class="btn instance" href="' . $CFG->wwwroot .
-                            '/blocks/advanced_notifications/pages/notifications.php">Manage</a>',
+                            '/blocks/advnotifications/pages/notifications.php">Manage</a>',
                             'restore' => '<a class="btn instance" href="' . $CFG->wwwroot .
-                                '/blocks/advanced_notifications/pages/restore.php">Restore</a>'))   // DESCRIPTION.
+                                '/blocks/advnotifications/pages/restore.php">Restore</a>'))   // DESCRIPTION.
         )
     );
 
     // SETTINGS HEADING.
     $settings->add(
         new admin_setting_heading(
-            'block_advanced_notifications/settings',                                                // NAME.
-            get_string('setting/settings', 'block_advanced_notifications'),                         // TITLE.
+            'block_advnotifications/settings',                                                // NAME.
+            get_string('setting/settings', 'block_advnotifications'),                         // TITLE.
             null
         )
     );
@@ -52,40 +52,40 @@ if ($ADMIN->fulltree) {
     // ENABLE TOGGLE.
     $settings->add(
         new admin_setting_configcheckbox(
-            'block_advanced_notifications/enable',                                                  // NAME.
-            get_string('setting/enable', 'block_advanced_notifications'),                           // TITLE.
-            get_string('setting/enable_desc', 'block_advanced_notifications'),                      // DESCRIPTION.
-            get_string('setting/enable_default', 'block_advanced_notifications')                    // DEFAULT.
+            'block_advnotifications/enable',                                                  // NAME.
+            get_string('setting/enable', 'block_advnotifications'),                           // TITLE.
+            get_string('setting/enable_desc', 'block_advnotifications'),                      // DESCRIPTION.
+            get_string('setting/enable_default', 'block_advnotifications')                    // DEFAULT.
         )
     );
 
     // AUTO-PERMADELETE OLD DELETED NOTIFICATIONS.
     $settings->add(
         new admin_setting_configcheckbox(
-            'block_advanced_notifications/auto_perma_delete',                                       // NAME.
-            get_string('setting/auto_perma_delete', 'block_advanced_notifications'),                // TITLE.
-            get_string('setting/auto_perma_delete_desc', 'block_advanced_notifications'),           // DESCRIPTION.
-            get_string('setting/auto_perma_delete_default', 'block_advanced_notifications')         // DEFAULT.
+            'block_advnotifications/auto_perma_delete',                                       // NAME.
+            get_string('setting/auto_perma_delete', 'block_advnotifications'),                // TITLE.
+            get_string('setting/auto_perma_delete_desc', 'block_advnotifications'),           // DESCRIPTION.
+            get_string('setting/auto_perma_delete_default', 'block_advnotifications')         // DEFAULT.
         )
     );
 
     // AUTO-DELETE TOGGLE.
     $settings->add(
         new admin_setting_configcheckbox(
-            'block_advanced_notifications/auto_delete',                                             // NAME.
-            get_string('setting/auto_delete', 'block_advanced_notifications'),                      // TITLE.
-            get_string('setting/auto_delete_desc', 'block_advanced_notifications'),                 // DESCRIPTION.
-            get_string('setting/auto_delete_default', 'block_advanced_notifications')               // DEFAULT.
+            'block_advnotifications/auto_delete',                                             // NAME.
+            get_string('setting/auto_delete', 'block_advnotifications'),                      // TITLE.
+            get_string('setting/auto_delete_desc', 'block_advnotifications'),                 // DESCRIPTION.
+            get_string('setting/auto_delete_default', 'block_advnotifications')               // DEFAULT.
         )
     );
 
     // AUTO-DELETE USER DATA TOGGLE.
     $settings->add(
         new admin_setting_configcheckbox(
-            'block_advanced_notifications/auto_delete_user_data',                                   // NAME.
-            get_string('setting/auto_delete_user_data', 'block_advanced_notifications'),            // TITLE.
-            get_string('setting/auto_delete_user_data_desc', 'block_advanced_notifications'),       // DESCRIPTION.
-            get_string('setting/auto_delete_user_data_default', 'block_advanced_notifications')     // DEFAULT.
+            'block_advnotifications/auto_delete_user_data',                                   // NAME.
+            get_string('setting/auto_delete_user_data', 'block_advnotifications'),            // TITLE.
+            get_string('setting/auto_delete_user_data_desc', 'block_advnotifications'),       // DESCRIPTION.
+            get_string('setting/auto_delete_user_data_default', 'block_advnotifications')     // DEFAULT.
         )
     );
 
