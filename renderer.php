@@ -189,7 +189,7 @@ class block_advnotifications_renderer extends plugin_renderer_base
 
         $extraclasses = '';
         // If user wants to create a new notification.
-        if ($params['new'] === 1) {
+        if (isset($params['new']) && $params['new'] === 1) {
             $extraclasses .= ' new';
         }
 

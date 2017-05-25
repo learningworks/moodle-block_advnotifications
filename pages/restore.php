@@ -69,7 +69,7 @@ if ( !has_capability('block/advnotifications:managenotifications', $context) ) {
 
 // Set the layout - allows for customisation.
 // Moodle automatically falls back to the "standard" layout if this is not in the theme's config.php "layouts" array.
-$PAGE->set_pagelayout('adv_notifications');
+// $PAGE->set_pagelayout('adv_notifications'); Removed to avoid notices
 
 $table = new advnotifications_restore_table('advnotifications-list-restore');
 $table->is_downloading($download, 'advnotifications-list-restore', 'Advanced Notifications List Restore');

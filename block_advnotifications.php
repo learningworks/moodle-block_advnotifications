@@ -18,6 +18,7 @@ class block_advnotifications extends block_base
 {
     public function init() {
         global $CFG, $PAGE;
+        $PAGE->requires->jquery();
         $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/blocks/advnotifications/javascript/custom.js'));
         $this->title = get_string('advnotifications', 'block_advnotifications');
     }
@@ -25,6 +26,8 @@ class block_advnotifications extends block_base
     public function get_content() {
         global $PAGE;
         if (get_config('block_advnotifications', 'enable')) {
+            $this->content = new stdClass();
+
             // Get the renderer for this page.
             $renderer = $PAGE->get_renderer('block_advnotifications');
             $html = $renderer->render_notification($this->instance->id);
