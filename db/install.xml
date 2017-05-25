@@ -22,7 +22,7 @@
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="block_advnotifications_dismissed" COMMENT="Keeps track of user interaction with advanced notifications">
+    <TABLE NAME="block_advnotificationsdissed" COMMENT="Keeps track of user interaction with advanced notifications">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="user_id" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="User related to occurrence of notification"/>

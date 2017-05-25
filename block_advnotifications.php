@@ -69,7 +69,7 @@ class block_advnotifications extends block_base
 
     /**
      * Remove old (or deleted) notifications from table block_advnotifications & cleanup table
-     * block_advnotifications_dismissed
+     * block_advnotificationsdissed
      */
     public function cron() {
         global $DB;
@@ -113,11 +113,11 @@ class block_advnotifications extends block_base
 
             // Remove user records that relates to notifications that don't exist anymore.
             $todelete = $DB->get_records_sql('SELECT band.id
-                                            FROM {block_advnotifications_dismissed} band
+                                            FROM {block_advnotificationsdissed} band
                                             LEFT JOIN {block_advnotifications} ban ON band.not_id = ban.id
                                             WHERE ban.id IS NULL');
 
-            $DB->delete_records_list('block_advnotifications_dismissed',
+            $DB->delete_records_list('block_advnotificationsdissed',
                                         'id',
                                         array_keys((array)$todelete)
             );

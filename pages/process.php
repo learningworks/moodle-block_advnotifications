@@ -142,7 +142,7 @@ if (get_config('block_advnotifications', 'enable') == 1) {
             $notification = $DB->get_record('block_advnotifications',
                                             array('id' => $dismiss)
             );
-            $userdissed = $DB->get_record('block_advnotifications_dismissed',
+            $userdissed = $DB->get_record('block_advnotificationsdissed',
                                             array('user_id' => $USER->id, 'not_id' => $dismiss)
             );
 
@@ -155,13 +155,13 @@ if (get_config('block_advnotifications', 'enable') == 1) {
                 $seenrecord->dismissed = 1;
                 $seenrecord->seen = 1;
 
-                $DB->insert_record('block_advnotifications_dismissed', $seenrecord);
+                $DB->insert_record('block_advnotificationsdissed', $seenrecord);
             } else {
                 $upseenrecord = new stdClass();
                 $upseenrecord->id = $userdissed->id;
                 $upseenrecord->dismissed = 1;
 
-                $DB->update_record('block_advnotifications_dismissed', $upseenrecord);
+                $DB->update_record('block_advnotificationsdissed', $upseenrecord);
             }
 
             echo json_encode("Di: Successful");

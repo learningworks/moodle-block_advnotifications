@@ -61,7 +61,7 @@ class block_advnotifications_renderer extends plugin_renderer_base
 
             // DO NOT CHANGE THIS IF YOU DO A RENDER OVERRIDE - START to END.
             // START.
-            $userseen = $DB->get_record('block_advnotifications_dismissed',
+            $userseen = $DB->get_record('block_advnotificationsdissed',
                                         array('user_id' => $USER->id, 'not_id' => $notification->id)
             );
 
@@ -98,13 +98,13 @@ class block_advnotifications_renderer extends plugin_renderer_base
                     $seenrecord->dismissed = 0;
                     $seenrecord->seen = 1;
 
-                    $DB->insert_record('block_advnotifications_dismissed', $seenrecord);
+                    $DB->insert_record('block_advnotificationsdissed', $seenrecord);
                 } else {
                     $upseenrecord = new stdClass();
                     $upseenrecord->id = $userseen->id;
                     $upseenrecord->seen = $userseen->seen + 1;
 
-                    $DB->update_record('block_advnotifications_dismissed', $upseenrecord);
+                    $DB->update_record('block_advnotificationsdissed', $upseenrecord);
                 }
 
                 // END (close if).

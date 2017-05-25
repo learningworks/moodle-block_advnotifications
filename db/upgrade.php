@@ -61,20 +61,20 @@ function xmldb_block_advnotifications_upgrade($oldversion) {
             $dbman->create_table($table);
         }
 
-        // Define table block_advnotifications_dismissed to be created.
-        $table = new xmldb_table('block_advnotifications_dismissed');
+        // Define table block_advnotificationsdissed to be created.
+        $table = new xmldb_table('block_advnotificationsdissed');
 
-        // Adding fields to table block_advnotifications_dismissed.
+        // Adding fields to table block_advnotificationsdissed.
         $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
         $table->add_field('user_id', XMLDB_TYPE_INTEGER, '20', null, XMLDB_NOTNULL, null, null);
         $table->add_field('not_id', XMLDB_TYPE_INTEGER, '20', null, XMLDB_NOTNULL, null, null);
         $table->add_field('dismissed', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, null);
         $table->add_field('seen', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '0');
 
-        // Adding keys to table block_advnotifications_dismissed.
+        // Adding keys to table block_advnotificationsdissed.
         $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
 
-        // Conditionally launch create table for block_advnotifications_dismissed.
+        // Conditionally launch create table for block_advnotificationsdissed.
         if (!$dbman->table_exists($table)) {
             $dbman->create_table($table);
         }
