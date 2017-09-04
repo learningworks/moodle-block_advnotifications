@@ -15,18 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Created by LearningWorksLtd
- * Date: 4/07/16
- * Time: 1:44 PM
+ * Executes on plugin upgrade.
+ *
+ * @package    block_advnotifications
+ * @copyright  2016 onwards LearningWorks Ltd {@link https://learningworks.co.nz/}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author     Zander Potgieter <zander.potgieter@learningworks.co.nz>
  */
 
+defined('MOODLE_INTERNAL') || die;
+
+
 /**
- * @param $oldversion
- * @return bool
- * @throws ddl_exception
- * @throws ddl_table_missing_exception
- * @throws downgrade_exception
- * @throws upgrade_exception
+ * When upgrading plugin, execute the following code.
+ *
+ * @param int $oldversion - previous version of plugin (from DB).
  */
 function xmldb_block_advnotifications_upgrade($oldversion) {
     global $DB;

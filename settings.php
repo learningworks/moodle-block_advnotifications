@@ -15,9 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Created by LearningWorks Ltd
- * Date: 5/07/16
- * Time: 2:49 PM
+ * Advanced Notifications block settings
+ *
+ * @package    block_advnotifications
+ * @copyright  2016 onwards LearningWorks Ltd {@link https://learningworks.co.nz/}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author     Zander Potgieter <zander.potgieter@learningworks.co.nz>
  */
 
 defined('MOODLE_INTERNAL') || die;
@@ -29,22 +32,21 @@ if ($ADMIN->fulltree) {
     // SETTINGS' NAVIGATIONAL LINKS HEADING & LINKS.
     $settings->add(
         new admin_setting_heading(
-            'block_advnotifications/navigation',                                              // NAME.
-            get_string('setting/navigation', 'block_advnotifications'),                       // TITLE.
-            get_string('setting/navigation_desc',
-                        'block_advnotifications',
+            'block_advnotifications/navigation',                                                            // NAME.
+            get_string('setting/navigation', 'block_advnotifications'),                                     // TITLE.
+                        get_string('setting/navigation_desc', 'block_advnotifications',
                         array('manage' => '<a class="btn instance" href="' . $CFG->wwwroot .
                             '/blocks/advnotifications/pages/notifications.php">Manage</a>',
                             'restore' => '<a class="btn instance" href="' . $CFG->wwwroot .
-                                '/blocks/advnotifications/pages/restore.php">Restore</a>'))   // DESCRIPTION.
+                                '/blocks/advnotifications/pages/restore.php">Restore</a>'))                 // DESCRIPTION.
         )
     );
 
     // SETTINGS HEADING.
     $settings->add(
         new admin_setting_heading(
-            'block_advnotifications/settings',                                                // NAME.
-            get_string('setting/settings', 'block_advnotifications'),                         // TITLE.
+            'block_advnotifications/settings',                                                              // NAME.
+            get_string('setting/settings', 'block_advnotifications'),                                       // TITLE.
             null
         )
     );
@@ -52,41 +54,40 @@ if ($ADMIN->fulltree) {
     // ENABLE TOGGLE.
     $settings->add(
         new admin_setting_configcheckbox(
-            'block_advnotifications/enable',                                                  // NAME.
-            get_string('setting/enable', 'block_advnotifications'),                           // TITLE.
-            get_string('setting/enable_desc', 'block_advnotifications'),                      // DESCRIPTION.
-            get_string('setting/enable_default', 'block_advnotifications')                    // DEFAULT.
+            'block_advnotifications/enable',                                                                // NAME.
+            get_string('setting/enable', 'block_advnotifications'),                                         // TITLE.
+            get_string('setting/enable_desc', 'block_advnotifications'),                                    // DESCRIPTION.
+            get_string('setting/enable_default', 'block_advnotifications')                                  // DEFAULT.
         )
     );
 
     // AUTO-PERMADELETE OLD DELETED NOTIFICATIONS.
     $settings->add(
         new admin_setting_configcheckbox(
-            'block_advnotifications/auto_perma_delete',                                       // NAME.
-            get_string('setting/auto_perma_delete', 'block_advnotifications'),                // TITLE.
-            get_string('setting/auto_perma_delete_desc', 'block_advnotifications'),           // DESCRIPTION.
-            get_string('setting/auto_perma_delete_default', 'block_advnotifications')         // DEFAULT.
+            'block_advnotifications/auto_perma_delete',                                                     // NAME.
+            get_string('setting/auto_perma_delete', 'block_advnotifications'),                              // TITLE.
+            get_string('setting/auto_perma_delete_desc', 'block_advnotifications'),                         // DESCRIPTION.
+            get_string('setting/auto_perma_delete_default', 'block_advnotifications')                       // DEFAULT.
         )
     );
 
     // AUTO-DELETE TOGGLE.
     $settings->add(
         new admin_setting_configcheckbox(
-            'block_advnotifications/auto_delete',                                             // NAME.
-            get_string('setting/auto_delete', 'block_advnotifications'),                      // TITLE.
-            get_string('setting/auto_delete_desc', 'block_advnotifications'),                 // DESCRIPTION.
-            get_string('setting/auto_delete_default', 'block_advnotifications')               // DEFAULT.
+            'block_advnotifications/auto_delete',                                                           // NAME.
+            get_string('setting/auto_delete', 'block_advnotifications'),                                    // TITLE.
+            get_string('setting/auto_delete_desc', 'block_advnotifications'),                               // DESCRIPTION.
+            get_string('setting/auto_delete_default', 'block_advnotifications')                             // DEFAULT.
         )
     );
 
     // AUTO-DELETE USER DATA TOGGLE.
     $settings->add(
         new admin_setting_configcheckbox(
-            'block_advnotifications/auto_delete_user_data',                                   // NAME.
-            get_string('setting/auto_delete_user_data', 'block_advnotifications'),            // TITLE.
-            get_string('setting/auto_delete_user_data_desc', 'block_advnotifications'),       // DESCRIPTION.
-            get_string('setting/auto_delete_user_data_default', 'block_advnotifications')     // DEFAULT.
+            'block_advnotifications/auto_delete_user_data',                                                 // NAME.
+            get_string('setting/auto_delete_user_data', 'block_advnotifications'),                          // TITLE.
+            get_string('setting/auto_delete_user_data_desc', 'block_advnotifications'),                     // DESCRIPTION.
+            get_string('setting/auto_delete_user_data_default', 'block_advnotifications')                   // DEFAULT.
         )
     );
-
 }

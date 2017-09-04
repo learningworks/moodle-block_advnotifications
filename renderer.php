@@ -15,27 +15,37 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Created by LearningWorks Ltd
- * Date: 4/07/16
- * Time: 4:44 PM
- */
-
-
-/**
- * Advanced Notifications Renderer
+ * Advanced Notifications renderer - what gets displayed
  *
  * @package    block_advnotifications
- * @copyright  LearningWorks Ltd
+ * @copyright  2016 onwards LearningWorks Ltd {@link https://learningworks.co.nz/}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author     Zander Potgieter <zander.potgieter@learningworks.co.nz>
  */
+
 defined('MOODLE_INTERNAL') || die;
 
 // Load in Moodle config.
 require_once(dirname(dirname(dirname(__FILE__))) . '/config.php');
 
+require_login();
+
+/**
+ * Renders notifications.
+ *
+ * @copyright  2016 onwards LearningWorks Ltd {@link https://learningworks.co.nz/}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class block_advnotifications_renderer extends plugin_renderer_base
 {
 
+
+    /**
+     * Renders notification on page.
+     *
+     * @param int $instanceid - block instance id.
+     * @return string - returns HTML to render notification.
+     */
     public function render_notification($instanceid) {
         global $DB, $USER, $CFG;
 
@@ -184,6 +194,12 @@ class block_advnotifications_renderer extends plugin_renderer_base
         return $html;
     }
 
+    /**
+     * Render interface to add a notification.
+     *
+     * @param array $params - passes information such whether notification is new or the block's instance id.
+     * @return string - returns HTML to render (add notification form HTML).
+     */
     public function add_notification($params) {
         global $CFG;
 

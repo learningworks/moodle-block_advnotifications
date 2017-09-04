@@ -14,8 +14,29 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Block for displaying notifications to users.
+ *
+ * @package    block_advnotifications
+ * @copyright  2016 onwards LearningWorks Ltd {@link https://learningworks.co.nz/}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author     Zander Potgieter <zander.potgieter@learningworks.co.nz>
+ */
+
+defined('MOODLE_INTERNAL') || die;
+
+
+/**
+ * Class block_advnotifications extends base blocks class. Initialise and render notifications.
+ *
+ * @copyright  2016 onwards LearningWorks Ltd {@link https://learningworks.co.nz/}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class block_advnotifications extends block_base
 {
+    /**
+     * Initialise block, load JS, set title.
+     */
     public function init() {
         global $CFG, $PAGE;
         $PAGE->requires->jquery();
@@ -23,6 +44,11 @@ class block_advnotifications extends block_base
         $this->title = get_string('advnotifications', 'block_advnotifications');
     }
 
+    /**
+     * Get and render content of block.
+     *
+     * @return bool|stdClass|stdObject
+     */
     public function get_content() {
         global $PAGE;
         if (get_config('block_advnotifications', 'enable')) {
@@ -43,16 +69,31 @@ class block_advnotifications extends block_base
     /* TODO | This was only added to suppress an 'error' that would occur, as get_content would be called twice,
     *  TODO | which affects the DB calls when we record the number of times an user has seen the notification.
     */
+    /**
+     * Set block as not being empty.
+     *
+     * @return bool
+     */
     public function is_empty() {
         return false;
     }
 
+    /**
+     * Allow multiple instances of the block throughout the site.
+     *
+     * @return bool
+     */
     public function instance_allow_multiple() {
         // Are you going to allow multiple instances of each block?
         // If yes, then it is assumed that the block WILL use per-instance configuration.
         return true;
     }
 
+    /**
+     * HTML attributes such as 'class' or 'title' can be injected into the block.
+     *
+     * @return array
+     */
     public function html_attributes() {
         $attributes = parent::html_attributes();
 
@@ -65,8 +106,24 @@ class block_advnotifications extends block_base
 
     /**
      * Specifies that block has global configurations/admin settings
+     *
+     * @return bool
      */
     public function has_config() {
+        return true;
+    }
+
+    /**
+     * Default return is false - header will be shown. Added check to show heading only if editing.
+     *
+     * @return boolean
+     */
+    function hide_header() {
+        global $PAGE;
+        // If editing, show header.
+        if ($PAGE->user_is_editing()) {
+            return false;
+        }
         return true;
     }
 

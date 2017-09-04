@@ -15,14 +15,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Created by LearningWorks Ltd
- * Date: 4/07/16
- * Time: 3:02 PM
+ * Used to process user actions.
+ *
+ * @package    block_advnotifications
+ * @copyright  2016 onwards LearningWorks Ltd {@link https://learningworks.co.nz/}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author     Zander Potgieter <zander.potgieter@learningworks.co.nz>
  */
+
 define('AJAX_SCRIPT', true);
 
 // Load in Moodle config.
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php');
+
+require_login();
 
 try {
     require_sesskey();

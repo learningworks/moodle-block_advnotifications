@@ -14,10 +14,31 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Edit form to manipulate block configuration.
+ *
+ * @package    block_advnotifications
+ * @copyright  2016 onwards LearningWorks Ltd {@link https://learningworks.co.nz/}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author     Zander Potgieter <zander.potgieter@learningworks.co.nz>
+ */
+
+defined('MOODLE_INTERNAL') || die;
+
+/**
+ * Form displayed when configuring block.
+ *
+ * @copyright  2016 onwards LearningWorks Ltd {@link https://learningworks.co.nz/}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class block_advnotifications_edit_form extends block_edit_form {
 
+    /**
+     * Build form.
+     *
+     * @param object $mform
+     */
     protected function specific_definition($mform) {
-
         global $CFG;
 
         // Section header title according to language file.

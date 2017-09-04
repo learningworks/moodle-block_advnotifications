@@ -22,4 +22,5 @@
 
 #### Work still being done:
 
-* Nothing currently.....
+* Allow user that created notification to delete the notification. 
+* Nothing more.....

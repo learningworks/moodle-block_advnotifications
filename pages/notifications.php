@@ -15,9 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Created by LearningWorks Ltd
- * Date: 4/07/16
- * Time: 1:02 PM
+ * Notification page where notfications are created and managed.
+ *
+ * @package    block_advnotifications
+ * @copyright  2016 onwards LearningWorks Ltd {@link https://learningworks.co.nz/}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author     Zander Potgieter <zander.potgieter@learningworks.co.nz>
  */
 
 // Load in Moodle config.
@@ -91,10 +94,6 @@ require_login();
 if ( !has_capability('block/advnotifications:managenotifications', $context) ) {
     require_capability('block/advnotifications:managenotifications', $context);
 }
-
-// Set the layout - allows for customisation.
-// Moodle automatically falls back to the "standard" layout if this is not in the theme's config.php "layouts" array.
-// $PAGE->set_pagelayout('adv_notifications'); Removed to avoid notices
 
 // Get the renderer for this page.
 $renderer = $PAGE->get_renderer('block_advnotifications');

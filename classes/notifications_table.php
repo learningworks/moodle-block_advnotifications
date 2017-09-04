@@ -15,23 +15,43 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Created by LearningWorks Ltd.
- * Date: 4/07/16
- * Time: 2:31 PM
+ * Table that lists notifications.
+ *
+ * @package    block_advnotifications
+ * @copyright  2016 onwards LearningWorks Ltd {@link https://learningworks.co.nz/}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author     Zander Potgieter <zander.potgieter@learningworks.co.nz>
  */
+
+defined('MOODLE_INTERNAL') || die;
 
 global $CFG;
 
 // Load Moodle config.
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php');
-// Load Tablelib lib.
+// Load tablelib lib.
 require_once($CFG->dirroot .'/lib/tablelib.php');
 
+require_login();
+
 // The word 'notifications' is used twice, as I'm using the 'pluginname_filename' convention.
+
+/**
+ * Sets up the table which lists notifications and allows for management of listed items.
+ *
+ * @copyright  2016 onwards LearningWorks Ltd {@link https://learningworks.co.nz/}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class advnotifications_notifications_table extends table_sql {
 
     // Lang strings that get re-used below is stored in variables to improve efficiency (Don't have to get strings many times).
+    /**
+     * @var null|string
+     */
     private $yes = null;
+    /**
+     * @var null|string
+     */
     private $no = null;
 
     /**
@@ -218,13 +238,15 @@ class advnotifications_notifications_table extends table_sql {
     }
 
     /**
-     * This function is called for each data row to allow processing of
-     * columns which do not have a *_cols function.
-     * @return string return processed value. Return NULL if no change has
-     *     been made.
+     * This function is called for each data row to allow processing of columns which do not have a *_cols function.
+     *
+     * @param string $colname - custom column name.
+     * @param string $value - custom column value.
+     * @return string return processed value. Return NULL if no change has been made.
      */
     public function other_cols($colname, $value) {
         // Leaving here for future reference.
+        return null;
     }
 
     /**
