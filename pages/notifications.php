@@ -36,50 +36,30 @@ require_once($CFG->dirroot . '/blocks/advnotifications/classes/notifications_tab
 // PARAMS.
 $params = array();
 
-// Determines if the user want to start creating a new notification.
-$new = optional_param('new', null, PARAM_BOOL);
-
-// Determines which notification the user wishes to edit.
-$edit = optional_param('edit', null, PARAM_INT);
-
-// Determines which notification the user wishes to delete.
-$delete = optional_param('delete', null, PARAM_INT);
-
 // Determines whether or not to download the table.
 $download = optional_param('download', '', PARAM_ALPHA);
 
 // Determines whether notification is global or instance-based.
 $blockinstance = optional_param('blockid', '', PARAM_INT);
 
-// Build params array (used to build url later).
-if ( !!$new ) {
-    $params['new'] = 1;
-}
 
-if ( !!$download ) {
+// Used for navigation links to keep track of blockid (if any)
+$param = '';
+$xparam = '';
+
+// Build params array (used to build url later).
+if (isset($download) && $download !== '') {
     $params['download'] = 1;
 }
 
-if (isset($blockinstance) && $blockinstance != "") {
+// TODO: Use 'new moodle_url()' instead.
+if (isset($blockinstance) && $blockinstance !== '') {
+    $param = '?blockid=' . $blockinstance;
+    $xparam = '&blockid=' . $blockinstance;
     $params['blockid'] = $blockinstance;
 }
 
 global $DB, $USER, $PAGE;
-
-if ( !!$edit ) {
-    $toedit = $DB->get_record('block_advnotifications', array('id' => $edit));
-}
-
-if ( !!$delete ) {
-    // If wanting to delete a notification, delete from DB immediately before the table is rendered.
-
-    $todelete = new stdClass();
-
-    $todelete->id = $delete;
-    $todelete->deleted = 1;
-    $todelete->enabled = 0;
-    $sql = $DB->update_record('block_advnotifications', $todelete);
-}
 
 $context = context_system::instance();
 $url = new moodle_url($CFG->wwwroot . '/blocks/advnotifications/pages/notifications.php');
@@ -111,7 +91,7 @@ if (!$table->is_downloading()) {
 
     echo $OUTPUT->header();
 
-    printf('<h1 class="page__title">%s</h1>', get_string('advnotifications_table_title', 'block_advnotifications'));
+    echo '<h1 class="page__title">' . get_string('advnotifications_table_title', 'block_advnotifications') . '</h1>';
 }
 
 // Configure the table.
@@ -127,10 +107,10 @@ $table->set_sql('*', "{block_advnotifications}", "deleted = 0");
 
 // Add navigation controls before the table.
 echo '<div id="advnotifications_manage">
-        <a class="btn instance" href="' . $CFG->wwwroot . '/blocks/advnotifications/pages/restore.php">' .
+        <a class="btn instance" href="' . $CFG->wwwroot . '/blocks/advnotifications/pages/restore.php' . $param . '">' .
             get_string('advnotifications_nav_restore', 'block_advnotifications') .
         '</a>&nbsp;&nbsp;
-        <a class="btn instance" href="' . $CFG->wwwroot . '/admin/settings.php?section=blocksettingadvnotifications">' .
+        <a class="btn instance" href="' . $CFG->wwwroot . '/admin/settings.php?section=blocksettingadvnotifications' . $xparam . '">' .
             get_string('advnotifications_nav_settings', 'block_advnotifications') .
         '</a><br><br>
       </div>';

@@ -41,6 +41,16 @@ class block_advnotifications_edit_form extends block_edit_form {
     protected function specific_definition($mform) {
         global $CFG;
 
+        // Used for navigation links to keep track of blockid (if any)
+        $blockid = optional_param('bui_editid', '', PARAM_INT);
+        $param = '';
+        $xparam = '';
+
+        if (isset($blockid) && $blockid !== '') {
+            $param = '?blockid=' . $blockid;
+            $xparam = '&blockid=' . $blockid;
+        }
+
         // Section header title according to language file.
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
 
@@ -50,15 +60,15 @@ class block_advnotifications_edit_form extends block_edit_form {
                                     get_string('advnotifications_nav_heading', 'block_advnotifications') .
                                 '</h3>
                                 <a class="btn instance" href="' . $CFG->wwwroot .
-                                    '/blocks/advnotifications/pages/notifications.php">' .
+                                    '/blocks/advnotifications/pages/notifications.php' . $param .'">' .
                                     get_string('advnotifications_nav_manage', 'block_advnotifications') .
                                 '</a>&nbsp;&nbsp;
                                 <a class="btn" href="' . $CFG->wwwroot .
-                                    '/blocks/advnotifications/pages/restore.php">' .
+                                    '/blocks/advnotifications/pages/restore.php' . $param .'">' .
                                     get_string('advnotifications_nav_restore', 'block_advnotifications') .
                                 '</a>&nbsp;&nbsp;
                                 <a class="btn" href="' . $CFG->wwwroot .
-                                    '/admin/settings.php?section=blocksettingadvnotifications">' .
+                                    '/admin/settings.php?section=blocksettingadvnotifications' . $xparam .'">' .
                                     get_string('advnotifications_nav_settings', 'block_advnotifications') .
                                 '</a><br><br>
                             </div>'

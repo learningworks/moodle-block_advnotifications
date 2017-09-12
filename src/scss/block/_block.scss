@@ -1,54 +1,66 @@
 // Displaying the actual block/notification.
 body {
-  .block.block_advnotifications {
-    box-shadow: none;
-    margin-bottom: 0;
-    min-height: 0;
-    .content {
-      padding: 0;
-      background-color: transparent;
-      .notification-block-wrapper {
-        margin-bottom: 1em;
-        .alert {
-          margin-bottom: 0;
-          padding-right: 1em;
-          position: relative;
-          .notification-block-close {
-            float: right;
-            cursor: pointer;
-            font-size: 1.5em;
-            transition: 250ms;
-            &:hover {
-              color: #000000;
-              transition: 250ms;
-            }
-          }
-        }
-      }
-      // Moodle automatically bolds the class 'warning', so this is to negate that (for the notifications specifically).
-      .notification-block-wrapper.warning {
-        font-weight: 300;
-      }
-      .notification-block-wrapper.icon {
-        .alert {
-          padding-left: 3em;
-          > .notification_icon {
-            height: 1.5em;
-            position: absolute;
-            top: 50%;
-            bottom: 50%;
-            margin-left: -2em;
-            transform: translateY(-50%);
-          }
-        }
-      }
-    }
-  }
-  &:not(.editing) {
     .block.block_advnotifications {
-      .header {
-        display: none;
-      }
+        .content {
+            .notification-block-wrapper {
+                margin-bottom: 1em;
+                .alert {
+                    margin-bottom: 0;
+                    padding-right: 1em;
+                    position: relative;
+                    .notification-block-close {
+                        float: right;
+                        cursor: pointer;
+                        font-size: 1em;
+                        transition: 250ms;
+                        &:hover {
+                            color: #000000;
+                            transition: 250ms;
+                        }
+                    }
+                }
+            }
+
+            // Moodle automatically bolds the class 'warning', so this is to negate that (for the notifications specifically).
+            .notification-block-wrapper.warning {
+                font-weight: 300;
+            }
+            .notification-block-wrapper.aicon {
+                .alert {
+                    padding-left: 3em;
+                    > .notification_aicon {
+                        height: 1.5em;
+                        position: absolute;
+                        top: 50%;
+                        bottom: 50%;
+                        margin-left: -2em;
+                        transform: translateY(-50%);
+                    }
+                }
+            }
+        }
     }
-  }
+    &:not(.editing) {
+        .block.block_advnotifications {
+            box-shadow: none;
+            border: none;
+            background-color: transparent;
+            margin-bottom: 0;
+            padding: 0;
+            min-height: 0;
+
+            .card-block {
+                padding: 0;
+            }
+
+            .header {
+                display: none;
+            }
+
+            .content {
+                padding: 0;
+                background-color: transparent;
+            }
+        }
+    }
 }

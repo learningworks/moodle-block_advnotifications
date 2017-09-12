@@ -21,10 +21,3 @@
 @function color($key) {
 	@return map-get($colors, $key);
 }
-
-// 
-// Returns the value from the fonts SASS map
-// 
-@function font($type, $key) {
-	@return map-deep-get($fonts, $type, $key);
-}

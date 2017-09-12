@@ -29,6 +29,14 @@ global $CFG;
 
 if ($ADMIN->fulltree) {
 
+    // Used for navigation links to keep track of blockid (if any)
+    $blockid = optional_param('blockid', '', PARAM_INT);
+    $param = '';
+
+    if (isset($blockid) && $blockid !== '') {
+        $param = '?blockid=' . $blockid;
+    }
+
     // SETTINGS' NAVIGATIONAL LINKS HEADING & LINKS.
     $settings->add(
         new admin_setting_heading(
@@ -36,9 +44,9 @@ if ($ADMIN->fulltree) {
             get_string('setting/navigation', 'block_advnotifications'),                                     // TITLE.
                         get_string('setting/navigation_desc', 'block_advnotifications',
                         array('manage' => '<a class="btn instance" href="' . $CFG->wwwroot .
-                            '/blocks/advnotifications/pages/notifications.php">Manage</a>',
+                            '/blocks/advnotifications/pages/notifications.php' . $param . '">Manage</a>',
                             'restore' => '<a class="btn instance" href="' . $CFG->wwwroot .
-                                '/blocks/advnotifications/pages/restore.php">Restore</a>'))                 // DESCRIPTION.
+                                '/blocks/advnotifications/pages/restore.php' . $param . '">Restore</a>'))                 // DESCRIPTION.
         )
     );
 

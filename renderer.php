@@ -38,8 +38,6 @@ require_login();
  */
 class block_advnotifications_renderer extends plugin_renderer_base
 {
-
-
     /**
      * Renders notification on page.
      *
@@ -121,32 +119,32 @@ class block_advnotifications_renderer extends plugin_renderer_base
 
                 // Get type to know which (bootstrap) class to apply.
                 $alerttype = '';
-                $icon = '';
+                $aicon = '';
 
                 // Allows for custom styling and serves as a basic filter if anything unwanted was somehow submitted.
                 if (!empty($notification)) {
                     if ($notification->type == "info") {
                         $alerttype = 'info';
-                        $icon = 'info';
+                        $aicon = 'info';
                     } else if ($notification->type == "success") {
                         $alerttype = 'success';
-                        $icon = 'success';
+                        $aicon = 'success';
                     } else if ($notification->type == "warning") {
                         $alerttype = 'warning';
-                        $icon = 'warning';
+                        $aicon = 'warning';
                     } else if ($notification->type == "danger") {
                         $alerttype = 'danger';
-                        $icon = 'danger';
+                        $aicon = 'danger';
                     } else if ($notification->type == "announcement") {
                         $alerttype = 'info announcement';
-                        $icon = 'info';
+                        $aicon = 'info';
                     } else {
                         $alerttype = 'info';
-                        $icon = 'info';
+                        $aicon = 'info';
                     }
                 } else {
                     $alerttype = 'info';
-                    $icon = 'info';
+                    $aicon = 'info';
                 }
 
                 // Extra classes to add to the notification wrapper - at least having the type of alert.
@@ -157,21 +155,16 @@ class block_advnotifications_renderer extends plugin_renderer_base
                 if ($notification->times > 0) {
                     $extraclasses .= ' limitedtimes';
                 }
-                if ($notification->icon == 1) {
-                    $extraclasses .= ' icon';
+                if ($notification->aicon == 1) {
+                    $extraclasses .= ' aicon';
                 }
 
                 // Open notification block.
                 $html .= '<div class="notification-block-wrapper' . $extraclasses . '" data-dismiss="' . $notification->id . '">
                             <div class="alert alert-' . $alerttype . '">';
 
-                if (!empty($notification->icon) && $notification->icon == 1) {
-                    $pixurl = $CFG->wwwroot . '/blocks/advnotifications/pix/' . $icon . '.png';
-
-                    // Check if pixurl is set? TODO Check needed?
-                    if ($pixurl != false) {
-                        $html .= '<img class="notification_icon" src="' . $pixurl . '"/>';
-                    }
+                if (!empty($notification->aicon) && $notification->aicon == 1) {
+                    $html .= '<img class="notification_aicon" src="' . $CFG->wwwroot . '/blocks/advnotifications/pix/' . $aicon . '.png"/>';
                 }
                 if (!empty($notification->title)) {
                     $html .= '<strong>' . $notification->title . '</strong> ';
@@ -203,16 +196,10 @@ class block_advnotifications_renderer extends plugin_renderer_base
     public function add_notification($params) {
         global $CFG;
 
-        $extraclasses = '';
-        // If user wants to create a new notification.
-        if (isset($params['new']) && $params['new'] === 1) {
-            $extraclasses .= ' new';
-        }
-
         $html = '';
 
         // New Notification Form.
-        $html .= '<div id="add_notification_wrapper_id" class="add_notification_wrapper' . $extraclasses . '">
+        $html .= '<div id="add_notification_wrapper_id" class="add_notification_wrapper">
                     <div class="add_notification_header"><h2>' .
                         get_string('advnotifications_add_heading', 'block_advnotifications') .
                         '</h2>
@@ -222,9 +209,9 @@ class block_advnotifications_renderer extends plugin_renderer_base
                             '/blocks/advnotifications/pages/process.php" method="POST">';
 
         // Form inputs.
-        $html .= '          <input type="checkbox" id="add_notification_enable" name="enable"/>
-                            <label for="add_notification_enable">' .
-                                get_string('advnotifications_enable', 'block_advnotifications') .
+        $html .= '          <input type="checkbox" id="add_notification_enabled" name="enabled"/>
+                            <label for="add_notification_enabled">' .
+                                get_string('advnotifications_enabled', 'block_advnotifications') .
                             '</label><br>' .
                             ((array_key_exists('blockid', $params)) ? '
                             <input type="checkbox" id="add_notification_global" name="global"/>
@@ -233,7 +220,8 @@ class block_advnotifications_renderer extends plugin_renderer_base
                                 '</label><br>
                             <input type="hidden" id="add_notification_blockid" name="blockid" value="' . $params['blockid'] .
                                 '"/>' : '
-                            <input type="hidden" id="add_notification_global" name="global" value="1"/>') .
+                            <strong><em>' . get_string('add_notification_global_notice', 'block_advnotifications') . '</em></strong>
+                            <input type="hidden" id="add_notification_global" name="global" value="1"/><br>') .
                             '<input type="text" id="add_notification_title" name="title" placeholder="' .
                                 get_string('advnotifications_title', 'block_advnotifications') . '"/><br>
                             <input type="text" id="add_notification_message" name="message" placeholder="' .
@@ -257,7 +245,7 @@ class block_advnotifications_renderer extends plugin_renderer_base
                                 <option value="announcement">' .
                                     get_string('advnotifications_add_option_announcement', 'block_advnotifications') .
                                 '</option>
-                            </select><br>
+                            </select><strong class="required">*</strong><br>
                             <select id="add_notification_times" name="times" required>
                                 <option selected disabled>' .
                                     get_string('advnotifications_times', 'block_advnotifications') . '</option>
@@ -272,10 +260,10 @@ class block_advnotifications_renderer extends plugin_renderer_base
                                 <option value="8">8</option>
                                 <option value="9">9</option>
                                 <option value="10">10</option>
-                            </select><label for="add_notification_times_label">' .
+                            </select><strong class="required">*</strong><label for="add_notification_times">' .
                                 get_string('advnotifications_times_label', 'block_advnotifications') . '</label><br>
-                            <input type="checkbox" id="add_notification_icon" name="icon"/><label for="add_notification_icon">' .
-                                get_string('advnotifications_icon', 'block_advnotifications') . '</label><br>
+                            <input type="checkbox" id="add_notification_aicon" name="aicon"/><label for="add_notification_aicon">' .
+                                get_string('advnotifications_aicon', 'block_advnotifications') . '</label><br>
                             <input type="checkbox" id="add_notification_dismissible" name="dismissible"/>
                             <label for="add_notification_dismissible">' .
                                 get_string('advnotifications_dismissible', 'block_advnotifications') . '</label><br>
@@ -284,11 +272,14 @@ class block_advnotifications_renderer extends plugin_renderer_base
                             <input type="date" id="add_notification_date_from" name="date_from" placeholder="dd/mm/yyyy"/>
                             &nbsp;&nbsp;&nbsp;&nbsp;<label for="add_notification_to">' .
                                 get_string('advnotifications_date_to', 'block_advnotifications') . '</label>
-                            <input type="date" id="add_notification_date_to" name="date_to" placeholder="dd/mm/yyyy"/><br>
+                            <input type="date" id="add_notification_date_to" name="date_to" placeholder="dd/mm/yyyy"/>
+                            <label>' . get_string('advnotifications_date_info', 'block_advnotifications') . '</label><br>
                             <input type="hidden" id="add_notification_sesskey" name="sesskey" value="' . sesskey() . '"/>
-                            <input type="submit" id="add_notification_save" name="save" value="' .
+                            <input type="hidden" id="add_notification_purpose" name="purpose" value="add"/>
+                            <input type="submit" id="add_notification_save" class="btn" role="button" name="save" value="' .
                                 get_string('advnotifications_save', 'block_advnotifications') . '"/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="add_notification_cancel" class="btn" name="cancel">' .
+                            &nbsp;&nbsp;&nbsp;&nbsp;<a href="' . $CFG->wwwroot . '/blocks/advnotifications/pages/notifications.php"
+                                    id="add_notification_cancel" class="btn" name="cancel">' .
                                 get_string('advnotifications_cancel', 'block_advnotifications') . '</a><br>
                             <div id="add_notification_status">
                                 <div class="signal"></div>

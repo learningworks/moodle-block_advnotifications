@@ -45,7 +45,7 @@ function xmldb_block_advnotifications_upgrade($oldversion) {
         $table->add_field('title', XMLDB_TYPE_TEXT, null, null, null, null, null);
         $table->add_field('message', XMLDB_TYPE_TEXT, null, null, null, null, null);
         $table->add_field('type', XMLDB_TYPE_CHAR, '30', null, XMLDB_NOTNULL, null, 'info');
-        $table->add_field('icon', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('aicon', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, null);
         $table->add_field('enabled', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, null);
         $table->add_field('global', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '1');
         $table->add_field('blockid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '1');
@@ -55,6 +55,8 @@ function xmldb_block_advnotifications_upgrade($oldversion) {
         $table->add_field('times', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '0');
         $table->add_field('deleted', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, null);
         $table->add_field('deleted_at', XMLDB_TYPE_INTEGER, '11', null, XMLDB_NOTNULL, null, '0000000000');
+        $table->add_field('deleted_by', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '-1');
+        $table->add_field('created_by', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '-1');
 
         // Adding keys to table block_advnotifications.
         $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));

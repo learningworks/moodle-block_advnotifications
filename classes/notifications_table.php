@@ -68,7 +68,7 @@ class advnotifications_notifications_table extends table_sql {
             'type',
             'enabled',
             'global',
-            'icon',
+            'aicon',
             'dismissible',
             'times',
             'date_from',
@@ -84,7 +84,7 @@ class advnotifications_notifications_table extends table_sql {
             get_string('advnotifications_field_type', 'block_advnotifications'),        // Type: info.
             get_string('advnotifications_field_enabled', 'block_advnotifications'),     // Enabled: Yes.
             get_string('advnotifications_field_global', 'block_advnotifications'),      // Global: Yes.
-            get_string('advnotifications_field_icon', 'block_advnotifications'),        // Icon: Yes.
+            get_string('advnotifications_field_aicon', 'block_advnotifications'),        // AIcon: Yes.
             get_string('advnotifications_field_dismissible', 'block_advnotifications'), // Dismissible: Yes.
             get_string('advnotifications_field_times', 'block_advnotifications'),       // Times: 10.
             get_string('advnotifications_field_date_from', 'block_advnotifications'),   // Date From: dd/mm/yyyy.
@@ -150,7 +150,7 @@ class advnotifications_notifications_table extends table_sql {
      * global value.
      *
      * @param object $values Contains object with all the values of record.
-     * @return $string Return whether notification is enabled or not
+     * @return $string Return whether notification will be propogated globally/site-wide or not
      */
     public function col_global($values) {
         return ($values->global == 1 ? $this->yes : $this->no);
@@ -158,13 +158,13 @@ class advnotifications_notifications_table extends table_sql {
 
     /**
      * This function is called for each data row to allow processing of the
-     * icon value.
+     * aicon value.
      *
      * @param object $values Contains object with all the values of record.
-     * @return $string Return whether notification is enabled or not
+     * @return $string Return whether notification is to display an icon or not
      */
-    public function col_icon($values) {
-        return ($values->icon == 1 ? $this->yes : $this->no);
+    public function col_aicon($values) {
+        return ($values->aicon == 1 ? $this->yes : $this->no);
     }
 
     /**
@@ -225,15 +225,21 @@ class advnotifications_notifications_table extends table_sql {
             return get_string('advnotifications_edit_label', 'block_advnotifications') . ' | ' .
                     get_string('advnotifications_delete_label', 'block_advnotifications');
         } else {
-            return sprintf(
-                '<a id="tr'.$values->id.'" data-edit="' . $values->id . '" href="' . $CFG->wwwroot .
-                '/blocks/advnotifications/pages/process.php?sesskey=' . sesskey() . '&edit=' . $values->id .
-                '">%s</a> | <a data-delete="' . $values->id . '" href="' . $CFG->wwwroot .
-                '/blocks/advnotifications/pages/process.php?sesskey=' . sesskey() . '&delete=' . $values->id .
-                '">%s</a>',
-                get_string('advnotifications_edit_label', 'block_advnotifications'),
-                get_string('advnotifications_delete_label', 'block_advnotifications')
-            );
+            return '<form id="tr'.$values->id.'" data-edit="' . $values->id . '" method="POST" action="' . $CFG->wwwroot .
+                '/blocks/advnotifications/pages/process.php">
+                    <input type="hidden" class="edit_notification_sesskey" name="sesskey" value="' . sesskey() . '">
+                    <input type="hidden" class="edit_notification_purpose" name="purpose" value="edit">
+                    <input type="hidden" class="edit_notification_tableaction" name="tableaction" value="' . $values->id . '">
+                    <input type="submit" class="edit_notification_edit btn" name="edit" value="' .
+                        get_string('advnotifications_edit_label', 'block_advnotifications') . '">
+                </form> <form id="tr'.$values->id.'" data-delete="' . $values->id . '" method="POST" action="' . $CFG->wwwroot .
+                '/blocks/advnotifications/pages/process.php">
+                    <input type="hidden" class="delete_notification_sesskey" name="sesskey" value="' . sesskey() . '">
+                    <input type="hidden" class="delete_notification_purpose" name="purpose" value="delete">
+                    <input type="hidden" class="delete_notification_tableaction" name="tableaction" value="' . $values->id . '">
+                    <input type="submit" class="delete_notification_delete btn" name="delete" value="' .
+                get_string('advnotifications_delete_label', 'block_advnotifications') . '">
+                </form>';
         }
     }
 
@@ -253,12 +259,8 @@ class advnotifications_notifications_table extends table_sql {
      * This function is not part of the public api.
      */
     public function print_nothing_to_display() {
-        global $OUTPUT;
         $this->print_initials_bar();
 
-        printf(
-            '<p class="notifications--empty">%s</p>',
-            get_string('advnotifications_table_empty', 'block_advnotifications')
-        );
+        echo '<p class="notifications--empty">' . get_string('advnotifications_table_empty', 'block_advnotifications') . '</p>';
     }
 }

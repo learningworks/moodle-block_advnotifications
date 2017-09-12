@@ -1,0 +1,3 @@
+# Files and directories that git should ignore.
+
+.DS_Store

@@ -44,6 +44,17 @@ $delete = optional_param('delete', null, PARAM_INT);
 // Determines whether or not to download the table.
 $download = optional_param('download', null, PARAM_ALPHA);
 
+// Used for navigation links to keep track of blockid (if any)
+$blockid = optional_param('blockid', '', PARAM_INT);
+
+$param = '';
+$xparam = '';
+
+if (isset($blockid) && $blockid !== '') {
+    $param = '?blockid=' . $blockid;
+    $xparam = '&blockid=' . $blockid;
+}
+
 if ( !!$download ) {
     $params['download'] = 1;
 }
@@ -108,10 +119,10 @@ echo '<div class="restore_notification-block-wrapper">
 
 // Add navigation controls before the table.
 echo '<div id="advnotifications_manage">
-      <a class="btn instance" href="' . $CFG->wwwroot . '/blocks/advnotifications/pages/notifications.php">' .
+      <a class="btn instance" href="' . $CFG->wwwroot . '/blocks/advnotifications/pages/notifications.php' . $param . '">' .
           get_string('advnotifications_nav_manage', 'block_advnotifications') .
       '</a>&nbsp;&nbsp;
-      <a class="btn instance" href="' . $CFG->wwwroot . '/admin/settings.php?section=blocksettingadvnotifications">' .
+      <a class="btn instance" href="' . $CFG->wwwroot . '/admin/settings.php?section=blocksettingadvnotifications' . $xparam . '">' .
           get_string('advnotifications_nav_settings', 'block_advnotifications') .
       '</a><br><br></div>';
 

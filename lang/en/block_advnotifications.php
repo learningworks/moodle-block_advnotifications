@@ -32,8 +32,6 @@ $string['advnotifications:managenotifications'] = 'Manage notifications and the 
 
 // Block Configuration.
 $string['advnotifications'] = 'Advanced Notifications';
-$string['advnotifications_enable'] = 'Enable:';
-$string['advnotifications_auto_delete'] = 'Auto-Delete:';
 $string['advnotifications_class'] = 'Block Class:';
 
 // Notifications Table Column Names & Table Related Lang Strings.
@@ -42,7 +40,7 @@ $string['advnotifications_field_title'] = 'Title';
 $string['advnotifications_field_type'] = 'Type';
 $string['advnotifications_field_enabled'] = 'Enabled';
 $string['advnotifications_field_global'] = 'Global';
-$string['advnotifications_field_icon'] = 'Icon';
+$string['advnotifications_field_aicon'] = 'Icon';
 $string['advnotifications_field_dismissible'] = 'Dismissible';
 $string['advnotifications_field_times'] = 'View Times';
 $string['advnotifications_field_date_from'] = 'From';
@@ -65,17 +63,19 @@ $string['advnotifications_restore_table_title'] = 'Restore Notifications';
 $string['advnotifications_restore_table_heading'] = 'Advanced Notifications Restore';
 
 // New Notification Lang Strings.
-$string['advnotifications_enable'] = 'Enable/Disable?';
+$string['advnotifications_enabled'] = 'Enable/Disable?';
 $string['advnotifications_global'] = 'Global Notification?';
+$string['add_notification_global_notice'] = 'This notification will be displayed globally/site-wide!';
 $string['advnotifications_title'] = 'Title';
 $string['advnotifications_message'] = 'Message';
 $string['advnotifications_type'] = 'Type';
 $string['advnotifications_times'] = '# of times';
 $string['advnotifications_times_label'] = 'Number of times to display the notification to the user (0 = forever)';
-$string['advnotifications_icon'] = 'Display Icon?';
+$string['advnotifications_aicon'] = 'Display Icon?';
 $string['advnotifications_dismissible'] = 'Dismissible?';
 $string['advnotifications_date_from'] = 'From:';
 $string['advnotifications_date_to'] = 'To:';
+$string['advnotifications_date_info'] = 'Same date = forever';
 $string['advnotifications_save'] = 'Save';
 $string['advnotifications_cancel'] = 'Cancel';
 
@@ -119,6 +119,7 @@ $string['advnotifications_nav_settings'] = 'Settings';
 
 // Error Messages.
 $string['advnotifications_err_forbidden'] = 'Forbidden, please login again...';
+$string['advnotifications_err_nojsedit'] = 'Editing only supported with JavaScript enabled. Re-create the desired notification or enable JavaScript and try again.';
 
 // Cron Messages.
 $string['advnotifications_cron_heading'] = 'Cleaning Advanced Notifications';

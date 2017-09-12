@@ -1,34 +1,14 @@
-$(document).ready(function() {
-    // BLOCK INSTANCE ID LOGIC MANAGEMENT.
-    $('#advnotifications_manage').on('click', 'a', function () {
-        if ($(this).hasClass('instance'))
-        {
-            var binstance = getUrlParameter('bui_editid');
-            if (binstance == undefined)
-            {
-                binstance = getUrlParameter('blockid');
-            }
-
-            if (binstance != undefined) {
-                var link = $(this).attr('href');
-
-                // Determine if '?' or '&' is needed for parameter.
-                var divider = '?';
-                if (link.indexOf("?") > -1) {
-                    divider = '&';
-                }
-
-                $(this).attr('href', link + divider + 'blockid=' + binstance);
-            }
-        }
-    });
+$(document).ready(function () {
+    // Commonly (multiple times) used elements.
+    var mainregion = $('#region-main');
+    var addregion = $('#add_notification_wrapper_id');
 
     // USER DISMISSING/CLICKING ON A NOTIFICATION.
-    $('.block_advnotifications').on('click', '.dismissible', function() {
+    $('.block_advnotifications').on('click', '.dismissible', function () {
 
         var dismiss = $(this).attr('data-dismiss');
 
-        $(this).slideUp('150', function(){
+        $(this).slideUp('150', function () {
             $(this).remove();
         });
 
@@ -39,21 +19,21 @@ $(document).ready(function() {
         var callpath = M.cfg.wwwroot + "/blocks/advnotifications/pages/process.php?sesskey=" + M.cfg.sesskey;
 
         // Update user preferences.
-        $.post(callpath, senddata, function (data) {
-        }).fail(function (data) {
-            try {
-                alert(data.responseJSON.Message);
-            } catch (e) {
-            }
-        }).done(function (data) {
+        $.post(callpath, senddata)
+            .fail(function (data) {
+                try {
+                    alert(data.responseJSON.Message);
+                } catch (e) {
+                    console.error("No 'dismiss' response received.");
+                }
+            }).done(function (data) {
             // User dismissed notification.
 
         });
     });
 
     // MANAGING NOTIFICATIONS.
-    $('#region-main').on('click', '.notifications_table tr > td a', function(e) {
-
+    mainregion.on('click', '.notifications_table tr > td > form > input[type=submit]', function (e) {
         e.preventDefault();
         var senddata = {};          // Data Object.
         senddata.call = 'ajax';
@@ -61,85 +41,75 @@ $(document).ready(function() {
         senddata.tableaction = '';
 
         // Check if user wants to edit/delete.
-        var eattr = $(this).attr('data-edit');
-        var dattr = $(this).attr('data-delete');
+        var eattr = $(this).closest('form').attr('data-edit');
+        var dattr = $(this).closest('form').attr('data-delete');
 
         // Check if anchor element has attribute, retrieved from above.
         if (typeof eattr !== typeof undefined && eattr !== false) {
             senddata.purpose = 'edit';
-            senddata.tableaction = $(this).attr('data-edit');
+            senddata.tableaction = eattr;
 
             var savebutton = $('#add_notification_save');
             savebutton.addClass('update');
             savebutton.val('Update');
-        }
-        else if (typeof dattr !== typeof undefined && dattr !== false)
-        {
+        } else if (typeof dattr !== typeof undefined && dattr !== false) {
             senddata.purpose = 'delete';
-            senddata.tableaction = $(this).attr('data-delete');
+            senddata.tableaction = dattr;
         }
 
         var callpath = M.cfg.wwwroot + "/blocks/advnotifications/pages/process.php?sesskey=" + M.cfg.sesskey;
 
         // Perform tableaction.
-        $.post(callpath, senddata, function (data) {
-        }).fail(function (data) {
-            try {
-                alert(data.responseJSON.Message);
-            } catch (e) {
-            }
-        }).done(function (data) {
+        $.post(callpath, senddata)
+            .fail(function (data) {
+                try {
+                    alert(data.responseJSON.Message);
+                } catch (e) {
+                    console.error("No 'manage' response received.");
+                }
+            }).done(function (data) {
+            data = JSON.parse(data);
+
             // User deleted/edited notification.
-            if (parseInt(data.done) > 0){
-                $('#tr' + data.done).closest("tr").remove();
-            }
-            else if(senddata.purpose == 'edit')
-            {
-                $.each(data.edit, function(index, value) {
-
-                    // Quickfix for uses of 'enabled' and 'enable'.
-                    if (index == "enabled")
-                    {
-                        index = "enable";
-                    }
-
-                    // Need this for updating.
-                    if (index == "id") {
-                        var form = $('#add_notification_form');
-
-                        // Because we're doing a standard submit, we need extra inputs to pass params.
-                        // But first, remove old hidden inputs.
-                        $('#add_notification_id').remove();
-                        $('#add_notification_call').remove();
-                        $('#add_notification_purpose').remove();
-                        form.prepend('<input type="hidden" id="add_notification_id" name="id" value="' + value + '"/>');
-                        form.prepend('<input type="hidden" id="add_notification_call" name="call" value="ajax"/>');
-                        form.prepend('<input type="hidden" id="add_notification_purpose" name="purpose" value="update"/>');
-                    }
-
-                    var affectelement = $('#add_notification_wrapper_id').find('#add_notification_' + index);
-
-                    // Check whether checkboxes should be checked or not.
-                    // We also don't assign a value to checkbox input fields.
-                    if ((index == 'enable' || index == 'dismissible' || index == 'icon') && value == 1)
-                    {
-                        affectelement.prop('checked', true);
-                    }
-                    else if ((index == 'enable' || index == 'dismissible' || index == 'icon') && value == 0)
-                    {
-                        affectelement.prop('checked', false);
-                    }
-                    else
-                    {
-                        affectelement.val(value);
-                    }
+            if (parseInt(data.done) > 0) {
+                $('#tr' + data.done).closest("tr").fadeOut(250, function () {
+                    $(this).remove();
                 });
+            } else if (senddata.purpose === "edit") {
+                for (var index in data) {
+                    if (data.hasOwnProperty(index)) {
+
+                        // Need this for updating.
+                        if (index === "id") {
+                            var form = $('#add_notification_form');
+
+                            // Because we're doing a standard submit, we need extra inputs to pass params.
+                            // But first, remove old hidden inputs.
+                            $('#add_notification_id, #add_notification_call, #add_notification_purpose').remove();
+                            form.prepend('<input type="hidden" id="add_notification_id" name="id" value="' + data[index] + '"/>' +
+                                '<input type="hidden" id="add_notification_call" name="call" value="ajax"/>' +
+                                '<input type="hidden" id="add_notification_purpose" name="purpose" value="update"/>');
+                        }
+
+                        var affectelement = $('#add_notification_wrapper_id').find('#add_notification_' + index);
+
+                        // Check whether checkboxes should be checked or not.
+                        // We also don't assign a value to checkbox input fields.
+                        if ((index === 'enabled' || index === 'global' || index === 'dismissible' || index === 'aicon') && data[index] == 1) {
+                            affectelement.prop('checked', true);
+                        } else if ((index === 'enabled' || index === 'global' || index === 'dismissible' || index === 'aicon') && data[index] == 0) {
+                            affectelement.prop('checked', false);
+                        } else {
+                            affectelement.val(data[index]);
+                        }
+                    }
+                }
             }
         });
     });
 
     // Restore & Permanently delete notifications.
-    $('#region-main').on('click', '.notifications_restore_table tr > td a', function(e) {
+    mainregion.on('click', '.notifications_restore_table tr > td > form > input[type=submit]', function (e) {
 
         e.preventDefault();
         var senddata = {};          // Data Object.
@@ -148,54 +118,58 @@ $(document).ready(function() {
         senddata.tableaction = '';
 
         // Check if user wants to restore/delete.
-        var rattr = $(this).attr('data-restore');
-        var pdattr = $(this).attr('data-permdelete');
+        var rattr = $(this).closest('form').attr('data-restore');
+        var pdattr = $(this).closest('form').attr('data-permdelete');
 
         // Check if anchor element has attribute, retrieved from above.
         if (typeof rattr !== typeof undefined && rattr !== false) {
             senddata.purpose = 'restore';
-            senddata.tableaction = $(this).attr('data-restore');
+            senddata.tableaction = rattr;
         }
-        else if (typeof pdattr !== typeof undefined && pdattr !== false)
-        {
+        else if (typeof pdattr !== typeof undefined && pdattr !== false) {
             senddata.purpose = 'permdelete';
-            senddata.tableaction = $(this).attr('data-permdelete');
+            senddata.tableaction = pdattr;
         }
 
         var callpath = M.cfg.wwwroot + "/blocks/advnotifications/pages/process.php?sesskey=" + M.cfg.sesskey;
 
         // Perform tableaction.
-        $.post(callpath, senddata, function (data) {
-        }).fail(function (data) {
-            try {
-                alert(data.responseJSON.Message);
-            } catch (e) {
-            }
-        }).done(function (data) {
+        $.post(callpath, senddata)
+            .fail(function (data) {
+                try {
+                    alert(data.responseJSON.Message);
+                } catch (e) {
+                    console.error("No 'restore/permdelete' response received.");
+                }
+            }).done(function (data) {
+            data = JSON.parse(data);
+
             // User deleted/restored notification.
             // Object 'done' is returned for both restore & delete.
-            if (parseInt(data.done) > 0){
-                $('#tr' + data.done).closest("tr").remove();
+            if (parseInt(data.done) > 0) {
+                $('#tr' + data.done).closest("tr").fadeOut(250, function () {
+                    $(this).remove();
+                });
             }
         });
     });
 
     // Clear form.
-    $('#add_notification_wrapper_id').on('click', '#add_notification_cancel', function(e) {
+    addregion.on('click', '#add_notification_cancel', function (e) {
         e.preventDefault();
         $('#add_notification_form')[0].reset();
 
         // Change save button back to normal.
         var savebutton = $('#add_notification_save');
         savebutton.removeClass('update');
-        $('#add_notification_id').remove();
-        $('#add_notification_call').remove();
-        $('#add_notification_purpose').remove();
+        $('#add_notification_id, #add_notification_call, #add_notification_purpose').remove();
+
+        // TODO: Better langstring handling.
         savebutton.val('Save');
     });
 
     // Managing more notifications.
-    $('#region-main').on('submit', '#add_notification_form', function(e) {
+    mainregion.on('submit', '#add_notification_form', function (e) {
         e.preventDefault();
         var status = $('#add_notification_status');
         var savebutton = $('#add_notification_save');
@@ -210,19 +184,20 @@ $(document).ready(function() {
         var callpath = M.cfg.wwwroot + "/blocks/advnotifications/pages/process.php?sesskey=" + M.cfg.sesskey;
 
         // Perform tableaction.
-        $.post(callpath, senddata, function (data) {
-        }).fail(function (data) {
-            try {
-                alert(data.responseJSON.Message);
-            } catch (e) {
-            }
-        }).done(function (data) {
+        $.post(callpath, senddata)
+            .fail(function (data) {
+                try {
+                    alert(data.responseJSON.Message);
+                } catch (e) {
+                    console.error("No 'add' response received.");
+                }
+            }).done(function (data) {
             // User saved notification.
             status.find('.saving').hide();
             status.find('.done').show();
 
             setTimeout(function () {
-                status.fadeOut( function () {
+                status.fadeOut(function () {
                     status.hide();
                     status.find('.saving').show();
                     status.slideUp();
@@ -230,12 +205,10 @@ $(document).ready(function() {
 
                     // Change save button back to normal.
                     savebutton.removeClass('update');
-                    $('#add_notification_id').remove();
-                    $('#add_notification_call').remove();
-                    $('#add_notification_purpose').remove();
+                    $('#add_notification_id, #add_notification_call, #add_notification_purpose').remove();
                     savebutton.val('Save');
                 });
-            }, 2500);
+            }, 1500);
 
             $('#advnotifications_table_wrapper').load('# #advnotifications_table_wrapper > *');
         });
@@ -243,65 +216,45 @@ $(document).ready(function() {
 
     // LIVE PREVIEW.
     // Prepend live preview alert.
-    $('#add_notification_wrapper_id').prepend('<div><strong>Preview:</strong><br></div><div class="alert preview-alert"><div class="preview-icon" style="display: none;"><img src="" /></div><strong class="preview-title">Title</strong> <div class="preview-message">Message</div> <div class="preview-alert-dismissible" style="display: none;"><strong>&times;</strong></div></div>');
+    addregion.prepend('<div><strong>Preview:</strong><br></div><div class="alert alert-info preview-alert"><div class="preview-aicon" style="display: none;"><img src="' + M.cfg.wwwroot + '/blocks/advnotifications/pix/info.png' + '" /></div><strong class="preview-title">Title</strong> <div class="preview-message">Message</div> <div class="preview-alert-dismissible" style="display: none;"><strong>&times;</strong></div></div>');
 
     // Dynamically update preview alert as user changes textbox content.
-    $('#add_notification_wrapper_id').on('input propertychange paste', '#add_notification_title, #add_notification_message', function () {
+    addregion.on('input propertychange paste', '#add_notification_title, #add_notification_message', function () {
         $('#add_notification_wrapper_id').find('.preview-' + $(this).attr('name')).text($(this).val());
     });
 
     // Dynamically update preview alert type.
-    $('#add_notification_type').on('change', function() {
+    $('#add_notification_type').on('change', function () {
         var alerttype = $(this).val();
         var previewalert = $('#add_notification_wrapper_id .preview-alert');
 
-        if (alerttype != 'info' && alerttype != 'success' && alerttype != 'warning' && alerttype != 'danger')
-        {
+        if (alerttype !== 'info' && alerttype !== 'success' && alerttype !== 'warning' && alerttype !== 'danger') {
             alerttype = 'info';
         }
 
-        previewalert.removeClass('alert-info');
-        previewalert.removeClass('alert-success');
-        previewalert.removeClass('alert-danger');
-        previewalert.removeClass('alert-warning');
+        previewalert.removeClass('alert-info alert-success alert-danger alert-warning');
         previewalert.addClass('alert-' + alerttype);
 
-        $('.preview-icon').find('> img').attr('src', M.cfg.wwwroot + '/blocks/advnotifications/pix/' + alerttype + '.png')
+        $('.preview-aicon').find('> img').attr('src', M.cfg.wwwroot + '/blocks/advnotifications/pix/' + alerttype + '.png')
     });
 
-    $('#add_notification_dismissible').on('change', function() {
+    $('#add_notification_dismissible').on('change', function () {
+        // Checking specifically whether ticked/checked or not to ensure it's displayed correctly (not toggling).
         if (!this.checked) {
             $('.preview-alert-dismissible').hide();
         }
-        else
-        {
+        else {
             $('.preview-alert-dismissible').show();
         }
     });
 
-    $('#add_notification_icon').on('change', function() {
+    $('#add_notification_aicon').on('change', function () {
+        // Checking specifically whether ticked/checked or not to ensure it's displayed correctly (not toggling).
         if (!this.checked) {
-            $('.preview-icon').hide();
+            $('.preview-aicon').hide();
         }
-        else
-        {
-            $('.preview-icon').show();
+        else {
+            $('.preview-aicon').show();
         }
     });
 });
-
-// FUNCTIONS.
-var getUrlParameter = function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
-
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
-
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
-        }
-    }
-};
