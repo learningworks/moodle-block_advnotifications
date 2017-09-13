@@ -58,10 +58,11 @@ $calltype = optional_param('call', null, PARAM_TEXT);
 // Notification details.
 $enabled = optional_param('enabled', null, PARAM_TEXT);
 $global = optional_param('global', null, PARAM_TEXT);
+$blockinstance = optional_param('blockid', -1, PARAM_INT);
 $title = optional_param('title', null, PARAM_TEXT);
 $message = optional_param('message', null, PARAM_TEXT);
 $type = optional_param('type', null, PARAM_TEXT);
-$times = optional_param('times', null, PARAM_TEXT);
+$times = optional_param('times', null, PARAM_INT);
 $aicon = optional_param('aicon', null, PARAM_TEXT);
 $dismissible = optional_param('dismissible', null, PARAM_TEXT);
 $datefrom = optional_param('date_from', null, PARAM_TEXT);
@@ -82,10 +83,8 @@ if ($calltype === 'ajax') {
 // Sort out whether global or instance-based - if the global variable contains anything it is assumed to be global.
 if (isset($global) && $global != "") {
     $global = 1;
-    $blockinstance = 1;
 } else {
     $global = 0;
-    $blockinstance = optional_param('blockid', null, PARAM_INT);
 }
 
 // NEW NOTIFICATION.
@@ -107,10 +106,9 @@ if ($dismissible == 'on' || $dismissible == '1') {
 }
 
 // TODO: Check if successful?
-// Convert dates to epoch for DB.
-$datefrom = strtotime($datefrom);
-
-$dateto = strtotime($dateto);
+// Convert dates to epoch for DB. If empty, set to 0 (forever) by default.
+$datefrom == "" ? $datefrom = 0 : $datefrom = strtotime($datefrom);
+$dateto == "" ? $dateto = 0 : $dateto = strtotime($dateto);
 
 if (isset($dismiss) && $dismiss != '') {
     $notification = $DB->get_record('block_advnotifications',

@@ -52,7 +52,7 @@ if (isset($download) && $download !== '') {
     $params['download'] = 1;
 }
 
-// TODO: Use 'new moodle_url()' instead.
+// TODO: Use 'new moodle_url()' instead?
 if (isset($blockinstance) && $blockinstance !== '') {
     $param = '?blockid=' . $blockinstance;
     $xparam = '&blockid=' . $blockinstance;

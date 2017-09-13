@@ -34,13 +34,11 @@ defined('MOODLE_INTERNAL') || die;
  */
 class block_advnotifications extends block_base
 {
+
     /**
-     * Initialise block, load JS, set title.
+     * Initialise block, set title.
      */
     public function init() {
-        global $CFG, $PAGE;
-        $PAGE->requires->jquery();
-        $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/blocks/advnotifications/javascript/custom.js'));
         $this->title = get_string('advnotifications', 'block_advnotifications');
     }
 
@@ -50,12 +48,11 @@ class block_advnotifications extends block_base
      * @return bool|stdClass|stdObject
      */
     public function get_content() {
-        global $PAGE;
         if (get_config('block_advnotifications', 'enable')) {
             $this->content = new stdClass();
 
             // Get the renderer for this page.
-            $renderer = $PAGE->get_renderer('block_advnotifications');
+            $renderer = $this->page->get_renderer('block_advnotifications');
             $html = $renderer->render_notification($this->instance->id);
 
             $this->content->text = $html;
@@ -64,6 +61,17 @@ class block_advnotifications extends block_base
         } else {
             return false;
         }
+    }
+
+    /**
+     * Gets Javascript that may be required for navigation
+     */
+    function get_required_javascript() {
+        global $CFG;
+
+        parent::get_required_javascript();
+
+        $this->page->requires->js(new moodle_url($CFG->wwwroot . '/blocks/advnotifications/javascript/custom.js'));
     }
 
     /* TODO | This was only added to suppress an 'error' that would occur, as get_content would be called twice,
@@ -119,9 +127,8 @@ class block_advnotifications extends block_base
      * @return boolean
      */
     function hide_header() {
-        global $PAGE;
         // If editing, show header.
-        if ($PAGE->user_is_editing()) {
+        if ($this->page->user_is_editing()) {
             return false;
         }
         return true;
