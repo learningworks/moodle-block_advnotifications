@@ -164,7 +164,8 @@ class block_advnotifications_renderer extends plugin_renderer_base
                             <div class="alert alert-' . $alerttype . '">';
 
                 if (!empty($notification->aicon) && $notification->aicon == 1) {
-                    $html .= '<img class="notification_aicon" src="' . $CFG->wwwroot . '/blocks/advnotifications/pix/' . $aicon . '.png"/>';
+                    $html .= '<img class="notification_aicon" src="' .
+                                $CFG->wwwroot . '/blocks/advnotifications/pix/' . $aicon . '.png"/>';
                 }
                 if (!empty($notification->title)) {
                     $html .= '<strong>' . $notification->title . '</strong> ';

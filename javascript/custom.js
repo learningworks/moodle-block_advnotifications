@@ -1,5 +1,5 @@
 require(['jquery'], function ($) {
-    // JQuery is available via $
+    // JQuery is available via $.
     $(document).ready(function () {
         // Commonly (multiple times) used elements.
         var mainregion = $('#region-main');
@@ -21,10 +21,9 @@ require(['jquery'], function ($) {
             var callpath = M.cfg.wwwroot + "/blocks/advnotifications/pages/process.php?sesskey=" + M.cfg.sesskey;
 
             // Update user preferences.
-            $.post(callpath, senddata)
-                .fail(function (data) {
-                    console.error("No 'dismiss' response received.");
-                }).done(function () {
+            $.post(callpath, senddata).fail(function (data) {
+                console.error("No 'dismiss' response received.");
+            }).done(function () {
                 // User dismissed notification. Do something maybe...
             });
         });
@@ -57,10 +56,9 @@ require(['jquery'], function ($) {
             var callpath = M.cfg.wwwroot + "/blocks/advnotifications/pages/process.php?sesskey=" + M.cfg.sesskey;
 
             // Perform tableaction.
-            $.post(callpath, senddata)
-                .fail(function () {
-                    console.error("No 'manage' response received.");
-                }).done(function (data) {
+            $.post(callpath, senddata).fail(function () {
+                console.error("No 'manage' response received.");
+            }).done(function (data) {
                 data = JSON.parse(data);
 
                 // User deleted/edited notification.
@@ -69,32 +67,31 @@ require(['jquery'], function ($) {
                         $(this).remove();
                     });
                 } else if (senddata.purpose === "edit") {
-                    for (var index in data) {
-                        if (data.hasOwnProperty(index)) {
+                    for (var i in data) {
+                        if (data.hasOwnProperty(i)) {
 
                             // Need this for updating.
-                            if (index === "id") {
+                            if (i === "id") {
                                 var form = $('#add_notification_form');
 
                                 // Because we're doing a standard submit, we need extra inputs to pass params.
                                 // But first, remove old hidden inputs.
                                 $('#add_notification_id').remove();
-                                form.prepend('<input type="hidden" id="add_notification_id" name="id" value="' +
-                                    data[index] + '"/>');
+                                form.prepend('<input type="hidden" id="add_notification_id" name="id" value="' + data[i] + '"/>');
 
                                 $('#add_notification_purpose').val('update');
                             }
 
-                            var affectelement = $('#add_notification_wrapper_id').find('#add_notification_' + index);
+                            var affectelement = $('#add_notification_wrapper_id').find('#add_notification_' + i);
 
                             // Check whether checkboxes should be checked or not.
                             // We also don't assign a value to checkbox input fields.
-                            if ((index === 'enabled' || index === 'global' || index === 'dismissible' || index === 'aicon') && data[index] == 1) {
+                            if ((i === 'enabled' || i === 'global' || i === 'dismissible' || i === 'aicon') && data[i] == 1) {
                                 affectelement.prop('checked', true);
-                            } else if ((index === 'enabled' || index === 'global' || index === 'dismissible' || index === 'aicon') && data[index] == 0) {
+                            } else if ((i === 'enabled' || i === 'global' || i === 'dismissible' || i === 'aicon') && data[i] == 0) {
                                 affectelement.prop('checked', false);
                             } else {
-                                affectelement.val(data[index]);
+                                affectelement.val(data[i]);
                             }
                         }
                     }
@@ -128,10 +125,9 @@ require(['jquery'], function ($) {
             var callpath = M.cfg.wwwroot + "/blocks/advnotifications/pages/process.php?sesskey=" + M.cfg.sesskey;
 
             // Perform tableaction.
-            $.post(callpath, senddata)
-                .fail(function (data) {
-                    console.error("No 'restore/permdelete' response received.");
-                }).done(function (data) {
+            $.post(callpath, senddata).fail(function (data) {
+                console.error("No 'restore/permdelete' response received.");
+            }).done(function (data) {
                 data = JSON.parse(data);
 
                 // User deleted/restored notification.
@@ -174,10 +170,9 @@ require(['jquery'], function ($) {
             var callpath = M.cfg.wwwroot + "/blocks/advnotifications/pages/process.php?sesskey=" + M.cfg.sesskey;
 
             // Perform tableaction.
-            $.post(callpath, senddata)
-                .fail(function () {
-                    console.error("No 'add' response received.");
-                }).done(function () {
+            $.post(callpath, senddata).fail(function () {
+                console.error("No 'add' response received.");
+            }).done(function () {
                 // User saved notification.
                 status.find('.saving').hide();
                 status.find('.done').show();

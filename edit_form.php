@@ -41,7 +41,7 @@ class block_advnotifications_edit_form extends block_edit_form {
     protected function specific_definition($mform) {
         global $CFG;
 
-        // Used for navigation links to keep track of blockid (if any)
+        // Used for navigation links to keep track of blockid (if any).
         $blockid = optional_param('bui_editid', '', PARAM_INT);
         $param = '';
         $xparam = '';

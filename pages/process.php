@@ -23,8 +23,6 @@
  * @author     Zander Potgieter <zander.potgieter@learningworks.co.nz>
  */
 
-//define('AJAX_SCRIPT', true);
-
 // Load in Moodle config.
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php');
 
@@ -148,7 +146,8 @@ if (isset($tableaction) && $tableaction != '') {
             echo json_encode($enotification);
             exit();
         } else {
-            redirect(new moodle_url('/blocks/advnotifications/pages/notifications.php'), get_string('advnotifications_err_nojsedit', 'block_advnotifications'));
+            redirect(new moodle_url('/blocks/advnotifications/pages/notifications.php'),
+                                    get_string('advnotifications_err_nojsedit', 'block_advnotifications'));
         }
     } else if ($purpose == 'delete') {
         $dnotification = new stdClass();
@@ -219,7 +218,8 @@ if ($purpose == 'update') {
         echo json_encode(array("updated" => $title));
         exit();
     } else {
-        redirect(new moodle_url('/blocks/advnotifications/pages/notifications.php'), get_string('advnotifications_err_nojsedit', 'block_advnotifications'));
+        redirect(new moodle_url('/blocks/advnotifications/pages/notifications.php'),
+                                get_string('advnotifications_err_nojsedit', 'block_advnotifications'));
     }
 }
 

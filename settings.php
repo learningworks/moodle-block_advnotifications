@@ -29,7 +29,7 @@ global $CFG;
 
 if ($ADMIN->fulltree) {
 
-    // Used for navigation links to keep track of blockid (if any)
+    // Used for navigation links to keep track of blockid (if any).
     $blockid = optional_param('blockid', '', PARAM_INT);
     $param = '';
 

@@ -43,7 +43,7 @@ $download = optional_param('download', '', PARAM_ALPHA);
 $blockinstance = optional_param('blockid', '', PARAM_INT);
 
 
-// Used for navigation links to keep track of blockid (if any)
+// Used for navigation links to keep track of blockid (if any).
 $param = '';
 $xparam = '';
 
@@ -107,10 +107,12 @@ $table->set_sql('*', "{block_advnotifications}", "deleted = 0");
 
 // Add navigation controls before the table.
 echo '<div id="advnotifications_manage">
-        <a class="btn instance" href="' . $CFG->wwwroot . '/blocks/advnotifications/pages/restore.php' . $param . '">' .
+        <a class="btn instance" href="' .
+            $CFG->wwwroot . '/blocks/advnotifications/pages/restore.php' . $param . '">' .
             get_string('advnotifications_nav_restore', 'block_advnotifications') .
         '</a>&nbsp;&nbsp;
-        <a class="btn instance" href="' . $CFG->wwwroot . '/admin/settings.php?section=blocksettingadvnotifications' . $xparam . '">' .
+        <a class="btn instance" href="' .
+            $CFG->wwwroot . '/admin/settings.php?section=blocksettingadvnotifications' . $xparam . '">' .
             get_string('advnotifications_nav_settings', 'block_advnotifications') .
         '</a><br><br>
       </div>';

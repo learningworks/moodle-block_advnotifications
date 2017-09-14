@@ -66,7 +66,7 @@ class block_advnotifications extends block_base
     /**
      * Gets Javascript that may be required for navigation
      */
-    function get_required_javascript() {
+    public function get_required_javascript() {
         global $CFG;
 
         parent::get_required_javascript();
@@ -126,7 +126,7 @@ class block_advnotifications extends block_base
      *
      * @return boolean
      */
-    function hide_header() {
+    public function hide_header() {
         // If editing, show header.
         if ($this->page->user_is_editing()) {
             return false;
@@ -139,6 +139,7 @@ class block_advnotifications extends block_base
      * block_advnotificationsdissed
      */
     public function cron() {
+        // TODO: Move to Scheduled Task.
         global $DB;
 
         echo "\n\t" . get_string('advnotifications_cron_heading', 'block_advnotifications') . "\n";
