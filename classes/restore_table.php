@@ -242,18 +242,6 @@ class advnotifications_restore_table extends table_sql {
     }
 
     /**
-     * This function is called for each data row to allow processing of columns which do not have a *_cols function.
-     *
-     * @param string $colname - custom column name.
-     * @param string $value - custom column value.
-     * @return string return processed value. Return NULL if no change has been made.
-     */
-    public function other_cols($colname, $value) {
-        // Leaving here for future reference.
-        return null;
-    }
-
-    /**
      * This function is not part of the public api.
      */
     public function print_nothing_to_display() {

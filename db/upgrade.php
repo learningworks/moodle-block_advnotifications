@@ -88,4 +88,5 @@ function xmldb_block_advnotifications_upgrade($oldversion) {
         upgrade_block_savepoint(true, 201607071321, 'advnotifications');
     }
 
+    return true;
 }
