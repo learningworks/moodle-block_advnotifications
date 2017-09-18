@@ -32,7 +32,7 @@ before_install:
   - phpenv config-rm xdebug.ini
   - nvm install node
   - cd ../..
-  - composer create-project -n --no-dev --prefer-dist moodlerooms/moodle-plugin-ci ci ^2
+  - composer create-project -n --no-dev --prefer-dist moodlerooms/moodle-plugin-ci ci ^1
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
 
 install:

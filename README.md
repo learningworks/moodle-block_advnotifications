@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/learningworks/moodle-block_advnotifications.svg?branch=master)](https://travis-ci.org/learningworks/moodle-block_advnotifications)
+
 ## Allows for notifications to be easily managed and set to be displayed to users.
 
 ### Features:
