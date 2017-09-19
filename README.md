@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/learningworks/moodle-block_advnotifications.svg?branch=master)](https://travis-ci.org/learningworks/moodle-block_advnotifications)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](README.md)
 
-## Allows for notifications to be easily managed and set to be displayed to users.
+## Allows for notifications to be easily managed and set to be displayed to users
 
 ### Features:
 
@@ -26,6 +27,10 @@ Although the plugin works and is usable without JavaScript, it is highly recomme
 Using the plugin with JavaScript disabled does not allow for some features to be used to their full potential ranging from
 dismissing a notification to dynamically editing existing notifications and the live-preview feature - all of which relies on
 JavaScript in some form to make the user's experience more enjoyable.
+
+#### Pull Requests
+
+Pull requests are welcome - submit pull requests to address issues, add features, fix typos, anything!
 
 #### *Work-in-Progress!*
 

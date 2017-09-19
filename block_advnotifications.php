@@ -58,9 +58,9 @@ class block_advnotifications extends block_base
             $this->content->text = $html;
 
             return $this->content;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**

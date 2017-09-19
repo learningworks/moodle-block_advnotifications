@@ -62,7 +62,7 @@ require(['jquery'], function ($) {
                 data = JSON.parse(data);
 
                 // User deleted/edited notification.
-                if (parseInt(data.done) > 0) {
+                if (parseInt(data.done, 10) > 0) {
                     $('#tr' + data.done).closest("tr").fadeOut(250, function () {
                         $(this).remove();
                     });
@@ -132,7 +132,7 @@ require(['jquery'], function ($) {
 
                 // User deleted/restored notification.
                 // Object 'done' is returned for both restore & delete.
-                if (parseInt(data.done) > 0) {
+                if (parseInt(data.done, 10) > 0) {
                     $('#tr' + data.done).closest("tr").fadeOut(250, function () {
                         $(this).remove();
                     });
