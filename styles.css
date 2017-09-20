@@ -42,7 +42,7 @@ body #add_notification_wrapper_id {
   body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form input[type="checkbox"], body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form input[type="radio"] {
     width: 2em; }
   body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form .btn {
-    margin-top: 1em;
+    margin-top: 0.5em;
     margin-bottom: 0; }
   body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form #add_notification_status {
     display: none;

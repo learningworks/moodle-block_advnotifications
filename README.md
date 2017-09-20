@@ -3,6 +3,11 @@
 
 ## Allows for notifications to be easily managed and set to be displayed to users
 
+[![Functionality](docs/AdvNotifications.gif)](AdvNotifications.gif)
+
+This block allows users to display Bootstrap-like alerts (which can be easily styled differently in the theme or otherwise) with various configurations.
+This could be useful in cases such as alerting users of scheduled outages, welcoming them to your site, teachers can use it to notify users of changes/due dates, etc.
+
 ### Features:
 
 * Customisable title
@@ -20,6 +25,13 @@
 * Option to automatically remove user (dismissed/seen) records that relates to notifications that don't exist anymore
 * AJAX used to improve user-experience and simplify processes
 * Live-preview when making/editing a notification
+* Easy to use, but fully documented
+
+For full documentation, please check [here](docs/AdvancedNotifications.pdf) - or check the plugin's `/docs` directory.
+
+#### Notification Anatomy
+[![Alert Types](docs/AlertTypes.png)](AlertTypes.png)
+
 
 #### Backwards Compatibility/Progressive Enhancement
 
@@ -32,9 +44,8 @@ JavaScript in some form to make the user's experience more enjoyable.
 
 Pull requests are welcome - submit pull requests to address issues, add features, fix typos, anything!
 
-#### *Work-in-Progress!*
 
-#### Work still being done:
+#### TODO:
 
 * Allow user that created notification to delete the notification. 
 * Nothing more.....

@@ -69,16 +69,6 @@ if ($ADMIN->fulltree) {
         )
     );
 
-    // AUTO-PERMADELETE OLD DELETED NOTIFICATIONS.
-    $settings->add(
-        new admin_setting_configcheckbox(
-            'block_advnotifications/auto_perma_delete',                                                     // NAME.
-            get_string('setting/auto_perma_delete', 'block_advnotifications'),                              // TITLE.
-            get_string('setting/auto_perma_delete_desc', 'block_advnotifications'),                         // DESCRIPTION.
-            get_string('setting/auto_perma_delete_default', 'block_advnotifications')                       // DEFAULT.
-        )
-    );
-
     // AUTO-DELETE TOGGLE.
     $settings->add(
         new admin_setting_configcheckbox(
@@ -86,6 +76,16 @@ if ($ADMIN->fulltree) {
             get_string('setting/auto_delete', 'block_advnotifications'),                                    // TITLE.
             get_string('setting/auto_delete_desc', 'block_advnotifications'),                               // DESCRIPTION.
             get_string('setting/auto_delete_default', 'block_advnotifications')                             // DEFAULT.
+        )
+    );
+
+    // AUTO-PERMADELETE OLD DELETED NOTIFICATIONS.
+    $settings->add(
+        new admin_setting_configcheckbox(
+            'block_advnotifications/auto_perma_delete',                                                     // NAME.
+            get_string('setting/auto_perma_delete', 'block_advnotifications'),                              // TITLE.
+            get_string('setting/auto_perma_delete_desc', 'block_advnotifications'),                         // DESCRIPTION.
+            get_string('setting/auto_perma_delete_default', 'block_advnotifications')                       // DEFAULT.
         )
     );
 

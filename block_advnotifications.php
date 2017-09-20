@@ -64,6 +64,40 @@ class block_advnotifications extends block_base
     }
 
     /**
+     * FROM ::parent DOCS.
+     * Return a block_contents object representing the full contents of this block.
+     *
+     * This internally calls ->get_content(), and then adds the editing controls etc.
+     *
+     * You probably should not override this method, but instead override
+     * {@link html_attributes()}, {@link formatted_contents()} or {@link get_content()},
+     * {@link hide_header()}, {@link (get_edit_controls)}, etc.
+     *
+     * @param renderer_base $output The core_renderer to use when generating the output.
+     * @return block_contents $bc A representation of the block, for rendering.
+     * @since Moodle 2.0.
+     */
+    public function get_content_for_output($output) {
+        $bc = parent::get_content_for_output($output);
+
+        $context = context_system::instance();
+        if ($this->page->user_can_edit_blocks() && has_capability('block/advnotifications:managenotifications', $context)) {
+            // Edit config icon - always show - needed for positioning UI.
+            $str = new lang_string('advnotifications_table_title', 'block_advnotifications');
+            $controls = new action_menu_link_secondary(
+                new moodle_url('/blocks/advnotifications/pages/notifications.php', array('blockid' => $bc->blockinstanceid)),
+                new pix_icon('a/view_list_active', $str, 'moodle', array('class' => 'iconsmall', 'title' => '')),
+                $str,
+                array('class' => 'editing_manage')
+            );
+
+            array_unshift($bc->controls, $controls);
+        }
+
+        return $bc;
+    }
+
+    /**
      * Gets Javascript that may be required for navigation
      */
     public function get_required_javascript() {
