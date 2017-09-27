@@ -31,6 +31,14 @@ body #add_notification_wrapper_id {
       float: right; }
       body #add_notification_wrapper_id .alert.preview-alert > .preview-alert-dismissible > * {
         cursor: pointer; }
+  body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form .requiredfield {
+    background-color: rgba(255, 0, 0, 0.075);
+    border: 1px solid #FF0000; }
+  body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form strong.requiredfield {
+    padding: 0.25em;
+    border-color: transparent;
+    border-radius: 5px;
+    color: #af1e1e; }
   body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form strong.required {
     color: #af1e1e;
     font-size: 1.25em;
@@ -131,7 +139,7 @@ body:not(.editing) .block.block_advnotifications {
           box-shadow: none;
   border: none;
   background-color: transparent;
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
   padding: 0;
   min-height: 0; }
   body:not(.editing) .block.block_advnotifications .card-block {

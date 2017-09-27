@@ -77,7 +77,10 @@ $string['advnotifications_date_from'] = 'From:';
 $string['advnotifications_date_to'] = 'To:';
 $string['advnotifications_date_info'] = 'Same date = forever';
 $string['advnotifications_save'] = 'Save';
+$string['advnotifications_update'] = 'Update';
 $string['advnotifications_cancel'] = 'Cancel';
+$string['advnotifications_req'] = 'Required field...';
+$string['advnotifications_preview'] = 'Preview';
 
 // Renderer.
 $string['advnotifications_add_heading'] = 'New Notification';
@@ -120,9 +123,13 @@ $string['advnotifications_nav_settings'] = 'Settings';
 // Error Messages.
 $string['advnotifications_err_forbidden'] = 'Forbidden, please login again...';
 $string['advnotifications_err_nojsedit'] = 'Editing only supported with JavaScript enabled. Re-create the desired notification or enable JavaScript and try again.';
+$string['advnotifications_err_req'] = 'The following fields are required: {$a}';
 
 // Cron Messages.
 $string['advnotifications_cron_heading'] = 'Cleaning Advanced Notifications';
 $string['advnotifications_cron_auto_perma_delete'] = 'Permanently delete notifications that\'s had the deleted flag for more than 30 days...';
 $string['advnotifications_cron_auto_delete'] = 'Add deleted flag to notifications that\'s passed their end-date...';
 $string['advnotifications_cron_auto_delete_udata'] = 'Remove user records that relates to notifications that don\'t exist anymore...';
+
+// Misc.
+$string['advnotifications_join'] = ' & ';

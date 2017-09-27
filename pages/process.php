@@ -45,8 +45,6 @@ if (!has_capability('block/advnotifications:managenotifications', $context)) {
 
 header('HTTP/1.0 200 OK');
 
-global $DB, $USER;
-
 // TODO - Check if insertions/updates/deletions were successful, and return appropriate message.
 
 // GET PARAMETERS.
@@ -183,12 +181,31 @@ if (isset($tableaction) && $tableaction != '') {
         $DB->delete_records('block_advnotifications', array('id' => $tableaction));
 
         if ($ajax) {
-            echo json_encode(array("done" => $tableaction));
+            echo json_encode(array('done' => $tableaction));
             exit();
         } else {
             redirect(new moodle_url('/blocks/advnotifications/pages/restore.php'));
         }
     }
+}
+
+// Get plugin strings so JS can use appropriate locale strings.
+if ($purpose == 'strings') {
+    if ($ajax) {
+        $strings = new stdClass();
+
+        $strings->save = get_string('advnotifications_save', 'block_advnotifications');
+        $strings->update = get_string('advnotifications_update', 'block_advnotifications');
+        $strings->req = get_string('advnotifications_req', 'block_advnotifications');
+        $strings->preview = get_string('advnotifications_preview', 'block_advnotifications');
+        $strings->title = get_string('advnotifications_title', 'block_advnotifications');
+        $strings->message = get_string('advnotifications_message', 'block_advnotifications');
+
+        header('Content-Type: application/json; charset=UTF-8');
+        echo json_encode($strings);
+        exit();
+    }
+    // Else do nothing... No JS, no JS strings needed...
 }
 
 // Update existing notification, instead of inserting a new one.
@@ -224,7 +241,41 @@ if ($purpose == 'update') {
 }
 
 if ($purpose == "add") {
-    // Create a new notification - Used for both Ajax Calls & NON-JS method atm.
+    // Check for required fields.
+    $error = '';
+    $fields = [];
+
+    if (!isset($type)) {
+        $fields[] = 'type';
+        $error .= '"' . get_string('advnotifications_type', 'block_advnotifications') . '"';
+    }
+    if (!isset($times)) {
+        $fields[] = 'times';
+
+        if ($error !== '') {
+            $error .= get_string('advnotifications_join', 'block_advnotifications');
+        }
+
+        $error .= '"' . get_string('advnotifications_times', 'block_advnotifications') . '"';
+    }
+    if ($error !== '') {
+        if ($ajax) {
+            // Return Error.
+            // Technically we should never reach this if JS is enabled client-side,
+            // but leaving it in case validation slipped past JS.
+            header('HTTP/1.1 400 Bad Request Invalid Input');
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode(array('error' => $fields));
+            exit();
+        } else {
+            // Redirect with Error.
+            redirect(new moodle_url('/blocks/advnotifications/pages/notifications.php'),
+                    get_string('advnotifications_err_req', 'block_advnotifications', $error));
+        }
+    }
+
+
+    // Create a new notification - Used for both Ajax Calls & NON-JS calls.
     $row = new stdClass();
 
     $row->title = $title;

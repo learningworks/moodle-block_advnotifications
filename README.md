@@ -3,10 +3,11 @@
 
 ## Allows for notifications to be easily managed and set to be displayed to users
 
-[![Functionality](docs/AdvNotifications.gif)](AdvNotifications.gif)
+[![Functionality](docs/AdvNotifications.gif)](docs/AdvNotifications.gif)
 
 This block allows users to display Bootstrap-like alerts (which can be easily styled differently in the theme or otherwise) with various configurations.
 This could be useful in cases such as alerting users of scheduled outages, welcoming them to your site, teachers can use it to notify users of changes/due dates, etc.
+
 
 ### Features:
 
@@ -29,8 +30,15 @@ This could be useful in cases such as alerting users of scheduled outages, welco
 
 For full documentation, please check [here](docs/AdvancedNotifications.pdf) - or check the plugin's `/docs` directory.
 
+
 #### Notification Anatomy
-[![Alert Types](docs/AlertTypes.png)](AlertTypes.png)
+
+[![Alert Types](docs/AlertTypes.png)](docs/AlertTypes.png)
+
+
+#### Installation Notice
+
+All the plugin's settings are disabled by default. Enable it upon installation if you wish to start using it immediately or enable it later by navigating to Site Administration > Plugins > Blocks > Advanced Notifications. 
 
 
 #### Backwards Compatibility/Progressive Enhancement
@@ -39,6 +47,7 @@ Although the plugin works and is usable without JavaScript, it is highly recomme
 Using the plugin with JavaScript disabled does not allow for some features to be used to their full potential ranging from
 dismissing a notification to dynamically editing existing notifications and the live-preview feature - all of which relies on
 JavaScript in some form to make the user's experience more enjoyable.
+
 
 #### Pull Requests
 

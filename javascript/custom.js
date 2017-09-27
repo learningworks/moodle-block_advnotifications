@@ -4,6 +4,12 @@ require(['jquery'], function ($) {
         // Commonly (multiple times) used elements.
         var mainregion = $('#region-main');
         var addregion = $('#add_notification_wrapper_id');
+        var strings = {save: 'Save',
+            update: 'Update',
+            req: 'Required field...',
+            preview: 'Preview',
+            title: 'Title',
+            message: 'Message'};
 
         // USER DISMISSING/CLICKING ON A NOTIFICATION.
         $('.block_advnotifications').on('click', '.dismissible', function () {
@@ -21,7 +27,7 @@ require(['jquery'], function ($) {
             var callpath = M.cfg.wwwroot + "/blocks/advnotifications/pages/process.php?sesskey=" + M.cfg.sesskey;
 
             // Update user preferences.
-            $.post(callpath, senddata).fail(function (data) {
+            $.post(callpath, senddata).fail(function () {
                 console.error("No 'dismiss' response received.");
             }).done(function () {
                 // User dismissed notification. Do something maybe...
@@ -39,6 +45,7 @@ require(['jquery'], function ($) {
             // Check if user wants to edit/delete.
             var eattr = $(this).closest('form').attr('data-edit');
             var dattr = $(this).closest('form').attr('data-delete');
+            refresh_required();
 
             // Check if anchor element has attribute, retrieved from above.
             if (typeof eattr !== typeof undefined && eattr !== false) {
@@ -47,7 +54,7 @@ require(['jquery'], function ($) {
 
                 var savebutton = $('#add_notification_save');
                 savebutton.addClass('update');
-                savebutton.val('Update');
+                savebutton.val(strings.update);
             } else if (typeof dattr !== typeof undefined && dattr !== false) {
                 senddata.purpose = 'delete';
                 senddata.tableaction = dattr;
@@ -116,8 +123,7 @@ require(['jquery'], function ($) {
             if (typeof rattr !== typeof undefined && rattr !== false) {
                 senddata.purpose = 'restore';
                 senddata.tableaction = rattr;
-            }
-            else if (typeof pdattr !== typeof undefined && pdattr !== false) {
+            } else if (typeof pdattr !== typeof undefined && pdattr !== false) {
                 senddata.purpose = 'permdelete';
                 senddata.tableaction = pdattr;
             }
@@ -125,7 +131,7 @@ require(['jquery'], function ($) {
             var callpath = M.cfg.wwwroot + "/blocks/advnotifications/pages/process.php?sesskey=" + M.cfg.sesskey;
 
             // Perform tableaction.
-            $.post(callpath, senddata).fail(function (data) {
+            $.post(callpath, senddata).fail(function () {
                 console.error("No 'restore/permdelete' response received.");
             }).done(function (data) {
                 data = JSON.parse(data);
@@ -144,14 +150,16 @@ require(['jquery'], function ($) {
         addregion.on('click', '#add_notification_cancel', function (e) {
             e.preventDefault();
             $('#add_notification_form')[0].reset();
+            refresh_required();
 
             // Change save button back to normal.
             var savebutton = $('#add_notification_save');
             savebutton.removeClass('update');
-            $('#add_notification_id, #add_notification_call, #add_notification_purpose').remove();
+            $('#add_notification_id').remove();
+            $('#add_notification_purpose').val('add');
 
             // TODO: Better langstring handling.
-            savebutton.val('Save');
+            savebutton.val(strings.save);
         });
 
         // Managing more notifications.
@@ -162,16 +170,31 @@ require(['jquery'], function ($) {
             var form = $('#add_notification_form');
 
             status.show();
+            refresh_required();
+            if (!check_required()) {
+                status.hide();
+                return;
+            }
 
             var senddata = $(this).serialize();  // Data Object.
-            senddata.call = 'ajax';
-            senddata.purpose = 'add';
 
-            var callpath = M.cfg.wwwroot + "/blocks/advnotifications/pages/process.php?sesskey=" + M.cfg.sesskey;
+            var callpath = M.cfg.wwwroot + "/blocks/advnotifications/pages/process.php";
 
             // Perform tableaction.
-            $.post(callpath, senddata).fail(function () {
+            $.post(callpath, senddata).fail(function (data) {
                 console.error("No 'add' response received.");
+
+                var error = data.responseJSON.error;
+
+                for (var i in error) {
+                    if (error.hasOwnProperty(i)) {
+                        var sfield = form.find('select[name=' + error[i] + ']');
+                        sfield.addClass('requiredfield');
+                        $('<strong class="requiredfield"><em>' + strings.req + '</em><strong>').insertAfter(sfield[0].nextSibling);
+                    }
+                }
+
+                status.hide();
             }).done(function () {
                 // User saved notification.
                 status.find('.saving').hide();
@@ -188,7 +211,7 @@ require(['jquery'], function ($) {
                         savebutton.removeClass('update');
                         $('#add_notification_id').remove();
                         $('#add_notification_purpose').val('add');
-                        savebutton.val('Save');
+                        savebutton.val(strings.save);
                     });
                 }, 1500);
 
@@ -197,9 +220,6 @@ require(['jquery'], function ($) {
         });
 
         // LIVE PREVIEW.
-        // Prepend live preview alert.
-        addregion.prepend('<div><strong>Preview:</strong><br></div><div class="alert alert-info preview-alert"><div class="preview-aicon" style="display: none;"><img src="' + M.cfg.wwwroot + '/blocks/advnotifications/pix/info.png' + '" /></div><strong class="preview-title">Title</strong> <div class="preview-message">Message</div> <div class="preview-alert-dismissible" style="display: none;"><strong>&times;</strong></div></div>');
-
         // Dynamically update preview alert as user changes textbox content.
         addregion.on('input propertychange paste', '#add_notification_title, #add_notification_message', function () {
             $('#add_notification_wrapper_id').find('.preview-' + $(this).attr('name')).text($(this).val());
@@ -217,15 +237,14 @@ require(['jquery'], function ($) {
             previewalert.removeClass('alert-info alert-success alert-danger alert-warning');
             previewalert.addClass('alert-' + alerttype);
 
-            $('.preview-aicon').find('> img').attr('src', M.cfg.wwwroot + '/blocks/advnotifications/pix/' + alerttype + '.png')
+            $('.preview-aicon').find('> img').attr('src', M.cfg.wwwroot + '/blocks/advnotifications/pix/' + alerttype + '.png');
         });
 
         $('#add_notification_dismissible').on('change', function () {
             // Checking specifically whether ticked/checked or not to ensure it's displayed correctly (not toggling).
             if (!this.checked) {
                 $('.preview-alert-dismissible').hide();
-            }
-            else {
+            } else {
                 $('.preview-alert-dismissible').show();
             }
         });
@@ -234,10 +253,64 @@ require(['jquery'], function ($) {
             // Checking specifically whether ticked/checked or not to ensure it's displayed correctly (not toggling).
             if (!this.checked) {
                 $('.preview-aicon').hide();
-            }
-            else {
+            } else {
                 $('.preview-aicon').show();
             }
         });
+
+        var init = function () {
+            // Get strings.
+            var senddata = {};          // Data Object.
+            senddata.call = 'ajax';
+            senddata.purpose = 'strings';
+
+            var callpath = M.cfg.wwwroot + "/blocks/advnotifications/pages/process.php?sesskey=" + M.cfg.sesskey;
+
+            $.post(callpath, senddata).fail(function () {
+                console.error("No 'strings' response received.");
+            }).done(function (data) {
+                // Store strings and update preview (TODO: ONLY DO THIS IF AJAX SUCCESSFUL - don't render with English first?).
+                strings = data;
+            }).always(function () {
+                // Always prepend live preview. Will use langstrings if AJAX successful, otherwise the strings declared at top.
+                refresh_preview();
+            });
+
+            // JS is enabled, so we can use AJAX in the new notification form.
+            $('#add_notification_form').append('<input type="hidden" id="add_notification_call" name="call" value="ajax"/>');
+        };
+
+        var refresh_preview = function () {
+            var previewelem = $('#notification_preview_wrapper');
+
+            if (previewelem.length > 0) {
+                previewelem.remove();
+            }
+            $('<div id="notification_preview_wrapper" style="display: none"><strong>' + strings.preview + '</strong><br><div class="alert alert-info preview-alert"><div class="preview-aicon" style="display: none;"><img src="' + M.cfg.wwwroot + '/blocks/advnotifications/pix/info.png' + '" /></div><strong class="preview-title">' + strings.title + '</strong> <div class="preview-message">' + strings.message + '</div> <div class="preview-alert-dismissible" style="display: none;"><strong>&times;</strong></div></div></div>').prependTo($(addregion)).slideDown();
+        };
+
+        var check_required = function () {
+            var disselopt = $('#add_notification_form select option:selected:disabled');
+
+            for (var opt in disselopt) {
+                if (disselopt.hasOwnProperty(opt)) {
+                    if ($(disselopt[opt]).prop('disabled')) {
+                        $(disselopt[opt]).closest('select').addClass('requiredfield');
+                        $('<strong class="requiredfield"><em>' + strings.req + '</em><strong>')
+                            .insertAfter($(disselopt[opt]).closest('select')[0].nextSibling);
+
+                        return false;
+                    }
+                }
+            }
+            return true;
+        };
+
+        var refresh_required = function () {
+            $('select.requiredfield').removeClass('requiredfield');
+            $('strong.requiredfield').remove();
+        };
+
+        init();
     });
 });

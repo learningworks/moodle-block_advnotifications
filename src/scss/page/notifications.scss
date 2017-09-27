@@ -42,6 +42,17 @@ body {
         }
         .add_notification_form_wrapper {
             #add_notification_form {
+                .requiredfield {
+                    background-color: color(required_background);
+                    border: 1px solid color(red);
+                }
+                strong.requiredfield {
+                    padding: 0.25em;
+                    border-color: transparent;
+                    border-radius: 5px;
+                    color: color(required);
+                }
+                
                 strong.required {
                     color: color(required);
                     font-size: 1.25em;
