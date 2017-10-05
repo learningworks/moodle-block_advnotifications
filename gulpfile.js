@@ -24,7 +24,7 @@ gulp.task('styles', function() {
     return gulp.src(path.styles.src + '/styles.scss')
         .pipe(sass({}).on('error', sass.logError))
         .pipe(autoprefixer('last 2 version'))
-        .pipe(clean())
+        .pipe(clean({format: 'beautify', level: {'1': {all: false, removeWhitespace: false}}}))
         .pipe(gulp.dest(path.styles.build))
         .pipe(notify({message: 'Styles task complete', onLast: true}));
 });
