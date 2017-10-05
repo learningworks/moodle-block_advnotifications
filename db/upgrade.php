@@ -35,7 +35,7 @@ function xmldb_block_advnotifications_upgrade($oldversion) {
     global $DB;
     $dbman = $DB->get_manager();
 
-    if ($oldversion < 201607071321) {
+    if ($oldversion < 2017100217) {
 
         // Define table block_advnotifications to be created.
         $table = new xmldb_table('block_advnotifications');
@@ -85,7 +85,7 @@ function xmldb_block_advnotifications_upgrade($oldversion) {
         }
 
         // Advnotifications savepoint reached.
-        upgrade_block_savepoint(true, 201607071321, 'advnotifications');
+        upgrade_block_savepoint(true, 2017100217, 'advnotifications');
     }
 
     return true;

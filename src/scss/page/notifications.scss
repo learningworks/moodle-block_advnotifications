@@ -1,6 +1,7 @@
 // Managing the notifications.
 body {
-    #advnotifications_table_wrapper, #advnotifications_restore_table_wrapper {
+    #advnotifications_table_wrapper,
+    #advnotifications_restore_table_wrapper {
         td {
             > form {
                 display: inline;
@@ -52,7 +53,7 @@ body {
                     border-radius: 5px;
                     color: color(required);
                 }
-                
+
                 strong.required {
                     color: color(required);
                     font-size: 1.25em;
@@ -60,12 +61,14 @@ body {
                     vertical-align: top;
                 }
 
-                input:not([type="submit"]), select {
+                input:not([type="submit"]),
+                select {
                     min-width: 12em;
                     margin: 2px 0;
                 }
 
-                input[type="checkbox"], input[type="radio"] {
+                input[type="checkbox"],
+                input[type="radio"] {
                     width: 2em;
                 }
 

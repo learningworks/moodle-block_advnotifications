@@ -14,7 +14,7 @@ body {
                         font-size: 1em;
                         transition: 250ms;
                         &:hover {
-                            color: #000000;
+                            color: color(black);
                             transition: 250ms;
                         }
                     }
@@ -45,7 +45,7 @@ body {
             box-shadow: none;
             border: none;
             background-color: transparent;
-            margin-bottom: 0 !important; // To overcome core '!important' CSS.
+            margin-bottom: 0 !important; // To overcome core '!important' CSS :( .
             padding: 0;
             min-height: 0;
 
