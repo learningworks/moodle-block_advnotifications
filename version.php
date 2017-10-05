@@ -30,4 +30,4 @@ $plugin->version = 2017100217;                        // YYYYMMDDHH (year, month
 $plugin->requires = 2015051104;                         // YYYYMMDDHH (This is the stable version for Moodle 2.9 as at 04/07/2016).
 $plugin->cron = 24 * 3600;                              // Cron interval 1 day.
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = 'v1.0.1';
+$plugin->release = 'v1.0.3';
