@@ -1,179 +1,221 @@
-body #advnotifications_restore_table_wrapper td > form,
-body #advnotifications_table_wrapper td > form {
-  display: inline
+/**
+ * Advanced Notifications SCSS
+ *
+ * @package   block_advnotifications
+ * @copyright 2016 LearningWorks Ltd
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+body #advnotifications_table_wrapper td > form,
+body #advnotifications_restore_table_wrapper td > form {
+    display: inline;
 }
-body #advnotifications_restore_table_wrapper td > form input,
-body #advnotifications_table_wrapper td > form input {
-  margin-bottom: 0
+
+body #advnotifications_table_wrapper td > form input,
+body #advnotifications_restore_table_wrapper td > form input {
+    margin-bottom: 0;
 }
+
 body #add_notification_wrapper_id {
-  margin-top: 2em
+    margin-top: 2em;
 }
+
 body #add_notification_wrapper_id .alert.preview-alert {
-  position: relative;
-  padding-right: 14px
+    position: relative;
+    padding-right: 14px;
 }
+
 body #add_notification_wrapper_id .alert.preview-alert > * {
-  display: inline
+    display: inline;
 }
+
 body #add_notification_wrapper_id .alert.preview-alert > .preview-aicon {
-  margin-left: 2em
+    margin-left: 2em;
 }
+
 body #add_notification_wrapper_id .alert.preview-alert > .preview-aicon img {
-  height: 1.5em;
-  position: absolute;
-  top: 50%;
-  bottom: 50%;
-  margin-left: -2em;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%)
+    height: 1.5em;
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    margin-left: -2em;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
+
 body #add_notification_wrapper_id .alert.preview-alert > .preview-alert-dismissible {
-  float: right
+    float: right;
 }
+
 body #add_notification_wrapper_id .alert.preview-alert > .preview-alert-dismissible > * {
-  cursor: pointer
+    cursor: pointer;
 }
+
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form .requiredfield {
-  background-color: rgba(255, 0, 0, 0.075);
-  border: 1px solid red
+    background-color: rgba(255, 0, 0, 0.075);
+    border: 1px solid #f00;
 }
+
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form strong.requiredfield {
-  padding: 0.25em;
-  border-color: transparent;
-  border-radius: 5px;
-  color: #af1e1e
+    padding: 0.25em;
+    border-color: transparent;
+    border-radius: 5px;
+    color: #af1e1e;
 }
+
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form strong.required {
-  color: #af1e1e;
-  font-size: 1.25em;
-  padding: 0 5px;
-  vertical-align: top
+    color: #af1e1e;
+    font-size: 1.25em;
+    padding: 0 5px;
+    vertical-align: top;
 }
+
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form input:not([type="submit"]),
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form select {
-  min-width: 12em;
-  margin: 2px 0
+    min-width: 12em;
+    margin: 2px 0;
 }
+
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form input[type="checkbox"],
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form input[type="radio"] {
-  width: 2em
+    width: 2em;
 }
+
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form .btn {
-  margin-top: 0.5em;
-  margin-bottom: 0
+    margin-top: 0.5em;
+    margin-bottom: 0;
 }
+
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form #add_notification_status {
-  display: none;
-  position: relative
+    display: none;
+    position: relative;
 }
+
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form #add_notification_status .signal {
-  border: 5px solid #333;
-  border-radius: 30px;
-  height: 30px;
-  left: 10px;
-  margin: -15px 0 0 -15px;
-  opacity: 0;
-  position: absolute;
-  top: 15px;
-  width: 30px;
-  -webkit-animation: pulsate 1s ease-out;
-  animation: pulsate 1s ease-out;
-  -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite;
-  -webkit-animation-direction: reverse;
-  animation-direction: reverse
+    border: 5px solid #333;
+    border-radius: 30px;
+    height: 30px;
+    left: 10px;
+    margin: -15px 0 0 -15px;
+    opacity: 0;
+    position: absolute;
+    top: 15px;
+    width: 30px;
+    -webkit-animation: pulsate 1s ease-out;
+    animation: pulsate 1s ease-out;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-direction: reverse;
+    animation-direction: reverse;
 }
+
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form #add_notification_status .saving {
-  padding-top: 10px;
-  margin-left: 40px
+    padding-top: 10px;
+    margin-left: 40px;
 }
+
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form #add_notification_status .done {
-  display: none;
-  padding-top: 10px;
-  margin-left: 40px
+    display: none;
+    padding-top: 10px;
+    margin-left: 40px;
 }
+
 @-webkit-keyframes pulsate {
-  0% {
-    -webkit-transform: scale(0.1);
-    transform: scale(0.1);
-    opacity: 0.0
-  }
-  50% {
-    opacity: 1
-  }
-  100% {
-    -webkit-transform: scale(1.2);
-    transform: scale(1.2);
-    opacity: 0
-  }
+    0% {
+        -webkit-transform: scale(0.1);
+        transform: scale(0.1);
+        opacity: 0.0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+        opacity: 0;
+    }
 }
+
 @keyframes pulsate {
-  0% {
-    -webkit-transform: scale(0.1);
-    transform: scale(0.1);
-    opacity: 0.0
-  }
-  50% {
-    opacity: 1
-  }
-  100% {
-    -webkit-transform: scale(1.2);
-    transform: scale(1.2);
-    opacity: 0
-  }
+    0% {
+        -webkit-transform: scale(0.1);
+        transform: scale(0.1);
+        opacity: 0.0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+        opacity: 0;
+    }
 }
+
 body .block.block_advnotifications .content .notification-block-wrapper {
-  margin-bottom: 1em
+    margin-bottom: 1em;
 }
+
 body .block.block_advnotifications .content .notification-block-wrapper .alert {
-  margin-bottom: 0;
-  padding-right: 1em;
-  position: relative
+    margin-bottom: 0;
+    padding-right: 1em;
+    position: relative;
 }
+
 body .block.block_advnotifications .content .notification-block-wrapper .alert .notification-block-close {
-  float: right;
-  cursor: pointer;
-  font-size: 1em;
-  -webkit-transition: 250ms;
-  transition: 250ms
+    float: right;
+    cursor: pointer;
+    font-size: 1em;
+    -webkit-transition: 250ms;
+    transition: 250ms;
 }
+
 body .block.block_advnotifications .content .notification-block-wrapper .alert .notification-block-close:hover {
-  color: #000;
-  -webkit-transition: 250ms;
-  transition: 250ms
+    color: #000;
+    -webkit-transition: 250ms;
+    transition: 250ms;
 }
+
 body .block.block_advnotifications .content .notification-block-wrapper.warning {
-  font-weight: 300
+    font-weight: 300;
 }
+
 body .block.block_advnotifications .content .notification-block-wrapper.aicon .alert {
-  padding-left: 3em
+    padding-left: 3em;
 }
+
 body .block.block_advnotifications .content .notification-block-wrapper.aicon .alert > .notification_aicon {
-  height: 1.5em;
-  position: absolute;
-  top: 50%;
-  bottom: 50%;
-  margin-left: -2em;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%)
+    height: 1.5em;
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    margin-left: -2em;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
+
 body:not(.editing) .block.block_advnotifications {
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  border: none;
-  background-color: transparent;
-  margin-bottom: 0!important;
-  padding: 0;
-  min-height: 0
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+    background-color: transparent;
+    margin-bottom: 0 !important;
+    padding: 0;
+    min-height: 0;
 }
+
 body:not(.editing) .block.block_advnotifications .card-block {
-  padding: 0
+    padding: 0;
 }
+
 body:not(.editing) .block.block_advnotifications .header {
-  display: none
+    display: none;
 }
+
 body:not(.editing) .block.block_advnotifications .content {
-  padding: 0;
-  background-color: transparent
+    padding: 0;
+    background-color: transparent;
 }

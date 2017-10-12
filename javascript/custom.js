@@ -1,3 +1,4 @@
+/* eslint no-console: ["error", { allow: ["error"] }] */
 require(['jquery'], function($) {
     // JQuery is available via $.
     $(document).ready(function() {
@@ -133,7 +134,7 @@ require(['jquery'], function($) {
             // Perform tableaction.
             $.post(callpath, senddata).fail(function() {
                 console.error("No 'restore/permdelete' response received.");
-            }).done(function (data) {
+            }).done(function(data) {
                 data = JSON.parse(data);
 
                 // User deleted/restored notification.
@@ -158,7 +159,6 @@ require(['jquery'], function($) {
             $('#add_notification_id').remove();
             $('#add_notification_purpose').val('add');
 
-            // TODO: Better langstring handling.
             savebutton.val(strings.save);
         });
 
