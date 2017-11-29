@@ -34,7 +34,6 @@ defined('MOODLE_INTERNAL') || die;
  */
 class block_advnotifications extends block_base
 {
-
     /**
      * Initialise block, set title.
      */
@@ -48,6 +47,10 @@ class block_advnotifications extends block_base
      * @return bool|stdClass|stdObject
      */
     public function get_content() {
+        if ($this->content !== null) {
+            return $this->content;
+        }
+
         if (get_config('block_advnotifications', 'enable')) {
             $this->content = new stdClass();
 
@@ -80,18 +83,21 @@ class block_advnotifications extends block_base
     public function get_content_for_output($output) {
         $bc = parent::get_content_for_output($output);
 
-        $context = context_system::instance();
-        if ($this->page->user_can_edit_blocks() && has_capability('block/advnotifications:managenotifications', $context)) {
-            // Edit config icon - always show - needed for positioning UI.
-            $str = new lang_string('advnotifications_table_title', 'block_advnotifications');
-            $controls = new action_menu_link_secondary(
-                new moodle_url('/blocks/advnotifications/pages/notifications.php', array('blockid' => $bc->blockinstanceid)),
-                new pix_icon('a/view_list_active', $str, 'moodle', array('class' => 'iconsmall', 'title' => '')),
-                $str,
-                array('class' => 'editing_manage')
-            );
+        // Only do this if bc has been set (block has content, editing mode on, etc).
+        if (isset($bc)) {
+            $context = context_system::instance();
+            if ($this->page->user_can_edit_blocks() && has_capability('block/advnotifications:managenotifications', $context)) {
+                // Edit config icon - always show - needed for positioning UI.
+                $str = new lang_string('advnotifications_table_title', 'block_advnotifications');
+                $controls = new action_menu_link_secondary(
+                    new moodle_url('/blocks/advnotifications/pages/notifications.php', array('blockid' => $bc->blockinstanceid)),
+                    new pix_icon('a/view_list_active', $str, 'moodle', array('class' => 'iconsmall', 'title' => '')),
+                    $str,
+                    array('class' => 'editing_manage')
+                );
 
-            array_unshift($bc->controls, $controls);
+                array_unshift($bc->controls, $controls);
+            }
         }
 
         return $bc;
@@ -106,18 +112,6 @@ class block_advnotifications extends block_base
         parent::get_required_javascript();
 
         $this->page->requires->js(new moodle_url($CFG->wwwroot . '/blocks/advnotifications/javascript/custom.js'));
-    }
-
-    /* TODO | This was only added to suppress an 'error' that would occur, as get_content would be called twice,
-    *  TODO | which affects the DB calls when we record the number of times an user has seen the notification.
-    */
-    /**
-     * Set block as not being empty.
-     *
-     * @return bool
-     */
-    public function is_empty() {
-        return false;
     }
 
     /**

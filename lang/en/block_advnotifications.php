@@ -23,16 +23,16 @@
  * @author     Zander Potgieter <zander.potgieter@learningworks.co.nz>
  */
 
-$string['pluginname'] = 'Advanced Notifications';
+$string['pluginname'] = 'Advanced notifications';
 
 // Capabilities.
-$string['advnotifications:addinstance'] = 'Add a new Advanced Notifications block';
-$string['advnotifications:myaddinstance'] = 'Add a new Advanced Notifications block to the My Moodle page';
+$string['advnotifications:addinstance'] = 'Add a new Advanced notifications block';
+$string['advnotifications:myaddinstance'] = 'Add a new Advanced notifications block to the my Moodle page';
 $string['advnotifications:managenotifications'] = 'Manage notifications and the relative settings';
 
 // Block Configuration.
-$string['advnotifications'] = 'Advanced Notifications';
-$string['advnotifications_class'] = 'Block Class:';
+$string['advnotifications'] = 'Advanced notifications';
+$string['advnotifications_class'] = 'Block class:';
 
 // Notifications Table Column Names & Table Related Lang Strings.
 $string['advnotifications_field_id'] = 'ID';
@@ -56,22 +56,22 @@ $string['advnotifications_cell_no'] = 'No';
 $string['advnotifications_restore_table_warning'] = '<strong>Warning!</strong> Deleting notifications from this table will permanently delete it from the database. We recommend using the auto-delete features of the plugin...';
 
 // Manage Advanced Notification Lang Strings.
-$string['advnotifications_table_title'] = 'Manage Notifications';
-$string['advnotifications_table_heading'] = 'Advanced Notifications';
+$string['advnotifications_table_title'] = 'Manage notifications';
+$string['advnotifications_table_heading'] = 'Advanced notifications';
 
-$string['advnotifications_restore_table_title'] = 'Restore Notifications';
-$string['advnotifications_restore_table_heading'] = 'Advanced Notifications Restore';
+$string['advnotifications_restore_table_title'] = 'Restore notifications';
+$string['advnotifications_restore_table_heading'] = 'Advanced notifications restore';
 
 // New Notification Lang Strings.
 $string['advnotifications_enabled'] = 'Enable/Disable?';
-$string['advnotifications_global'] = 'Global Notification?';
+$string['advnotifications_global'] = 'Global notification?';
 $string['add_notification_global_notice'] = 'This notification will be displayed globally/site-wide!';
 $string['advnotifications_title'] = 'Title';
 $string['advnotifications_message'] = 'Message';
 $string['advnotifications_type'] = 'Type';
 $string['advnotifications_times'] = '# of times';
 $string['advnotifications_times_label'] = 'Number of times to display the notification to the user (0 = forever)';
-$string['advnotifications_aicon'] = 'Display Icon?';
+$string['advnotifications_aicon'] = 'Display icon?';
 $string['advnotifications_dismissible'] = 'Dismissible?';
 $string['advnotifications_date_from'] = 'From:';
 $string['advnotifications_date_to'] = 'To:';
@@ -83,7 +83,7 @@ $string['advnotifications_req'] = 'Required field...';
 $string['advnotifications_preview'] = 'Preview';
 
 // Renderer.
-$string['advnotifications_add_heading'] = 'New Notification';
+$string['advnotifications_add_heading'] = 'New notification';
 $string['advnotifications_add_option_info'] = 'Information';
 $string['advnotifications_add_option_success'] = 'Success';
 $string['advnotifications_add_option_warning'] = 'Warning';
@@ -102,15 +102,15 @@ $string['setting/enable'] = 'Enable:';
 $string['setting/enable_desc'] = 'Toggles whether all notifications are enabled/disabled';
 $string['setting/enable_default'] = '';
 
-$string['setting/auto_perma_delete'] = 'Auto Permanent Delete:';
+$string['setting/auto_perma_delete'] = 'Auto permanent delete:';
 $string['setting/auto_perma_delete_desc'] = 'Toggles whether notifications that have been deleted for more than 30 days are automatically permanently deleted from the database.<br>(Helps with housekeeping/management)';
 $string['setting/auto_perma_delete_default'] = '';
 
-$string['setting/auto_delete'] = 'Auto Delete:';
+$string['setting/auto_delete'] = 'Auto delete:';
 $string['setting/auto_delete_desc'] = 'Toggles whether a notification that go past the set end-date is automatically deleted - but can be restored again.<br>(Helps with housekeeping/management)';
 $string['setting/auto_delete_default'] = '';
 
-$string['setting/auto_delete_user_data'] = 'Auto Delete User Data:';
+$string['setting/auto_delete_user_data'] = 'Auto delete user data:';
 $string['setting/auto_delete_user_data_desc'] = 'Toggles whether user data (such as whether the user has seen/dismissed notifications that don\'t exist anymore, etc) related to advanced notifications is automatically deleted.<br>(Helps with housekeeping/management)';
 $string['setting/auto_delete_user_data_default'] = '';
 
@@ -126,7 +126,7 @@ $string['advnotifications_err_nojsedit'] = 'Editing only supported with JavaScri
 $string['advnotifications_err_req'] = 'The following fields are required: {$a}';
 
 // Cron Messages.
-$string['advnotifications_cron_heading'] = 'Cleaning Advanced Notifications';
+$string['advnotifications_cron_heading'] = 'Cleaning advanced notifications';
 $string['advnotifications_cron_auto_perma_delete'] = 'Permanently delete notifications that\'s had the deleted flag for more than 30 days...';
 $string['advnotifications_cron_auto_delete'] = 'Add deleted flag to notifications that\'s passed their end-date...';
 $string['advnotifications_cron_auto_delete_udata'] = 'Remove user records that relates to notifications that don\'t exist anymore...';

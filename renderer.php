@@ -57,6 +57,7 @@ class block_advnotifications_renderer extends plugin_renderer_base
         // No disabled notifications.
         $conditions['enabled'] = 1;
 
+        // TODO - Move DB calls out of renderer.
         // Get notifications with conditions from above.
         $allnotifications = $DB->get_records('block_advnotifications', $conditions);
 
