@@ -26,8 +26,6 @@
 // Load in Moodle config.
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php');
 
-global $CFG;
-
 // Load in Moodle's Tablelib lib.
 require_once($CFG->dirroot . '/lib/tablelib.php');
 // Call in block's table file.
@@ -58,8 +56,6 @@ if (isset($blockinstance) && $blockinstance !== '') {
     $xparam = '&blockid=' . $blockinstance;
     $params['blockid'] = $blockinstance;
 }
-
-global $DB, $USER, $PAGE;
 
 $context = context_system::instance();
 $url = new moodle_url($CFG->wwwroot . '/blocks/advnotifications/pages/notifications.php');

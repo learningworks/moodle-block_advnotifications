@@ -126,6 +126,7 @@ $string['advnotifications_err_nojsedit'] = 'Editing only supported with JavaScri
 $string['advnotifications_err_req'] = 'The following fields are required: {$a}';
 
 // Cron Messages.
+$string['advnotifications_task_name'] = 'Advanced notifications';
 $string['advnotifications_cron_heading'] = 'Cleaning advanced notifications';
 $string['advnotifications_cron_auto_perma_delete'] = 'Permanently delete notifications that\'s had the deleted flag for more than 30 days...';
 $string['advnotifications_cron_auto_delete'] = 'Add deleted flag to notifications that\'s passed their end-date...';

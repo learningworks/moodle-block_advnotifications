@@ -15,18 +15,23 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Block version details
+ * When to run the task(s).
  *
  * @package    block_advnotifications
- * @copyright  2016 onwards LearningWorks Ltd {@link https://learningworks.co.nz/}
+ * @copyright  2017 LearningWorks Ltd - learningworks.co.nz
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @author     Zander Potgieter <zander.potgieter@learningworks.co.nz>
  */
 
-defined('MOODLE_INTERNAL') || die;
+defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'block_advnotifications';          // Recommended since 2.0.2 (MDL-26035). Required since 3.0 (MDL-48494).
-$plugin->version = 2017121516;                          // YYYYMMDDHH (year, month, day, 24-hr format hour).
-$plugin->requires = 2015051104;                         // YYYYMMDDHH (This is the stable version for Moodle 2.9 as at 04/07/2016).
-$plugin->maturity = MATURITY_STABLE;                    // Code maturity/stability.
-$plugin->release = 'v1.0.6';                            // Human-readable release version.
+$tasks = array(
+    array(
+        'classname' => 'block_advnotifications\task\advnotifications',
+        'blocking' => 0,
+        'minute' => '0',
+        'hour' => '0',
+        'day' => '*',
+        'dayofweek' => '*',
+        'month' => '*'
+    )
+);
