@@ -36,8 +36,7 @@ class advnotifications extends \core\task\scheduled_task {
      *
      * @return string.
      */
-    public function get_name()
-    {
+    public function get_name() {
         // Shown in admin screens.
         return get_string('advnotifications_task_name', 'block_advnotifications');
     }
@@ -45,15 +44,14 @@ class advnotifications extends \core\task\scheduled_task {
     /**
      * Remove old (or deleted) notifications from table block_advnotifications & cleanup table block_advnotificationsdissed.
      */
-    public function execute()
-    {
+    public function execute() {
         global $DB;
 
         // TODO - echo "\n\t" . get_string('advnotifications_cron_heading', 'block_advnotifications') . "\n";.
 
         // Auto-Permanent Delete Feature.
         if (get_config('block_advnotifications', 'auto_perma_delete')) {
-        // TODO - echo "\n\t\t- " . get_string('advnotifications_cron_auto_perma_delete', 'block_advnotifications') . "\n";.
+            // TODO - echo "\n\t\t- " . get_string('advnotifications_cron_auto_perma_delete', 'block_advnotifications') . "\n";.
 
             // Permanently delete notifications that's had the deleted flag for more than 30 days.
             $DB->delete_records_select('block_advnotifications',
