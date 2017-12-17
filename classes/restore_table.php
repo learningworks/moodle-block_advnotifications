@@ -25,14 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-global $CFG;
-
-// Load Moodle config.
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php');
 // Load parent (& tablelib lib).
 require_once(dirname(__FILE__) . '/base_table.php');
-
-require_login();
 
 /**
  * Sets up the table which lists deleted notification - that can be restored again or deleted permanently.

@@ -25,14 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-global $CFG;
-
-// Load Moodle config.
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php');
 // Load tablelib lib.
 require_once($CFG->dirroot .'/lib/tablelib.php');
-
-require_login();
 
 // The word 'notifications' is used twice, as I'm using the 'pluginname_filename' convention.
 

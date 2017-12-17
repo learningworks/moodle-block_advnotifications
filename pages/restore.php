@@ -30,8 +30,6 @@ require_once($CFG->dirroot . '/lib/tablelib.php');
 // Call in block's table file.
 require_once($CFG->dirroot . '/blocks/advnotifications/classes/restore_table.php');
 
-global $CFG;
-
 // PARAMS.
 $params = array();
 
@@ -58,8 +56,6 @@ if (isset($blockid) && $blockid !== '') {
 if ( !!$download ) {
     $params['download'] = 1;
 }
-
-global $DB, $USER, $PAGE;
 
 if ( !!$delete ) {
     // If wanting to delete a notification, delete from DB immediately before the table is rendered.

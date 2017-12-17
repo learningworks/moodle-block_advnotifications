@@ -21,7 +21,7 @@ require(['jquery'], function($) {
                 $(this).remove();
             });
 
-            var senddata = {};          // Data Object.
+            var senddata = {}; // Data Object.
             senddata.call = 'ajax';
             senddata.dismiss = dismiss;
 
@@ -38,7 +38,7 @@ require(['jquery'], function($) {
         // MANAGING NOTIFICATIONS.
         mainregion.on('click', '.notifications_table tr > td > form > input[type=submit]', function(e) {
             e.preventDefault();
-            var senddata = {};          // Data Object.
+            var senddata = {}; // Data Object.
             senddata.call = 'ajax';
             senddata.purpose = '';
             senddata.tableaction = '';
@@ -111,7 +111,7 @@ require(['jquery'], function($) {
         mainregion.on('click', '.notifications_restore_table tr > td > form > input[type=submit]', function(e) {
 
             e.preventDefault();
-            var senddata = {};          // Data Object.
+            var senddata = {}; // Data Object.
             senddata.call = 'ajax';
             senddata.purpose = '';
             senddata.tableaction = '';
@@ -176,7 +176,7 @@ require(['jquery'], function($) {
                 return;
             }
 
-            var senddata = $(this).serialize();  // Data Object.
+            var senddata = $(this).serialize(); // Data Object.
 
             var callpath = M.cfg.wwwroot + "/blocks/advnotifications/pages/process.php";
 
@@ -260,7 +260,7 @@ require(['jquery'], function($) {
 
         var init = function() {
             // Get strings.
-            var senddata = {};          // Data Object.
+            var senddata = {}; // Data Object.
             senddata.call = 'ajax';
             senddata.purpose = 'strings';
 
