@@ -41,149 +41,40 @@ class block_advnotifications_renderer extends plugin_renderer_base
     /**
      * Renders notification on page.
      *
-     * @param int $instanceid - block instance id.
+     * @param array $notifications - attributes about notifications to render.
      * @return string - returns HTML to render notification.
      */
-    public function render_notification($instanceid) {
-        global $DB, $USER, $CFG;
-
-        // CONDITIONS.
-        // Initialise/Declare.
-        $conditions = array();
-
-        // No deleted notifications.
-        $conditions['deleted'] = 0;
-
-        // No disabled notifications.
-        $conditions['enabled'] = 1;
-
-        // TODO - Move DB calls out of renderer.
-        // Get notifications with conditions from above.
-        $allnotifications = $DB->get_records('block_advnotifications', $conditions);
+    public function render_notification($notifications) {
+        global $CFG;
 
         $html = '';
 
-        foreach ($allnotifications as $notification) {
+        // Render all the appropriate notifications.
+        foreach ($notifications as $notification) {
+            // Open notification block.
+            $html .= '<div class="notification-block-wrapper' . $notification['extraclasses'] .
+                '" data-dismiss="' . $notification['notifid'] . '">
+                            <div class="alert alert-' . $notification['alerttype'] . '">';
 
-            // Keep track of number of times the user has seen the notification.
-            // Check if a record of the user exists in the dismissed/seen table.
-
-            // DO NOT CHANGE THIS IF YOU DO A RENDER OVERRIDE - START to END.
-            // START.
-            $userseen = $DB->get_record('block_advnotificationsdissed',
-                                        array('user_id' => $USER->id, 'not_id' => $notification->id)
-            );
-
-            // Get notification settings to determine whether to render it or not.
-            $render = false;
-
-            // Check if in date-range.
-            if ($notification->date_from === $notification->date_to) {
-                $render = true;
-            } else if ($notification->date_from < time() && $notification->date_to > time()) {
-                $render = true;
+            if (!empty($notification['aiconflag']) && $notification['aiconflag'] == 1) {
+                $html .= '<img class="notification_aicon" src="' .
+                    $CFG->wwwroot . '/blocks/advnotifications/pix/' . $notification['aicon'] . '.png"/>';
+            }
+            if (!empty($notification['title'])) {
+                $html .= '<strong>' . $notification['title'] . '</strong> ';
+            }
+            if (!empty($notification['message'])) {
+                $html .= $notification['message'];
             }
 
-            // Don't render if user has seen it more (or equal) to the times specified.
-            if ($userseen !== false) {
-                if ($userseen->seen >= $notification->times && $notification->times != 0) {
-                    $render = false;
-                } else if ($userseen->dismissed > 0) {
-                    $render = false;
-                }
+            // If dismissible, add close button.
+            if ($notification['dismissible'] == 1) {
+                $html .= '<div class="notification-block-close"><strong>&times;</strong></div>';
             }
 
-            // Don't render if notification isn't a global notification and the instanceid's/blockid's don't match.
-            if ($notification->blockid != $instanceid && $notification->global == 0) {
-                $render = false;
-            }
-
-            if ($render) {
-                // Update how many times the user has seen the notification.
-                if ($userseen === false) {
-                    $seenrecord = new stdClass();
-                    $seenrecord->user_id = $USER->id;
-                    $seenrecord->not_id = $notification->id;
-                    $seenrecord->dismissed = 0;
-                    $seenrecord->seen = 1;
-
-                    $DB->insert_record('block_advnotificationsdissed', $seenrecord);
-                } else {
-                    $upseenrecord = new stdClass();
-                    $upseenrecord->id = $userseen->id;
-                    $upseenrecord->seen = $userseen->seen + 1;
-
-                    $DB->update_record('block_advnotificationsdissed', $upseenrecord);
-                }
-
-                // END (close if).
-
-                // Get type to know which (bootstrap) class to apply.
-                $alerttype = '';
-                $aicon = '';
-
-                // Allows for custom styling and serves as a basic filter if anything unwanted was somehow submitted.
-                if (!empty($notification)) {
-                    if ($notification->type == "info") {
-                        $alerttype = 'info';
-                        $aicon = 'info';
-                    } else if ($notification->type == "success") {
-                        $alerttype = 'success';
-                        $aicon = 'success';
-                    } else if ($notification->type == "warning") {
-                        $alerttype = 'warning';
-                        $aicon = 'warning';
-                    } else if ($notification->type == "danger") {
-                        $alerttype = 'danger';
-                        $aicon = 'danger';
-                    } else if ($notification->type == "announcement") {
-                        $alerttype = 'info announcement';
-                        $aicon = 'info';
-                    } else {
-                        $alerttype = 'info';
-                        $aicon = 'info';
-                    }
-                } else {
-                    $alerttype = 'info';
-                    $aicon = 'info';
-                }
-
-                // Extra classes to add to the notification wrapper - at least having the type of alert.
-                $extraclasses = ' ' . $alerttype;
-                if ($notification->dismissible == 1) {
-                    $extraclasses .= ' dismissible';
-                }
-                if ($notification->times > 0) {
-                    $extraclasses .= ' limitedtimes';
-                }
-                if ($notification->aicon == 1) {
-                    $extraclasses .= ' aicon';
-                }
-
-                // Open notification block.
-                $html .= '<div class="notification-block-wrapper' . $extraclasses . '" data-dismiss="' . $notification->id . '">
-                            <div class="alert alert-' . $alerttype . '">';
-
-                if (!empty($notification->aicon) && $notification->aicon == 1) {
-                    $html .= '<img class="notification_aicon" src="' .
-                                $CFG->wwwroot . '/blocks/advnotifications/pix/' . $aicon . '.png"/>';
-                }
-                if (!empty($notification->title)) {
-                    $html .= '<strong>' . $notification->title . '</strong> ';
-                }
-                if (!empty($notification->message)) {
-                    $html .= $notification->message;
-                }
-
-                // If dismissible, add close button.
-                if ($notification->dismissible == 1) {
-                    $html .= '<div class="notification-block-close"><strong>&times;</strong></div>';
-                }
-
-                // Close notification block.
-                $html .= '    </div>
-                          </div>';
-            }
+            // Close notification block.
+            $html .= '    </div>
+                      </div>';
         }
 
         return $html;
@@ -226,8 +117,8 @@ class block_advnotifications_renderer extends plugin_renderer_base
                             <input type="hidden" id="add_notification_global" name="global" value="1"/><br>') .
                             '<input type="text" id="add_notification_title" name="title" placeholder="' .
                                 get_string('advnotifications_title', 'block_advnotifications') . '"/><br>
-                            <input type="text" id="add_notification_message" name="message" placeholder="' .
-                                get_string('advnotifications_message', 'block_advnotifications') . '"/><br>
+                            <textarea id="add_notification_message" name="message" placeholder="' .
+                                get_string('advnotifications_message', 'block_advnotifications') . '"></textarea><br>
                             <select id="add_notification_type" name="type" required>
                                 <option selected disabled>' .
                                     get_string('advnotifications_type', 'block_advnotifications') .

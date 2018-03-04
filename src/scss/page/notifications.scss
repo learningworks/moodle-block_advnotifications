@@ -62,9 +62,14 @@ body {
                 }
 
                 input:not([type="submit"]),
-                select {
+                select,
+                textarea {
                     min-width: 12em;
                     margin: 2px 0;
+                }
+
+                textarea {
+                    resize: both;
                 }
 
                 input[type="checkbox"],

@@ -70,9 +70,14 @@ body #add_notification_wrapper_id .add_notification_form_wrapper #add_notificati
 }
 
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form input:not([type="submit"]),
-body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form select {
+body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form select,
+body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form textarea {
     min-width: 12em;
     margin: 2px 0;
+}
+
+body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form textarea {
+    resize: both;
 }
 
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form input[type="checkbox"],
@@ -104,7 +109,6 @@ body #add_notification_wrapper_id .add_notification_form_wrapper #add_notificati
     animation: pulsate 1s ease-out;
     -webkit-animation-iteration-count: infinite;
     animation-iteration-count: infinite;
-    -webkit-animation-direction: reverse;
     animation-direction: reverse;
 }
 
@@ -161,12 +165,14 @@ body .block.block_advnotifications .content .notification-block-wrapper {
 
 body .block.block_advnotifications .content .notification-block-wrapper .alert {
     margin-bottom: 0;
-    padding-right: 1em;
+    padding-right: 2em;
     position: relative;
 }
 
 body .block.block_advnotifications .content .notification-block-wrapper .alert .notification-block-close {
-    float: right;
+    position: absolute;
+    right: 1em;
+    top: 0.75rem;
     cursor: pointer;
     font-size: 1em;
     -webkit-transition: 250ms;

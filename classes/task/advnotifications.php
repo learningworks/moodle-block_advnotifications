@@ -28,7 +28,9 @@ defined('MOODLE_INTERNAL') || die();
 
 /**
  * Class advnotifications - extends core to leverage the Tasks API.
- * @package block_advnotifications\task.
+ *
+ * @copyright  2016 onwards LearningWorks Ltd {@link https://learningworks.co.nz/}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class advnotifications extends \core\task\scheduled_task {
     /**

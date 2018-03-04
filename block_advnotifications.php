@@ -47,16 +47,25 @@ class block_advnotifications extends block_base
      * @return bool|stdClass|stdObject
      */
     public function get_content() {
+        global $CFG;
+
         if ($this->content !== null) {
             return $this->content;
         }
 
         if (get_config('block_advnotifications', 'enable')) {
+            require_once($CFG->dirroot . '/blocks/advnotifications/locallib.php');
+
             $this->content = new stdClass();
 
             // Get the renderer for this page.
             $renderer = $this->page->get_renderer('block_advnotifications');
-            $html = $renderer->render_notification($this->instance->id);
+
+            // Get & prepare notifications to render.
+            $notifications = prep_notifications($this->instance->id);
+
+            // Render notifications.
+            $html = $renderer->render_notification($notifications);
 
             $this->content->text = $html;
 
