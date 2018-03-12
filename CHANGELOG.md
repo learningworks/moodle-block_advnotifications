@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.1.1 - 12/03/2017
+
+### Changed
+* Small UX Improvement - better padding for dismiss button.
+* Bumped version number.
+
+### Fixed
+* Fixed bug that caused illogical redirect(s) - Issue #7.
+
 ## v1.1.0 - 05/03/2017
 
 ### Added

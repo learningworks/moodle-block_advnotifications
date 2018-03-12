@@ -26,8 +26,6 @@
 // Load in Moodle config.
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php');
 
-require_login();
-
 try {
     require_sesskey();
 } catch (EXCEPTION $e) {
@@ -37,11 +35,13 @@ try {
     exit();
 }
 
+require_login();
+
+global $USER;
+
 $context = context_system::instance();
 
-if (!has_capability('block/advnotifications:managenotifications', $context)) {
-    require_capability('block/advnotifications:managenotifications', $context);
-}
+require_capability('block/advnotifications:managenotifications', $context);
 
 header('HTTP/1.0 200 OK');
 
@@ -145,7 +145,7 @@ if (isset($tableaction) && $tableaction != '') {
             exit();
         } else {
             redirect(new moodle_url('/blocks/advnotifications/pages/notifications.php'),
-                                    get_string('advnotifications_err_nojsedit', 'block_advnotifications'));
+                get_string('advnotifications_err_nojsedit', 'block_advnotifications'));
         }
     } else if ($purpose == 'delete') {
         $dnotification = new stdClass();
@@ -236,7 +236,7 @@ if ($purpose == 'update') {
         exit();
     } else {
         redirect(new moodle_url('/blocks/advnotifications/pages/notifications.php'),
-                                get_string('advnotifications_err_nojsedit', 'block_advnotifications'));
+            get_string('advnotifications_err_nojsedit', 'block_advnotifications'));
     }
 }
 
@@ -270,7 +270,7 @@ if ($purpose == "add") {
         } else {
             // Redirect with Error.
             redirect(new moodle_url('/blocks/advnotifications/pages/notifications.php'),
-                    get_string('advnotifications_err_req', 'block_advnotifications', $error));
+                get_string('advnotifications_err_req', 'block_advnotifications', $error));
         }
     }
 

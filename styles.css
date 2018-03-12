@@ -165,8 +165,8 @@ body .block.block_advnotifications .content .notification-block-wrapper {
 
 body .block.block_advnotifications .content .notification-block-wrapper .alert {
     margin-bottom: 0;
-    padding-right: 2em;
     position: relative;
+    padding: 0.75rem 1.25rem;
 }
 
 body .block.block_advnotifications .content .notification-block-wrapper .alert .notification-block-close {
@@ -186,7 +186,7 @@ body .block.block_advnotifications .content .notification-block-wrapper .alert .
 }
 
 body .block.block_advnotifications .content .notification-block-wrapper.warning {
-    font-weight: 300;
+    font-weight: 400;
 }
 
 body .block.block_advnotifications .content .notification-block-wrapper.aicon .alert {
@@ -201,6 +201,10 @@ body .block.block_advnotifications .content .notification-block-wrapper.aicon .a
     margin-left: -2em;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
+}
+
+body .block.block_advnotifications .content .notification-block-wrapper.dismissible .alert {
+    padding-right: 2em;
 }
 
 body:not(.editing) .block.block_advnotifications {

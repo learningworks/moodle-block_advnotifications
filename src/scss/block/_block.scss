@@ -6,8 +6,8 @@ body {
                 margin-bottom: 1em;
                 .alert {
                     margin-bottom: 0;
-                    padding-right: 2em;
                     position: relative;
+                    padding: 0.75rem 1.25rem;
                     .notification-block-close {
                         position: absolute;
                         right: 1em;
@@ -21,22 +21,29 @@ body {
                         }
                     }
                 }
-            }
 
-            // Moodle automatically bolds the class 'warning', so this is to negate that (for the notifications specifically).
-            .notification-block-wrapper.warning {
-                font-weight: 300;
-            }
-            .notification-block-wrapper.aicon {
-                .alert {
-                    padding-left: 3em;
-                    > .notification_aicon {
-                        height: 1.5em;
-                        position: absolute;
-                        top: 50%;
-                        bottom: 50%;
-                        margin-left: -2em;
-                        transform: translateY(-50%);
+                // Moodle automatically bolds the class 'warning', so this is to negate that (for the notifications specifically).
+                &.warning {
+                    font-weight: 400;
+                }
+
+                &.aicon {
+                    .alert {
+                        padding-left: 3em;
+                        > .notification_aicon {
+                            height: 1.5em;
+                            position: absolute;
+                            top: 50%;
+                            bottom: 50%;
+                            margin-left: -2em;
+                            transform: translateY(-50%);
+                        }
+                    }
+                }
+
+                &.dismissible {
+                    .alert {
+                        padding-right: 2em;
                     }
                 }
             }

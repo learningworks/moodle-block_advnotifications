@@ -25,11 +25,6 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-// Load in Moodle config.
-require_once(dirname(dirname(dirname(__FILE__))) . '/config.php');
-
-require_login();
-
 /**
  * Renders notifications.
  *
