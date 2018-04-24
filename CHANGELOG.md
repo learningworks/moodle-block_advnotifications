@@ -1,6 +1,19 @@
 # Changelog
 
-## v1.1.1 - 12/03/2017
+## v1.2.0 - 24/04/2018
+
+### Added
+* Added breadcrumbs to manage & restore pages.
+* Added language strings for breadcrumbs.
+
+### Changed
+* Updated dates in Changelog (typos).
+* Bumped version number.
+
+### Fixed
+* Fixed minor illogical JS error - Issue #8.
+
+## v1.1.1 - 12/03/2018
 
 ### Changed
 * Small UX Improvement - better padding for dismiss button.
@@ -9,7 +22,7 @@
 ### Fixed
 * Fixed bug that caused illogical redirect(s) - Issue #7.
 
-## v1.1.0 - 05/03/2017
+## v1.1.0 - 05/03/2018
 
 ### Added
 * Added locallib file to manage preparation of notifications to be rendered.

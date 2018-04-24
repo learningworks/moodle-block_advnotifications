@@ -120,7 +120,7 @@ class block_advnotifications extends block_base
 
         parent::get_required_javascript();
 
-        $this->page->requires->js(new moodle_url($CFG->wwwroot . '/blocks/advnotifications/javascript/custom.js'));
+        $this->page->requires->js(new moodle_url($CFG->wwwroot . '/blocks/advnotifications/javascript/notif.js'));
     }
 
     /**

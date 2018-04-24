@@ -57,9 +57,11 @@ $string['advnotifications_restore_table_warning'] = '<strong>Warning!</strong> D
 
 // Manage Advanced Notification Lang Strings.
 $string['advnotifications_table_title'] = 'Manage notifications';
+$string['advnotifications_table_title_short'] = 'Manage';
 $string['advnotifications_table_heading'] = 'Advanced notifications';
 
 $string['advnotifications_restore_table_title'] = 'Restore notifications';
+$string['advnotifications_restore_table_title_short'] = 'Restore notifications';
 $string['advnotifications_restore_table_heading'] = 'Advanced notifications restore';
 
 // New Notification Lang Strings.

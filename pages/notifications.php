@@ -84,6 +84,9 @@ if (!$table->is_downloading()) {
     $PAGE->set_heading(get_string('advnotifications_table_heading', 'block_advnotifications'));
     $PAGE->requires->jquery();
     $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/blocks/advnotifications/javascript/custom.js'));
+    $PAGE->navbar->add(get_string('blocks'));
+    $PAGE->navbar->add(get_string('pluginname', 'block_advnotifications'));
+    $PAGE->navbar->add(get_string('advnotifications_table_title_short', 'block_advnotifications'));
 
     echo $OUTPUT->header();
 
