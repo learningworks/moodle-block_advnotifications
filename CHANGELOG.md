@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.2.1 - 27/04/2018
+
+### Added
+* Added .stylelintignore file to exclude scss files (only check final css file).
+
+### Changed
+* Bumped version number.
+
 ## v1.2.0 - 24/04/2018
 
 ### Added
