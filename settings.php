@@ -46,7 +46,7 @@ if ($ADMIN->fulltree) {
                         array('manage' => '<a class="btn instance" href="' . $CFG->wwwroot .
                             '/blocks/advnotifications/pages/notifications.php' . $param . '">Manage</a>',
                             'restore' => '<a class="btn instance" href="' . $CFG->wwwroot .
-                                '/blocks/advnotifications/pages/restore.php' . $param . '">Restore</a>'))                 // DESCRIPTION.
+                                '/blocks/advnotifications/pages/restore.php' . $param . '">Restore</a>'))   // DESCRIPTION.
         )
     );
 
@@ -66,6 +66,16 @@ if ($ADMIN->fulltree) {
             get_string('setting/enable', 'block_advnotifications'),                                         // TITLE.
             get_string('setting/enable_desc', 'block_advnotifications'),                                    // DESCRIPTION.
             get_string('setting/enable_default', 'block_advnotifications')                                  // DEFAULT.
+        )
+    );
+
+    // ALLOW HTML TOGGLE.
+    $settings->add(
+        new admin_setting_configcheckbox(
+            'block_advnotifications/html',                                                                  // NAME.
+            get_string('setting/html', 'block_advnotifications'),                                           // TITLE.
+            get_string('setting/html_desc', 'block_advnotifications'),                                      // DESCRIPTION.
+            get_string('setting/html_default', 'block_advnotifications')                                    // DEFAULT.
         )
     );
 

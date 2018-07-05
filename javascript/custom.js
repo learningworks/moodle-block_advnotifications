@@ -12,29 +12,6 @@ require(['jquery'], function($) {
             title: 'Title',
             message: 'Message'};
 
-        // USER DISMISSING/CLICKING ON A NOTIFICATION.
-        $('.block_advnotifications').on('click', '.dismissible', function() {
-
-            var dismiss = $(this).attr('data-dismiss');
-
-            $(this).slideUp('150', function() {
-                $(this).remove();
-            });
-
-            var senddata = {}; // Data Object.
-            senddata.call = 'ajax';
-            senddata.dismiss = dismiss;
-
-            var callpath = M.cfg.wwwroot + "/blocks/advnotifications/pages/process.php?sesskey=" + M.cfg.sesskey;
-
-            // Update user preferences.
-            $.post(callpath, senddata).fail(function() {
-                console.error("No 'dismiss' response received.");
-            }).done(function() {
-                // User dismissed notification. Do something maybe...
-            });
-        });
-
         // MANAGING NOTIFICATIONS.
         mainregion.on('click', '.notifications_table tr > td > form > input[type=submit]', function(e) {
             e.preventDefault();
@@ -73,6 +50,8 @@ require(['jquery'], function($) {
                 if (parseInt(data.done, 10) > 0) {
                     $('#tr' + data.done).closest("tr").fadeOut(250, function() {
                         $(this).remove();
+                        clearForm();
+                        refreshPreview();
                     });
                 } else if (senddata.purpose === "edit") {
                     for (var i in data) {
@@ -103,6 +82,7 @@ require(['jquery'], function($) {
                             }
                         }
                     }
+                    reloadPreview();
                 }
             });
         });
@@ -150,31 +130,22 @@ require(['jquery'], function($) {
         // Clear form.
         addregion.on('click', '#add_notification_cancel', function(e) {
             e.preventDefault();
-            $('#add_notification_form')[0].reset();
-            refreshRequired();
-
-            // Change save button back to normal.
-            var savebutton = $('#add_notification_save');
-            savebutton.removeClass('update');
-            $('#add_notification_id').remove();
-            $('#add_notification_purpose').val('add');
-
-            savebutton.val(strings.save);
+            clearForm();
         });
 
         // Managing more notifications.
         mainregion.on('submit', '#add_notification_form', function(e) {
             e.preventDefault();
             var status = $('#add_notification_status');
-            var savebutton = $('#add_notification_save');
             var form = $('#add_notification_form');
 
-            status.show();
             refreshRequired();
             if (!checkRequired()) {
-                status.hide();
+                // Stop if required fields are not supplied.
                 return;
             }
+
+            status.show();
 
             var senddata = $(this).serialize(); // Data Object.
 
@@ -200,18 +171,13 @@ require(['jquery'], function($) {
                 status.find('.saving').hide();
                 status.find('.done').show();
 
+                // Clear Form.
+                clearForm();
+
                 setTimeout(function() {
                     status.fadeOut(function() {
-                        status.hide();
+                        status.find('.done').hide();
                         status.find('.saving').show();
-                        status.slideUp();
-                        form[0].reset();
-
-                        // Change save button back to normal.
-                        savebutton.removeClass('update');
-                        $('#add_notification_id').remove();
-                        $('#add_notification_purpose').val('add');
-                        savebutton.val(strings.save);
                     });
                 }, 1500);
 
@@ -222,12 +188,44 @@ require(['jquery'], function($) {
         // LIVE PREVIEW.
         // Dynamically update preview alert as user changes textbox content.
         addregion.on('input propertychange paste', '#add_notification_title, #add_notification_message', function() {
-            $('#add_notification_wrapper_id').find('.preview-' + $(this).attr('name')).text($(this).val());
+            reloadPreview();
         });
 
         // Dynamically update preview alert type.
         $('#add_notification_type').on('change', function() {
-            var alerttype = $(this).val();
+            reloadPreview();
+        });
+
+        $('#add_notification_dismissible').on('change', function() {
+            // Checking specifically whether ticked/checked or not to ensure it's displayed correctly (not toggling).
+            reloadPreview();
+        });
+
+        $('#add_notification_aicon').on('change', function() {
+            // Checking specifically whether ticked/checked or not to ensure it's displayed correctly (not toggling).
+            reloadPreview();
+        });
+
+        // Check if preview is displaying correct (Update it).
+        var reloadPreview = function() {
+            // Update title.
+            var title = addregion.find('#add_notification_title');
+            if (title.val().length > 0) {
+                addregion.find('.preview-title')[0].innerHTML = title.val();
+            } else {
+                addregion.find('.preview-title')[0].innerHTML = strings.title;
+            }
+
+            // Update message.
+            var message = addregion.find('#add_notification_message');
+            if (message.val().length > 0) {
+                addregion.find('.preview-message')[0].innerHTML = message.val();
+            } else {
+                addregion.find('.preview-message')[0].innerHTML = strings.message;
+            }
+
+            // Check notification type.
+            var alerttype = $('#add_notification_type').val();
             var previewalert = $('#add_notification_wrapper_id .preview-alert');
 
             if (alerttype !== 'info' && alerttype !== 'success' && alerttype !== 'warning' && alerttype !== 'danger') {
@@ -238,25 +236,21 @@ require(['jquery'], function($) {
             previewalert.addClass('alert-' + alerttype);
 
             $('.preview-aicon').find('> img').attr('src', M.cfg.wwwroot + '/blocks/advnotifications/pix/' + alerttype + '.png');
-        });
 
-        $('#add_notification_dismissible').on('change', function() {
-            // Checking specifically whether ticked/checked or not to ensure it's displayed correctly (not toggling).
-            if (!this.checked) {
+            // Check if dismissable.
+            if (!$('#add_notification_dismissible')[0].checked) {
                 $('.preview-alert-dismissible').hide();
             } else {
                 $('.preview-alert-dismissible').show();
             }
-        });
 
-        $('#add_notification_aicon').on('change', function() {
-            // Checking specifically whether ticked/checked or not to ensure it's displayed correctly (not toggling).
-            if (!this.checked) {
+            // Check if icon should be shown.
+            if (!$('#add_notification_aicon')[0].checked) {
                 $('.preview-aicon').hide();
             } else {
                 $('.preview-aicon').show();
             }
-        });
+        };
 
         var init = function() {
             // Get strings.
@@ -280,13 +274,20 @@ require(['jquery'], function($) {
             $('#add_notification_form').append('<input type="hidden" id="add_notification_call" name="call" value="ajax"/>');
         };
 
+        // Shiny new and fresh preview.
         var refreshPreview = function() {
             var previewelem = $('#notification_preview_wrapper');
+            var previewdom = '<div id="notification_preview_wrapper"><strong>' + strings.preview + '</strong><br><div class="alert alert-info preview-alert"><div class="preview-aicon" style="display: none;"><img src="' + M.cfg.wwwroot + '/blocks/advnotifications/pix/info.png' + '" /></div><strong class="preview-title">' + strings.title + '</strong> <div class="preview-message">' + strings.message + '</div> <div class="preview-alert-dismissible" style="display: none;"><strong>&times;</strong></div></div></div>';
 
+            // If it exists already, remove before adding again.
             if (previewelem.length > 0) {
                 previewelem.remove();
+                // Don't slide in.
+                $(previewdom).prependTo($(addregion));
+            } else {
+                // Slide in.
+                $(previewdom).prependTo($(addregion)).hide().slideDown();
             }
-            $('<div id="notification_preview_wrapper" style="display: none"><strong>' + strings.preview + '</strong><br><div class="alert alert-info preview-alert"><div class="preview-aicon" style="display: none;"><img src="' + M.cfg.wwwroot + '/blocks/advnotifications/pix/info.png' + '" /></div><strong class="preview-title">' + strings.title + '</strong> <div class="preview-message">' + strings.message + '</div> <div class="preview-alert-dismissible" style="display: none;"><strong>&times;</strong></div></div></div>').prependTo($(addregion)).slideDown();
         };
 
         var checkRequired = function() {
@@ -309,6 +310,20 @@ require(['jquery'], function($) {
         var refreshRequired = function() {
             $('select.requiredfield').removeClass('requiredfield');
             $('strong.requiredfield').remove();
+        };
+
+        var clearForm = function() {
+            $('#add_notification_form')[0].reset();
+            refreshRequired();
+            refreshPreview();
+
+            // Change save button back to normal.
+            var savebutton = $('#add_notification_save');
+            savebutton.removeClass('update');
+            $('#add_notification_id').remove();
+            $('#add_notification_purpose').val('add');
+
+            savebutton.val(strings.save);
         };
 
         init();

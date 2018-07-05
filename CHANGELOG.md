@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.2.2 - 05/07/2018
+
+### Added
+* 'Allow HTML' setting - toggles if basic HTML is allowed in the Title and Message (filtered for scripts, etc) - Issue #9.
+
+### Changed
+* Preview & Form-related JavaScript improved - more robust and responsive UI/UX.
+* Minor styling update for status indicator (Saving/Done).
+* Bumped version number.
+
 ## v1.2.1 - 27/04/2018
 
 ### Added
