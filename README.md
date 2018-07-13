@@ -13,6 +13,7 @@ This could be useful in cases such as alerting users of scheduled outages, welco
 
 * Customisable title
 * Customisable message
+* Basic HTML allowed for advanced users
 * Multiple types of notifications (Bootstrap-based)
 * Type-based icons (optional setting)
 * Dismissible/Non-Dismissible

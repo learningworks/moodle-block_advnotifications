@@ -1,9 +1,17 @@
 # Changelog
 
+## v1.2.3 - 13/07/2018
+
+### Changed
+* If the from/to dates are not set, a `-` is now displayed instead of 01/01/1970.
+* If the from/to dates match the 'to date' is displayed as a `-`.
+* Updated README - HTML allowed since previous update.
+* Bumped version number.
+
 ## v1.2.2 - 05/07/2018
 
 ### Added
-* 'Allow HTML' setting - toggles if basic HTML is allowed in the Title and Message (filtered for scripts, etc) - Issue #9.
+* 'Allow HTML' setting - toggles if basic HTML is allowed in the Title and Message (filtered for scripts, etc).
 
 ### Changed
 * Preview & Form-related JavaScript improved - more robust and responsive UI/UX.
@@ -29,7 +37,7 @@
 * Bumped version number.
 
 ### Fixed
-* Fixed minor illogical JS error - Issue #8.
+* Fixed minor illogical JS error.
 
 ## v1.1.1 - 12/03/2018
 
@@ -38,7 +46,7 @@
 * Bumped version number.
 
 ### Fixed
-* Fixed bug that caused illogical redirect(s) - Issue #7.
+* Fixed bug that caused illogical redirect(s).
 
 ## v1.1.0 - 05/03/2018
 
