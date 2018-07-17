@@ -89,6 +89,30 @@ function xmldb_block_advnotifications_upgrade($oldversion) {
     }
 
     // Add future upgrade points here.
+    if ($oldversion < 2018042717 ) {
+        // Support for skipping RSS feeds for a while when they fail.
+        $table = new xmldb_table('block_advnotificationsrss');
+
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('user_id', XMLDB_TYPE_INTEGER, '20', null, XMLDB_NOTNULL, null, '0');
+        $table->add_field('title', XMLDB_TYPE_TEXT, null, null, null, null, null);
+        $table->add_field('preferredtitle', XMLDB_TYPE_CHAR, '64', null, null, null, null);
+        $table->add_field('description', XMLDB_TYPE_TEXT, null, null, null, null, null);
+        $table->add_field('shared', XMLDB_TYPE_INTEGER, '2', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('url', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('skiptime', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+        $table->add_field('skipuntil', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+
+        // Adding keys to table block_advnotificationsdissed.
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+
+        // Conditionally launch create table for block_advnotificationsdissed.
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+
+        upgrade_block_savepoint(true, 2018042717, 'advnotifications');
+    }
 
     return true;
 }
