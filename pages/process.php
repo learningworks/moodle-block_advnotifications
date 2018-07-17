@@ -55,8 +55,13 @@ $calltype = optional_param('call', null, PARAM_TEXT);
 $enabled = optional_param('enabled', null, PARAM_TEXT);
 $global = optional_param('global', null, PARAM_TEXT);
 $blockinstance = optional_param('blockid', -1, PARAM_INT);
-$title = optional_param('title', null, PARAM_TEXT);
-$message = optional_param('message', null, PARAM_TEXT);
+if (get_config('block_advnotifications', 'html')) {
+    $title = optional_param('title', null, PARAM_CLEANHTML);
+    $message = optional_param('message', null, PARAM_CLEANHTML);
+} else {
+    $title = optional_param('title', null, PARAM_TEXT);
+    $message = optional_param('message', null, PARAM_TEXT);
+}
 $type = optional_param('type', null, PARAM_TEXT);
 $times = optional_param('times', null, PARAM_INT);
 $aicon = optional_param('aicon', null, PARAM_TEXT);

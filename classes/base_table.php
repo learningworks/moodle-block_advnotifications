@@ -191,6 +191,10 @@ class advnotifications_base_table extends table_sql {
      * @return integer Return value from when the notification should be displayed
      */
     public function col_date_from($values) {
+        if ($values->date_from <= 0) {
+            return '-';
+        }
+
         return date('d/m/Y', $values->date_from);
     }
 
@@ -202,6 +206,10 @@ class advnotifications_base_table extends table_sql {
      * @return integer Return value until when the notification should be displayed
      */
     public function col_date_to($values) {
+        if ($values->date_from <= 0 || $values->date_from === $values->date_to) {
+            return '-';
+        }
+
         return date('d/m/Y', $values->date_to);
     }
 

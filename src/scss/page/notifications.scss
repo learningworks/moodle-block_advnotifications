@@ -85,6 +85,7 @@ body {
                 #add_notification_status {
                     display: none;
                     position: relative;
+                    margin-top: 10px;
                     .signal {
                         border: 5px solid #333;
                         border-radius: 30px;
@@ -100,12 +101,12 @@ body {
                         animation-direction: reverse;
                     }
                     .saving {
-                        padding-top: 10px;
+                        padding-top: 5px;
                         margin-left: 40px;
                     }
                     .done {
                         display: none;
-                        padding-top: 10px;
+                        padding-top: 5px;
                         margin-left: 40px;
                     }
                 }

@@ -93,6 +93,7 @@ body #add_notification_wrapper_id .add_notification_form_wrapper #add_notificati
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form #add_notification_status {
     display: none;
     position: relative;
+    margin-top: 10px;
 }
 
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form #add_notification_status .signal {
@@ -113,13 +114,13 @@ body #add_notification_wrapper_id .add_notification_form_wrapper #add_notificati
 }
 
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form #add_notification_status .saving {
-    padding-top: 10px;
+    padding-top: 5px;
     margin-left: 40px;
 }
 
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form #add_notification_status .done {
     display: none;
-    padding-top: 10px;
+    padding-top: 5px;
     margin-left: 40px;
 }
 

@@ -174,7 +174,7 @@ class block_advnotifications_renderer extends plugin_renderer_base
                                 <div class="saving">' .
                                     get_string('advnotifications_add_saving', 'block_advnotifications') .
                                 '</div>
-                                <div class="done">' .
+                                <div class="done" style="display: none;">' .
                                     get_string('advnotifications_add_done', 'block_advnotifications') .
                                 '</div>
                             </div>';
