@@ -108,6 +108,10 @@ $string['setting/html'] = 'Allow HTML:';
 $string['setting/html_desc'] = 'Toggles whether basic HTML is allowed in notifications\' titles/messages';
 $string['setting/html_default'] = '';
 
+$string['setting/multilang'] = 'Multi-lang/Filter support:';
+$string['setting/multilang_desc'] = 'Toggles whether the multilang filter (and others) are supported in notifications\' titles/messages.<br>Note - This is for more advanced users & HTML needs to be enabled (above).';
+$string['setting/multilang_default'] = '';
+
 $string['setting/auto_delete'] = 'Auto delete:';
 $string['setting/auto_delete_desc'] = 'Toggles whether a notification that go past the set end-date is automatically deleted - but can be restored again.<br>(Helps with housekeeping/management)';
 $string['setting/auto_delete_default'] = '';

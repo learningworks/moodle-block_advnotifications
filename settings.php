@@ -79,6 +79,16 @@ if ($ADMIN->fulltree) {
         )
     );
 
+    // MULTILANG FILTER(S) SUPPORT TOGGLE.
+    $settings->add(
+        new admin_setting_configcheckbox(
+            'block_advnotifications/multilang',                                                             // NAME.
+            get_string('setting/multilang', 'block_advnotifications'),                                      // TITLE.
+            get_string('setting/multilang_desc', 'block_advnotifications'),                                 // DESCRIPTION.
+            get_string('setting/multilang_default', 'block_advnotifications')                               // DEFAULT.
+        )
+    );
+
     // AUTO-DELETE TOGGLE.
     $settings->add(
         new admin_setting_configcheckbox(

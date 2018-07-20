@@ -67,7 +67,13 @@ class block_advnotifications extends block_base
             // Render notifications.
             $html = $renderer->render_notification($notifications);
 
-            $this->content->text = $html;
+            if (get_config('block_advnotifications', 'multilang')) {
+                // Format text to support multilang strings/content.
+                $this->content->text = format_text($html, FORMAT_HTML);
+            } else {
+                // Render as-is.
+                $this->content->text = $html;
+            }
 
             return $this->content;
         }

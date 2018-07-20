@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.2.4 - 18/07/2018
+
+### Added
+* Support added for multilang (and other) filters.
+
+### Changed
+* Bumped version number.
+
 ## v1.2.3 - 13/07/2018
 
 ### Changed
