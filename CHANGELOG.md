@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.3.0 - 21/01/2019
+
+### Added
+* Support for Privacy API (GDPR Compliance)
+* Language strings for Privacy API
+
+### Changed
+* Bumped version number.
+
 ## v1.2.4 - 18/07/2018
 
 ### Added
