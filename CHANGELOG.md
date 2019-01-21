@@ -1,10 +1,20 @@
 # Changelog
 
+## v1.3.1 - 21/01/2019
+
+### Changed
+* TravisCI file update.
+* Bumped version number.
+
+### Fixed
+* Minor code style fixes.
+* EOL fixes.
+
 ## v1.3.0 - 21/01/2019
 
 ### Added
-* Support for Privacy API (GDPR Compliance)
-* Language strings for Privacy API
+* Support for Privacy API (GDPR Compliance).
+* Language strings for Privacy API.
 
 ### Changed
 * Bumped version number.

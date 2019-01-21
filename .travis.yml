@@ -3,12 +3,11 @@ language: php
 sudo: false
 
 addons:
-  firefox: "47.0.1"
-  postgresql: "9.3"
-  apt:
-    packages:
-      - oracle-java8-installer
-      - oracle-java8-set-default
+  postgresql: "9.6"
+  packages:
+    - mysql-server-5.6
+    - mysql-client-core-5.6
+    - mysql-client-5.6
 
 cache:
   directories:
@@ -16,14 +15,14 @@ cache:
     - $HOME/.npm
 
 php:
- - 5.6
- - 7.0
+ - 7.2
  - 7.1
+ - 7.0
 
 env:
  global:
-  - MOODLE_BRANCH=MOODLE_32_STABLE
-  - MOODLE_BRANCH=MOODLE_31_STABLE
+  - MOODLE_BRANCH=MOODLE_36_STABLE
+  - MOODLE_BRANCH=MOODLE_35_STABLE
  matrix:
   - DB=pgsql
   - DB=mysqli
@@ -44,3 +43,4 @@ script:
   - moodle-plugin-ci phpmd
   - moodle-plugin-ci codechecker
   - moodle-plugin-ci validate
+  - moodle-plugin-ci savepoints

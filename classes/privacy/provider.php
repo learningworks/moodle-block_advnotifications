@@ -39,6 +39,7 @@ use core_privacy\local\request\writer;
 
 defined('MOODLE_INTERNAL') || die();
 
+/** @var string Flag used to determine if notification is block-based or global */
 const SITE_NOTIFICATION = "-1";
 
 /**
@@ -63,7 +64,7 @@ class provider implements
      * @param   collection $collection The collection of metadata.
      * @return  collection  $collection The collection returned as a whole.
      */
-    public static function get_metadata(collection $collection): collection {
+    public static function get_metadata(collection $collection) : collection {
         mtrace("\tGetting metadata...");
 
         // Add items to collection.
@@ -198,9 +199,9 @@ class provider implements
 
         $userid = $contextlist->get_user()->id;
 
-        // TODO: What about deleted_by or created_by?
-        // MAYBE ADD: OR adv.deleted_by = :userid
-        //            OR adv.created_by = :userid
+        /* TODO: What about deleted_by or created_by?
+           MAYBE ADD: OR adv.deleted_by = :userid
+                      OR adv.created_by = :userid */
         $alluserdata = $DB->get_records_sql(
             "SELECT adv.title, adv.message, adv.blockid, adv.deleted, adv.deleted_by, adv.created_by,
                     advdis.user_id, advdis.dismissed, advdis.seen
@@ -210,7 +211,7 @@ class provider implements
             array('userid' => $userid)
         );
 
-        // Get and export user data
+        // Get and export user data.
         foreach ($alluserdata as $userdata) {
 
             if ($userdata->blockid !== SITE_NOTIFICATION) {
@@ -329,7 +330,7 @@ class provider implements
     public static function delete_data_for_users(approved_userlist $userlist) {
         mtrace("\tDeleting data for users...");
 
-        // For each user, delete the user data
+        // For each user, delete the user data.
         foreach ($userlist->get_userids() as $userid) {
             static::adv_delete_user_data($userid);
         }
