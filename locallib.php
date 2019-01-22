@@ -33,6 +33,13 @@ defined('MOODLE_INTERNAL') || die();
 function prep_notifications($instanceid) {
     global $DB, $USER;
 
+    $filternotif = false;
+
+    // Check if we should apply filters to title/message or not.
+    if (get_config('block_advnotifications', 'multilang')) {
+        $filternotif = true;
+    }
+
     // Notifications to render.
     $rendernotif = [];
 
@@ -47,30 +54,30 @@ function prep_notifications($instanceid) {
     $conditions['enabled'] = 1;
 
     // Get notifications with conditions from above.
-    $allnotifications = $DB->get_records('block_advnotifications', $conditions);
+    $allnotifs = $DB->get_records('block_advnotifications', $conditions);
 
-    foreach ($allnotifications as $notification) {
+    foreach ($allnotifs as $notif) {
 
         // Keep track of number of times the user has seen the notification.
         // Check if a record of the user exists in the dismissed/seen table.
         // TODO: Move DB queries out of loop.
         $userseen = $DB->get_record('block_advnotificationsdissed',
-            array('user_id' => $USER->id, 'not_id' => $notification->id)
+            array('user_id' => $USER->id, 'not_id' => $notif->id)
         );
 
         // Get notification settings to determine whether to render it or not.
         $render = false;
 
         // Check if in date-range.
-        if ($notification->date_from === $notification->date_to) {
+        if ($notif->date_from === $notif->date_to) {
             $render = true;
-        } else if ($notification->date_from < time() && $notification->date_to > time()) {
+        } else if ($notif->date_from < time() && $notif->date_to > time()) {
             $render = true;
         }
 
         // Don't render if user has seen it more (or equal) to the times specified.
         if ($userseen !== false) {
-            if ($userseen->seen >= $notification->times && $notification->times != 0) {
+            if ($userseen->seen >= $notif->times && $notif->times != 0) {
                 $render = false;
             } else if ($userseen->dismissed > 0) {
                 $render = false;
@@ -78,7 +85,7 @@ function prep_notifications($instanceid) {
         }
 
         // Don't render if notification isn't a global notification and the instanceid's/blockid's don't match.
-        if ($notification->blockid != $instanceid && $notification->global == 0) {
+        if ($notif->blockid != $instanceid && $notif->global == 0) {
             $render = false;
         }
 
@@ -87,7 +94,7 @@ function prep_notifications($instanceid) {
             if ($userseen === false) {
                 $seenrecord = new stdClass();
                 $seenrecord->user_id = $USER->id;
-                $seenrecord->not_id = $notification->id;
+                $seenrecord->not_id = $notif->id;
                 $seenrecord->dismissed = 0;
                 $seenrecord->seen = 1;
 
@@ -105,20 +112,20 @@ function prep_notifications($instanceid) {
             $aicon = '';
 
             // Allows for custom styling and serves as a basic filter if anything unwanted was somehow submitted.
-            if (!empty($notification)) {
-                if ($notification->type == "info") {
+            if (!empty($notif)) {
+                if ($notif->type == "info") {
                     $alerttype = 'info';
                     $aicon = 'info';
-                } else if ($notification->type == "success") {
+                } else if ($notif->type == "success") {
                     $alerttype = 'success';
                     $aicon = 'success';
-                } else if ($notification->type == "warning") {
+                } else if ($notif->type == "warning") {
                     $alerttype = 'warning';
                     $aicon = 'warning';
-                } else if ($notification->type == "danger") {
+                } else if ($notif->type == "danger") {
                     $alerttype = 'danger';
                     $aicon = 'danger';
-                } else if ($notification->type == "announcement") {
+                } else if ($notif->type == "announcement") {
                     $alerttype = 'info announcement';
                     $aicon = 'info';
                 } else {
@@ -132,24 +139,25 @@ function prep_notifications($instanceid) {
 
             // Extra classes to add to the notification wrapper - at least having the type of alert.
             $extraclasses = ' ' . $alerttype;
-            if ($notification->dismissible == 1) {
+            if ($notif->dismissible == 1) {
                 $extraclasses .= ' dismissible';
             }
-            if ($notification->times > 0) {
+            if ($notif->times > 0) {
                 $extraclasses .= ' limitedtimes';
             }
-            if ($notification->aicon == 1) {
+            if ($notif->aicon == 1) {
                 $extraclasses .= ' aicon';
             }
 
-            $rendernotif[] = array('extraclasses' => $extraclasses,     // Additional classes for custom styling.
-                'notifid' => $notification->id,                         // Notification identification number.
-                'alerttype' => $alerttype,                              // Type of alert - affects styling.
-                'aiconflag' => $notification->aicon,                    // Render icon flag.
-                'aicon' => $aicon,                                      // Which icon to render.
-                'title' => $notification->title,                        // Title of notification
-                'message' => $notification->message,                    // Message/Body text of notification.
-                'dismissible' => $notification->dismissible);           // Dismissible flag.
+            // Construct notification - also format title/text to support multilang (filtered) strings.
+            $rendernotif[] = array('extraclasses' => $extraclasses,                                         // Additional classes.
+                'notifid' => $notif->id,                                                                    // Notification id.
+                'alerttype' => $alerttype,                                                                  // Alert type )styling).
+                'aiconflag' => $notif->aicon,                                                               // Render icon flag.
+                'aicon' => $aicon,                                                                          // Which icon to render.
+                'title' => $filternotif ? format_text($notif->title, FORMAT_HTML) : $notif->title,          // Title
+                'message' => $filternotif ? format_text($notif->message, FORMAT_HTML) : $notif->message,    // Notification text.
+                'dismissible' => $notif->dismissible);                                                      // Dismissible flag.
         }
     }
 

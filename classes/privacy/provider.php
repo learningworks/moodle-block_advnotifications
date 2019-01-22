@@ -120,7 +120,7 @@ class provider implements
             array('userid' => $userid, 'contextblock' => CONTEXT_BLOCK)
         );
 
-        // TODO: Check...
+        // TODO: Check if needed...
         // Check if system context should be added for user.
         $blockids = $DB->get_records_sql(
             "SELECT DISTINCT adv.blockid
@@ -199,7 +199,7 @@ class provider implements
 
         $userid = $contextlist->get_user()->id;
 
-        /* TODO: What about deleted_by or created_by?
+        /* TODO: Edge case if user has not seen the notification... What about deleted_by or created_by?
            MAYBE ADD: OR adv.deleted_by = :userid
                       OR adv.created_by = :userid */
         $alluserdata = $DB->get_records_sql(
@@ -224,7 +224,7 @@ class provider implements
                     'created_by' => $userdata->created_by,
                     'user_id' => $userdata->user_id,
                     'dismissed' => transform::yesno($userdata->dismissed),
-                    'seen' => transform::yesno($userdata->seen)
+                    'seen' => $userdata->seen
                 ];
             } else if ($userdata->blockid === SITE_NOTIFICATION) {
                 $sitedata[] = (object)[
@@ -236,7 +236,7 @@ class provider implements
                     'created_by' => $userdata->created_by,
                     'user_id' => $userdata->user_id,
                     'dismissed' => transform::yesno($userdata->dismissed),
-                    'seen' => transform::yesno($userdata->seen)
+                    'seen' => $userdata->seen
                 ];
             }
         }

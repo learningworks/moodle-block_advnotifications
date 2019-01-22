@@ -29,7 +29,7 @@ This could be useful in cases such as alerting users of scheduled outages, welco
 * AJAX used to improve user-experience and simplify processes
 * Live-preview when making/editing a notification
 * Easy to use, but fully documented with all the nitty-gritty information
-* Implements Privacy API (GDPR Compliant)
+* Implements Privacy API (GDPR Compliance)
 
 For full documentation, please check [here](docs/AdvancedNotifications.pdf) - or check the plugin's `/docs` directory.
 
