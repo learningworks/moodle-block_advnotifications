@@ -48,8 +48,8 @@ class block_advnotifications_renderer extends plugin_renderer_base
         foreach ($notifications as $notification) {
             // Open notification block.
             $html .= '<div class="notification-block-wrapper' . $notification['extraclasses'] .
-                '" data-dismiss="' . $notification['notifid'] . '">
-                            <div class="alert alert-' . $notification['alerttype'] . '">';
+                '" data-dismiss="' . $notification['notifid'] .
+                '"><div class="alert alert-' . $notification['alerttype'] . '">';
 
             if (!empty($notification['aiconflag']) && $notification['aiconflag'] == 1) {
                 $html .= '<img class="notification_aicon" src="' .
@@ -68,8 +68,7 @@ class block_advnotifications_renderer extends plugin_renderer_base
             }
 
             // Close notification block.
-            $html .= '    </div>
-                      </div>';
+            $html .= '</div></div>';
         }
 
         return $html;

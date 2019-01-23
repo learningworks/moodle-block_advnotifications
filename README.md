@@ -5,7 +5,7 @@
 
 [![Functionality](docs/AdvNotifications.gif)](docs/AdvNotifications.gif)
 
-This block allows users to display Bootstrap-like alerts (which can be easily styled differently in the theme or otherwise) with various configurations.
+This block allows users to display DEFCON-like alerts, which are Bootstrap-based, allowing for various configurations.
 This could be useful in cases such as alerting users of scheduled outages, welcoming them to your site, teachers can use it to notify users of changes/due dates, etc.
 
 
@@ -14,6 +14,7 @@ This could be useful in cases such as alerting users of scheduled outages, welco
 * Customisable title
 * Customisable message
 * Basic HTML allowed for advanced users
+* Multi-lingual support
 * Multiple types of notifications (Bootstrap-based)
 * Type-based icons (optional setting)
 * Dismissible/Non-Dismissible
@@ -27,7 +28,8 @@ This could be useful in cases such as alerting users of scheduled outages, welco
 * Option to automatically remove user (dismissed/seen) records that relates to notifications that don't exist anymore
 * AJAX used to improve user-experience and simplify processes
 * Live-preview when making/editing a notification
-* Easy to use, but fully documented
+* Easy to use, but fully documented with all the nitty-gritty information
+* Implements Privacy API (GDPR Compliance)
 
 For full documentation, please check [here](docs/AdvancedNotifications.pdf) - or check the plugin's `/docs` directory.
 
@@ -57,5 +59,5 @@ Pull requests are welcome - submit pull requests to address issues, add features
 
 #### TODO:
 
-* Allow user that created notification to delete the notification. 
-* Nothing more.....
+* Allow user that created notification to delete the notification.
+* Add time (hh:mm) to 'From/To' setting.

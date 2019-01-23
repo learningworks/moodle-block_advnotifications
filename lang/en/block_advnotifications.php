@@ -144,3 +144,18 @@ $string['advnotifications_cron_auto_delete_udata'] = 'Remove user records that r
 
 // Misc.
 $string['advnotifications_join'] = ' & ';
+
+// Privacy API.
+$string['privacy:metadata:advnotifications'] = 'Information about notifications the user has been exposed to and recorded interactions.';
+$string['privacy:metadata:advnotifications:title'] = 'The title of the notification.';
+$string['privacy:metadata:advnotifications:message'] = 'The body/message of the notification.';
+$string['privacy:metadata:advnotifications:blockid'] = 'The ID of the block from which the notification was created (if any).';
+$string['privacy:metadata:advnotifications:deleted'] = 'Whether the notification has been deleted from the site (1 = deleted).';
+$string['privacy:metadata:advnotifications:deleted_by'] = 'The ID of the user that deleted the notification (if any).';
+$string['privacy:metadata:advnotifications:created_by'] = 'The ID of the user that created the notifications (if any).';
+
+$string['privacy:metadata:advnotificationsdissed'] = 'Information about the user (as consumer)/notification relationship.';
+$string['privacy:metadata:advnotificationsdissed:user_id'] = 'The ID of the user that has seen/dismissed the notification.';
+$string['privacy:metadata:advnotificationsdissed:not_id'] = 'The associated notification ID.';
+$string['privacy:metadata:advnotificationsdissed:dismissed'] = 'Flag of whether the notification has been dismissed by the user or not (1 = dismissed).';
+$string['privacy:metadata:advnotificationsdissed:seen'] = 'A count of how many times the user has seen/been shown the notification.';

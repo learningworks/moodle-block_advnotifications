@@ -41,8 +41,6 @@ global $USER;
 
 $context = context_system::instance();
 
-require_capability('block/advnotifications:managenotifications', $context);
-
 header('HTTP/1.0 200 OK');
 
 // TODO - Check if insertions/updates/deletions were successful, and return appropriate message.
@@ -121,11 +119,7 @@ if (isset($dismiss) && $dismiss != '') {
 
     // Update if the user has dismissed the notification.
     if ($userdissed) {
-        $upseenrecord = new stdClass();
-        $upseenrecord->id = $userdissed->id;
-        $upseenrecord->dismissed = 1;
-
-        $DB->update_record('block_advnotificationsdissed', $upseenrecord);
+        $DB->set_field('block_advnotificationsdissed', 'dismissed', 1, array('id' => $userdissed->id));
     }
 
     if ($ajax) {
@@ -135,6 +129,9 @@ if (isset($dismiss) && $dismiss != '') {
         exit();
     }
 }
+
+// Any logged-in user can dismiss notification, but any other actions require manage capabilities.
+require_capability('block/advnotifications:managenotifications', $context);
 
 // Handle Delete/Edit early as it requires few resources, and then we can quickly exit(),
 // this is the new AJAX/JS deletion/editing method.

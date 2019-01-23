@@ -1,5 +1,36 @@
 # Changelog
 
+## v1.3.2 - 23/01/2019
+
+### Changed
+* TravisCI file update - ci tool version/source.
+* README tweak.
+* Bumped version number.
+
+### Fixed
+* Squashed regression bug - filter removed data attributes required for AJAX calls to dismiss notifications.
+* Seen count SQL - when user exports data "Yes" or "No" was shown instead of the seen count.
+* Only show manage-related links if the user has permission.
+
+## v1.3.1 - 21/01/2019
+
+### Changed
+* TravisCI file update.
+* Bumped version number.
+
+### Fixed
+* Minor code style fixes.
+* EOL fixes.
+
+## v1.3.0 - 21/01/2019
+
+### Added
+* Support for Privacy API (GDPR Compliance).
+* Language strings for Privacy API.
+
+### Changed
+* Bumped version number.
+
 ## v1.2.4 - 18/07/2018
 
 ### Added
