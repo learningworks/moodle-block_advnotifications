@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.3.3 - 11/07/2019
+
+### Added
+* Support for theme to override images - thanks @amandadoughty.
+
+### Changed
+* 'Message' field width enlarged.
+* Minor CSS updates.
+* Bumped version number.
+
+### Fixed
+* Placeholder for date fields updated to expected format - for browsers that don't support 'date' input types.
+
 ## v1.3.2 - 23/01/2019
 
 ### Changed

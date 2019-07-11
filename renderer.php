@@ -53,7 +53,7 @@ class block_advnotifications_renderer extends plugin_renderer_base
 
             if (!empty($notification['aiconflag']) && $notification['aiconflag'] == 1) {
                 $html .= '<img class="notification_aicon" src="' .
-                    $CFG->wwwroot . '/blocks/advnotifications/pix/' . $notification['aicon'] . '.png"/>';
+                    $this->image_url($notification['aicon'], 'block_advnotifications') . '"/>';
             }
             if (!empty($notification['title'])) {
                 $html .= '<strong>' . $notification['title'] . '</strong> ';
@@ -156,10 +156,10 @@ class block_advnotifications_renderer extends plugin_renderer_base
                                 get_string('advnotifications_dismissible', 'block_advnotifications') . '</label><br>
                             <label for="add_notification_date_from">' .
                                 get_string('advnotifications_date_from', 'block_advnotifications') . '</label>
-                            <input type="date" id="add_notification_date_from" name="date_from" placeholder="dd/mm/yyyy"/>
+                            <input type="date" id="add_notification_date_from" name="date_from" placeholder="yyyy-mm-dd"/>
                             &nbsp;&nbsp;&nbsp;&nbsp;<label for="add_notification_to">' .
                                 get_string('advnotifications_date_to', 'block_advnotifications') . '</label>
-                            <input type="date" id="add_notification_date_to" name="date_to" placeholder="dd/mm/yyyy"/>
+                            <input type="date" id="add_notification_date_to" name="date_to" placeholder="yyyy-mm-dd"/>
                             <label>' . get_string('advnotifications_date_info', 'block_advnotifications') . '</label><br>
                             <input type="hidden" id="add_notification_sesskey" name="sesskey" value="' . sesskey() . '"/>
                             <input type="hidden" id="add_notification_purpose" name="purpose" value="add"/>

@@ -2,6 +2,7 @@
 body {
     .block.block_advnotifications {
         .content {
+            margin-top: 0 !important;  // To overcome core '!important' CSS :( .
             .notification-block-wrapper {
                 margin-bottom: 1em;
                 .alert {
@@ -36,6 +37,7 @@ body {
                             top: 50%;
                             bottom: 50%;
                             margin-left: -2em;
+                            opacity: 0.5;
                             transform: translateY(-50%);
                         }
                     }
@@ -58,8 +60,8 @@ body {
             padding: 0;
             min-height: 0;
 
-            .card-block {
-                padding: 0;
+            .card-body {
+                padding: 0 !important; // To overcome core '!important' CSS :( .
             }
 
             .header {

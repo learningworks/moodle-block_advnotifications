@@ -15,7 +15,7 @@ var gulp = require('gulp'),
 var path = {
     styles: {
         src:    'src/scss/',
-        build:  ''
+        build:  'src/..'
     }
 };
 
@@ -30,10 +30,4 @@ gulp.task('styles', function() {
 });
 
 // Default task.
-gulp.task('default', ['styles', 'watch']);
-
-// Watch.
-gulp.task('watch', function() {
-    // Watch .scss files.
-    gulp.watch(path.styles.src + '/**/*.scss', ['styles']);
-});
+gulp.task('default', gulp.series('styles'));

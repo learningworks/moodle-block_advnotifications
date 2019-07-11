@@ -16,7 +16,7 @@ body #advnotifications_restore_table_wrapper td > form input {
 }
 
 body #add_notification_wrapper_id {
-    margin-top: 2em;
+    margin-top: 1.5em;
 }
 
 body #add_notification_wrapper_id .alert.preview-alert {
@@ -38,6 +38,7 @@ body #add_notification_wrapper_id .alert.preview-alert > .preview-aicon img {
     top: 50%;
     bottom: 50%;
     margin-left: -2em;
+    opacity: 0.5;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
 }
@@ -48,6 +49,15 @@ body #add_notification_wrapper_id .alert.preview-alert > .preview-alert-dismissi
 
 body #add_notification_wrapper_id .alert.preview-alert > .preview-alert-dismissible > * {
     cursor: pointer;
+}
+
+body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form #add_notification_title {
+    margin-top: 1.5em;
+}
+
+body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form #add_notification_message {
+    width: 100%;
+    margin-bottom: 1.5em;
 }
 
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form .requiredfield {
@@ -160,6 +170,10 @@ body #add_notification_wrapper_id .add_notification_form_wrapper #add_notificati
     }
 }
 
+body .block.block_advnotifications .content {
+    margin-top: 0 !important;
+}
+
 body .block.block_advnotifications .content .notification-block-wrapper {
     margin-bottom: 1em;
 }
@@ -200,6 +214,7 @@ body .block.block_advnotifications .content .notification-block-wrapper.aicon .a
     top: 50%;
     bottom: 50%;
     margin-left: -2em;
+    opacity: 0.5;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
 }
@@ -218,8 +233,8 @@ body:not(.editing) .block.block_advnotifications {
     min-height: 0;
 }
 
-body:not(.editing) .block.block_advnotifications .card-block {
-    padding: 0;
+body:not(.editing) .block.block_advnotifications .card-body {
+    padding: 0 !important;
 }
 
 body:not(.editing) .block.block_advnotifications .header {

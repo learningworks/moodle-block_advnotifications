@@ -65,15 +65,15 @@ $string['advnotifications_restore_table_title_short'] = 'Restore notifications';
 $string['advnotifications_restore_table_heading'] = 'Advanced notifications restore';
 
 // New Notification Lang Strings.
-$string['advnotifications_enabled'] = 'Enable/Disable?';
+$string['advnotifications_enabled'] = 'Enabled?';
 $string['advnotifications_global'] = 'Global notification?';
 $string['add_notification_global_notice'] = 'This notification will be displayed globally/site-wide!';
 $string['advnotifications_title'] = 'Title';
 $string['advnotifications_message'] = 'Message';
 $string['advnotifications_type'] = 'Type';
 $string['advnotifications_times'] = '# of times';
-$string['advnotifications_times_label'] = 'Number of times to display the notification to the user (0 = forever)';
-$string['advnotifications_aicon'] = 'Display icon?';
+$string['advnotifications_times_label'] = 'Number of times to display the notification to a user (0 = forever)';
+$string['advnotifications_aicon'] = 'Icon?';
 $string['advnotifications_dismissible'] = 'Dismissible?';
 $string['advnotifications_date_from'] = 'From:';
 $string['advnotifications_date_to'] = 'To:';

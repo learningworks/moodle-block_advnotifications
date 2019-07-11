@@ -235,7 +235,7 @@ require(['jquery'], function($) {
             previewalert.removeClass('alert-info alert-success alert-danger alert-warning');
             previewalert.addClass('alert-' + alerttype);
 
-            $('.preview-aicon').find('> img').attr('src', M.cfg.wwwroot + '/blocks/advnotifications/pix/' + alerttype + '.png');
+            $('.preview-aicon').find('> img').attr('src', M.util.image_url(alerttype, 'block_advnotifications'));
 
             // Check if dismissable.
             if (!$('#add_notification_dismissible')[0].checked) {
@@ -277,7 +277,7 @@ require(['jquery'], function($) {
         // Shiny new and fresh preview.
         var refreshPreview = function() {
             var previewelem = $('#notification_preview_wrapper');
-            var previewdom = '<div id="notification_preview_wrapper"><strong>' + strings.preview + '</strong><br><div class="alert alert-info preview-alert"><div class="preview-aicon" style="display: none;"><img src="' + M.cfg.wwwroot + '/blocks/advnotifications/pix/info.png' + '" /></div><strong class="preview-title">' + strings.title + '</strong> <div class="preview-message">' + strings.message + '</div> <div class="preview-alert-dismissible" style="display: none;"><strong>&times;</strong></div></div></div>';
+            var previewdom = '<div id="notification_preview_wrapper"><strong>' + strings.preview + '</strong><br><div class="alert alert-info preview-alert"><div class="preview-aicon" style="display: none;"><img src="' + M.util.image_url('info', 'block_advnotifications') + '" /></div><strong class="preview-title">' + strings.title + '</strong> <div class="preview-message">' + strings.message + '</div> <div class="preview-alert-dismissible" style="display: none;"><strong>&times;</strong></div></div></div>';
 
             // If it exists already, remove before adding again.
             if (previewelem.length > 0) {

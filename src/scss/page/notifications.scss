@@ -15,7 +15,7 @@ body {
 
 
     #add_notification_wrapper_id {
-        margin-top: 2em;
+        margin-top: 1.5em;
         .alert.preview-alert {
             position: relative;
             padding-right: 14px;
@@ -30,6 +30,7 @@ body {
                     top: 50%;
                     bottom: 50%;
                     margin-left: -2em;
+                    opacity: 0.5;
                     transform: translateY(-50%);
                 }
             }
@@ -43,6 +44,13 @@ body {
         }
         .add_notification_form_wrapper {
             #add_notification_form {
+                #add_notification_title {
+                    margin-top: 1.5em;
+                }
+                #add_notification_message {
+                    width: 100%;
+                    margin-bottom: 1.5em;
+                }
                 .requiredfield {
                     background-color: color(required_background);
                     border: 1px solid color(red);
