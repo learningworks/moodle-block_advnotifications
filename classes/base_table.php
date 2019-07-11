@@ -125,7 +125,7 @@ class advnotifications_base_table extends table_sql {
      * @return $string Return notification type (for styling purposes)
      */
     public function col_type($values) {
-        return $values->type;
+        return get_string('advnotifications_add_option_' . $values->type, 'block_advnotifications');
     }
 
     /**

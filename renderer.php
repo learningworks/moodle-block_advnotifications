@@ -40,8 +40,6 @@ class block_advnotifications_renderer extends plugin_renderer_base
      * @return string - returns HTML to render notification.
      */
     public function render_notification($notifications) {
-        global $CFG;
-
         $html = '';
 
         // Render all the appropriate notifications.

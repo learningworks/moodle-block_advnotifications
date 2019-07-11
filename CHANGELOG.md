@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.3.4 - 11/07/2019
+
+### Changed
+* Removed redundant global variable.
+* Bumped version number.
+
+### Fixed
+* Use lang string for notification type in table(s).
+
 ## v1.3.3 - 11/07/2019
 
 ### Added
