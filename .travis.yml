@@ -1,5 +1,3 @@
-language: php
-
 sudo: required
 
 addons:
@@ -14,6 +12,10 @@ cache:
     - $HOME/.composer/cache
     - $HOME/.npm
 
+language: php
+
+dist: trusty
+
 php:
  - 7.2
  - 7.1
@@ -21,6 +23,7 @@ php:
 
 env:
  global:
+  - MOODLE_BRANCH=MOODLE_37_STABLE
   - MOODLE_BRANCH=MOODLE_36_STABLE
   - MOODLE_BRANCH=MOODLE_35_STABLE
  matrix:
@@ -43,5 +46,6 @@ script:
   - moodle-plugin-ci phpcpd
   - moodle-plugin-ci phpmd
   - moodle-plugin-ci codechecker
+  - moodle-plugin-ci phpdoc
   - moodle-plugin-ci validate
   - moodle-plugin-ci savepoints
