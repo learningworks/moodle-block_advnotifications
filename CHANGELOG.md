@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.3.5 - 17/09/2019
+
+### Changed
+* Moved JS to AMD format.
+* Updated TravisCI file to Ubuntu Xenial - MDL-65992.
+* Bumped version number.
+
 ## v1.3.4 - 11/07/2019
 
 ### Changed

@@ -1,34 +1,33 @@
 sudo: required
 
+language: php
+
+dist: xenial
+
+services:
+  - mysql
+
+php:
+  - 7.2
+  - 7.1
+  - 7.0
+
 addons:
   postgresql: "9.6"
-  packages:
-    - mysql-server-5.6
-    - mysql-client-core-5.6
-    - mysql-client-5.6
+
+env:
+  global:
+    - MOODLE_BRANCH=MOODLE_37_STABLE
+    - MOODLE_BRANCH=MOODLE_36_STABLE
+    - MOODLE_BRANCH=MOODLE_35_STABLE
+  matrix:
+    - DB=pgsql
+    - DB=mysqli
 
 cache:
   directories:
     - $HOME/.composer/cache
     - $HOME/.npm
-
-language: php
-
-dist: trusty
-
-php:
- - 7.2
- - 7.1
- - 7.0
-
-env:
- global:
-  - MOODLE_BRANCH=MOODLE_37_STABLE
-  - MOODLE_BRANCH=MOODLE_36_STABLE
-  - MOODLE_BRANCH=MOODLE_35_STABLE
- matrix:
-  - DB=pgsql
-  - DB=mysqli
 
 before_install:
   - phpenv config-rm xdebug.ini
@@ -40,6 +39,26 @@ before_install:
 
 install:
   - moodle-plugin-ci install
+  - >
+    if [ "$DB" = 'mysqli' ];
+    then
+        sudo mkdir /mnt/ramdisk
+        sudo mount -t tmpfs -o size=1024m tmpfs /mnt/ramdisk
+        sudo service mysql stop
+        sudo mv /var/lib/mysql /mnt/ramdisk
+        sudo ln -s /mnt/ramdisk/mysql /var/lib/mysql
+        sudo service mysql restart
+    fi
+  - >
+    if [ "$DB" = 'pgsql' ];
+    then
+        sudo mkdir /mnt/ramdisk
+        sudo mount -t tmpfs -o size=1024m tmpfs /mnt/ramdisk
+        sudo service postgresql stop
+        sudo mv /var/lib/postgresql /mnt/ramdisk
+        sudo ln -s /mnt/ramdisk/postgresql /var/lib/postgresql
+        sudo service postgresql start 9.6
+    fi
 
 script:
   - moodle-plugin-ci phplint

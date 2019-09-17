@@ -113,14 +113,12 @@ class block_advnotifications extends block_base
     }
 
     /**
-     * Gets Javascript that may be required for navigation
+     * Gets Javascript that's required by the plugin.
      */
     public function get_required_javascript() {
-        global $CFG;
-
         parent::get_required_javascript();
 
-        $this->page->requires->js(new moodle_url($CFG->wwwroot . '/blocks/advnotifications/javascript/notif.js'));
+        $this->page->requires->js_call_amd('block_advnotifications/notif', 'initialise');
     }
 
     /**

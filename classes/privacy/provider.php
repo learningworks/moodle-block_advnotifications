@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Setup scheduled tasks for performing routine maintenance.
+ * Privacy API provider.
  *
  * @package    block_advnotifications
  * @copyright  2018 LearningWorks Ltd - learningworks.co.nz
