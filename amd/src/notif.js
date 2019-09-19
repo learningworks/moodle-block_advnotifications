@@ -11,13 +11,10 @@
  */
 define(['jquery'], function($) {
     // JQuery is available via $.
-    "use strict";
 
     return {
         initialise: function() {
             // Module initialised.
-            console.log("Notif module initialised");
-
             $(document).ready(function() {
                 // USER DISMISSING/CLICKING ON A NOTIFICATION.
                 $('.block_advnotifications').on('click', '.dismissible', function() {

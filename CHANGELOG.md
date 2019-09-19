@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.3.6 - 19/09/2019
+
+### Changed
+* Code style fixes.
+* Bumped version number.
+
 ## v1.3.5 - 17/09/2019
 
 ### Changed

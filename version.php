@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die;
 
 $plugin->component = 'block_advnotifications';          // Recommended since 2.0.2 (MDL-26035). Required since 3.0 (MDL-48494).
-$plugin->version = 2019091714;                          // YYYYMMDDHH (year, month, day, 24-hr format hour).
+$plugin->version = 2019091715;                          // YYYYMMDDHH (year, month, day, 24-hr format hour).
 $plugin->requires = 2018051703;                         // YYYYMMDDHH (Version number for Moodle 3.5.3 as at 21/01/2019).
 $plugin->maturity = MATURITY_STABLE;                    // Code maturity/stability.
-$plugin->release = 'v1.3.5';                            // Human-readable release version.
+$plugin->release = 'v1.3.6';                            // Human-readable release version.
