@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.3.7 - 19/12/2019
+
+### Changed
+* Travis file updated to Moodle 3.8.
+* Bumped version number.
+
 ## v1.3.6 - 19/09/2019
 
 ### Changed

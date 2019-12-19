@@ -25,6 +25,7 @@ define(['jquery'], function($) {
                         $(this).remove();
                     });
 
+                    // TODO - Move ajax call to Moodle's ajax/webservice call.
                     var senddata = {}; // Data Object.
                     senddata.call = 'ajax';
                     senddata.dismiss = dismiss;
