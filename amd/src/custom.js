@@ -244,11 +244,21 @@ define(['jquery'], function($) {
                     var alerttype = $('#add_notification_type').val();
                     var previewalert = $('#add_notification_wrapper_id .preview-alert');
 
+                    // Clear existing classes.
+                    previewalert.removeClass('alert-info alert-success alert-danger alert-warning announcement');
+
+                    // Special check for announcement type.
+                    if (alerttype === 'announcement') {
+                        previewalert.addClass(alerttype);
+                        alerttype = 'info';
+                    }
+
+                    // If anything unexpected, set to info type.
                     if (alerttype !== 'info' && alerttype !== 'success' && alerttype !== 'warning' && alerttype !== 'danger') {
                         alerttype = 'info';
                     }
 
-                    previewalert.removeClass('alert-info alert-success alert-danger alert-warning');
+                    // Add type of alert class.
                     previewalert.addClass('alert-' + alerttype);
 
                     $('.preview-aicon').find('> img').attr('src', M.util.image_url(alerttype, 'block_advnotifications'));
