@@ -11,14 +11,13 @@ This could be useful in cases such as alerting users of scheduled outages, welco
 
 ### Features:
 
-* Customisable title
-* Customisable message
-* Basic HTML allowed for advanced users
-* Multi-lingual support
+* Customisable title & message
+* Basic HTML tags allowed for advanced users
+* Multi-lingual/filter support
 * Multiple types of notifications (Bootstrap-based)
 * Type-based icons (optional setting)
 * Dismissible/Non-Dismissible
-* Customisable date range to show notification from and to
+* Customisable date range to show notifications
 * Display a notification to the user a set amount of times
 * Instance-based or global/site-wide notifications
 * Enable/Disable a/all notifications (Site-wide and instance-based)
@@ -47,9 +46,7 @@ All the plugin's settings are disabled by default. Enable it upon installation i
 #### Backwards Compatibility/Progressive Enhancement
 
 Although the plugin works and is usable without JavaScript, it is highly recommended to use the plugin with JavaScript enabled.
-Using the plugin with JavaScript disabled does not allow for some features to be used to their full potential ranging from
-dismissing a notification to dynamically editing existing notifications and the live-preview feature - all of which relies on
-JavaScript in some form to make the user's experience more enjoyable.
+Using the plugin with JavaScript disabled does not allow for some features to be used to their full potential ranging from dismissing a notification to dynamically editing existing notifications and the live-preview feature - all of which relies on JavaScript in some form to make the user's experience more enjoyable.
 
 
 #### Pull Requests

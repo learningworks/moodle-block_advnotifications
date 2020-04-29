@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.3.8 - 29/04/2020
+
+### Changed
+* Update imagery - video and gif.
+* Simplify README.
+* Bumped version number.
+
+### Fixed
+* Announcement alert type now works properly for preview alert - allowing live preview if custom CSS exists for announcement type alert.
+
 ## v1.3.7 - 19/12/2019
 
 ### Changed
