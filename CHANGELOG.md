@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.3.9 - 22/06/2020
+
+### Changed
+* Travis file updated to Moodle 3.9.
+* Updated buttons classes to be more consistent - primary, secondary, light.
+* Bumped version number.
+
 ## v1.3.8 - 29/04/2020
 
 ### Changed

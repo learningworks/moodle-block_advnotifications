@@ -63,15 +63,15 @@ class block_advnotifications_edit_form extends block_edit_form {
                                 <h3>' .
                 get_string('advnotifications_nav_heading', 'block_advnotifications') .
                 '</h3>
-                                <a class="btn instance" href="' . $CFG->wwwroot .
+                                <a class="btn btn-secondary instance" href="' . $CFG->wwwroot .
                 '/blocks/advnotifications/pages/notifications.php' . $param . '">' .
                 get_string('advnotifications_nav_manage', 'block_advnotifications') .
                 '</a>&nbsp;&nbsp;
-                                <a class="btn" href="' . $CFG->wwwroot .
+                                <a class="btn btn-secondary" href="' . $CFG->wwwroot .
                 '/blocks/advnotifications/pages/restore.php' . $param . '">' .
                 get_string('advnotifications_nav_restore', 'block_advnotifications') .
                 '</a>&nbsp;&nbsp;
-                                <a class="btn" href="' . $CFG->wwwroot .
+                                <a class="btn btn-secondary" href="' . $CFG->wwwroot .
                 '/admin/settings.php?section=blocksettingadvnotifications' . $xparam . '">' .
                 get_string('advnotifications_nav_settings', 'block_advnotifications') .
                 '</a><br><br>

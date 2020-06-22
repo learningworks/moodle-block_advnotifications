@@ -8,6 +8,7 @@ services:
   - mysql
 
 php:
+  - 7.4
   - 7.3
   - 7.2
   - 7.1
@@ -18,10 +19,12 @@ addons:
 
 env:
   global:
+    - MOODLE_BRANCH=MOODLE_39_STABLE
     - MOODLE_BRANCH=MOODLE_38_STABLE
     - MOODLE_BRANCH=MOODLE_37_STABLE
     - MOODLE_BRANCH=MOODLE_36_STABLE
     - MOODLE_BRANCH=MOODLE_35_STABLE
+
   matrix:
     - DB=pgsql
     - DB=mysqli
@@ -33,8 +36,8 @@ cache:
 
 before_install:
   - phpenv config-rm xdebug.ini
-  - nvm install 8.9
-  - nvm use 8.9
+  - nvm install 14.0.0
+  - nvm use 14.0.0
   - cd ../..
   - composer create-project -n --no-dev --prefer-dist blackboard-open-source/moodle-plugin-ci ci ^2
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"

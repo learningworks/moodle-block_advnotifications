@@ -161,10 +161,10 @@ class block_advnotifications_renderer extends plugin_renderer_base
                             <label>' . get_string('advnotifications_date_info', 'block_advnotifications') . '</label><br>
                             <input type="hidden" id="add_notification_sesskey" name="sesskey" value="' . sesskey() . '"/>
                             <input type="hidden" id="add_notification_purpose" name="purpose" value="add"/>
-                            <input type="submit" id="add_notification_save" class="btn" role="button" name="save" value="' .
+                            <input type="submit" id="add_notification_save" class="btn btn-primary" role="button" name="save" value="' .
                                 get_string('advnotifications_save', 'block_advnotifications') . '"/>
                             &nbsp;&nbsp;&nbsp;&nbsp;<a href="' . $CFG->wwwroot . '/blocks/advnotifications/pages/notifications.php"
-                                    id="add_notification_cancel" class="btn" name="cancel">' .
+                                    id="add_notification_cancel" class="btn btn-secondary" name="cancel">' .
                                 get_string('advnotifications_cancel', 'block_advnotifications') . '</a><br>
                             <div id="add_notification_status">
                                 <div class="signal"></div>

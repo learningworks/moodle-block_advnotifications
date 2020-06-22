@@ -43,9 +43,9 @@ if ($ADMIN->fulltree) {
             'block_advnotifications/navigation',                                                            // NAME.
             get_string('setting/navigation', 'block_advnotifications'),                                     // TITLE.
                         get_string('setting/navigation_desc', 'block_advnotifications',
-                        array('manage' => '<a class="btn instance" href="' . $CFG->wwwroot .
+                        array('manage' => '<a class="btn btn-secondary instance" href="' . $CFG->wwwroot .
                             '/blocks/advnotifications/pages/notifications.php' . $param . '">Manage</a>',
-                            'restore' => '<a class="btn instance" href="' . $CFG->wwwroot .
+                            'restore' => '<a class="btn btn-secondary instance" href="' . $CFG->wwwroot .
                                 '/blocks/advnotifications/pages/restore.php' . $param . '">Restore</a>'))   // DESCRIPTION.
         )
     );

@@ -116,11 +116,11 @@ echo '<div class="restore_notification-block-wrapper">
 
 // Add navigation controls before the table.
 echo '<div id="advnotifications_manage">
-      <a class="btn instance" href="' .
+      <a class="btn btn-secondary instance" href="' .
           $CFG->wwwroot . '/blocks/advnotifications/pages/notifications.php' . $param . '">' .
           get_string('advnotifications_nav_manage', 'block_advnotifications') .
       '</a>&nbsp;&nbsp;
-      <a class="btn instance" href="' .
+      <a class="btn btn-secondary instance" href="' .
           $CFG->wwwroot . '/admin/settings.php?section=blocksettingadvnotifications' . $xparam . '">' .
           get_string('advnotifications_nav_settings', 'block_advnotifications') .
       '</a><br><br></div>';
