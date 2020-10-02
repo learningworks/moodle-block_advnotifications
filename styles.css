@@ -51,6 +51,15 @@ body #add_notification_wrapper_id .alert.preview-alert > .preview-alert-dismissi
     cursor: pointer;
 }
 
+body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form .text-muted {
+    width: 100%;
+}
+
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form #add_notification_title {
     margin-top: 1.5em;
 }
@@ -79,20 +88,8 @@ body #add_notification_wrapper_id .add_notification_form_wrapper #add_notificati
     vertical-align: top;
 }
 
-body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form input:not([type="submit"]),
-body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form select,
-body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form textarea {
-    min-width: 12em;
-    margin: 2px 0;
-}
-
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form textarea {
     resize: both;
-}
-
-body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form input[type="checkbox"],
-body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form input[type="radio"] {
-    width: 2em;
 }
 
 body #add_notification_wrapper_id .add_notification_form_wrapper #add_notification_form .btn {

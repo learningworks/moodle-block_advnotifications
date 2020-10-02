@@ -71,14 +71,14 @@ class advnotifications_base_table extends table_sql {
         );
         $this->define_columns($columns);
 
-        // Define the titles of columns to show in header from lang file.                           // Examples.
+        // Define the titles of columns to show in header from lang file.               // Examples.
         $headers = array(
             get_string('advnotifications_field_id', 'block_advnotifications'),          // Id: 1.
             get_string('advnotifications_field_title', 'block_advnotifications'),       // Title: Site Maintenance.
             get_string('advnotifications_field_type', 'block_advnotifications'),        // Type: info.
             get_string('advnotifications_field_enabled', 'block_advnotifications'),     // Enabled: Yes.
             get_string('advnotifications_field_global', 'block_advnotifications'),      // Global: Yes.
-            get_string('advnotifications_field_aicon', 'block_advnotifications'),        // AIcon: Yes.
+            get_string('advnotifications_field_aicon', 'block_advnotifications'),       // AIcon: Yes.
             get_string('advnotifications_field_dismissible', 'block_advnotifications'), // Dismissible: Yes.
             get_string('advnotifications_field_times', 'block_advnotifications'),       // Times: 10.
             get_string('advnotifications_field_date_from', 'block_advnotifications'),   // Date From: dd/mm/yyyy.
@@ -189,13 +189,14 @@ class advnotifications_base_table extends table_sql {
      *
      * @param object $values Contains object with all the values of record.
      * @return integer Return value from when the notification should be displayed
+     * @throws dml_exception
      */
     public function col_date_from($values) {
         if ($values->date_from <= 0) {
             return '-';
         }
 
-        return date('d/m/Y', $values->date_from);
+        return date(get_config('block_advnotifications', 'dateformat'), $values->date_from);
     }
 
     /**
@@ -204,13 +205,14 @@ class advnotifications_base_table extends table_sql {
      *
      * @param object $values Contains object with all the values of record.
      * @return integer Return value until when the notification should be displayed
+     * @throws dml_exception
      */
     public function col_date_to($values) {
         if ($values->date_from <= 0 || $values->date_from === $values->date_to) {
             return '-';
         }
 
-        return date('d/m/Y', $values->date_to);
+        return date(get_config('block_advnotifications', 'dateformat'), $values->date_to);
     }
 
     /**

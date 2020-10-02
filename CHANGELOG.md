@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.3.10 - 02/10/2020
+
+### Added
+* Setting to customise 'date format' shown by plugin.
+
+### Changed
+* Utilised bootstrap more for form styling.
+* Bumped version number.
+
 ## v1.3.9 - 22/06/2020
 
 ### Changed

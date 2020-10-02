@@ -44,6 +44,15 @@ body {
         }
         .add_notification_form_wrapper {
             #add_notification_form {
+                .row {
+                    margin-left: 0;
+                    margin-right: 0;
+                }
+
+                .text-muted {
+                    width: 100%;
+                }
+
                 #add_notification_title {
                     margin-top: 1.5em;
                 }
@@ -69,20 +78,8 @@ body {
                     vertical-align: top;
                 }
 
-                input:not([type="submit"]),
-                select,
-                textarea {
-                    min-width: 12em;
-                    margin: 2px 0;
-                }
-
                 textarea {
                     resize: both;
-                }
-
-                input[type="checkbox"],
-                input[type="radio"] {
-                    width: 2em;
                 }
 
                 .btn {

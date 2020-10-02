@@ -104,6 +104,9 @@ $string['setting/enable'] = 'Enable:';
 $string['setting/enable_desc'] = 'Toggles whether all notifications are enabled/disabled';
 $string['setting/enable_default'] = '';
 
+$string['setting/dateformat'] = 'Date format:';
+$string['setting/dateformat_desc'] = 'Dates will be shown in the chosen format.';
+
 $string['setting/html'] = 'Allow HTML:';
 $string['setting/html_desc'] = 'Toggles whether basic HTML is allowed in notifications\' titles/messages';
 $string['setting/html_default'] = '';

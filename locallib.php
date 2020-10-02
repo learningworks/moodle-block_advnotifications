@@ -27,8 +27,9 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * This functions determines which notifications to render and what their attributes should be.
  *
- * @param mixed $instanceid Block instance id.
- * @return array Array of notifications' attributes needed for rendering.
+ * @param   mixed           $instanceid Block instance id.
+ * @return  array           Array of notifications' attributes needed for rendering.
+ * @throws  dml_exception
  */
 function prep_notifications($instanceid) {
     global $DB, $USER;
@@ -162,4 +163,21 @@ function prep_notifications($instanceid) {
     }
 
     return $rendernotif;
+}
+
+/**
+ * Get date formats supported byt the plugin.
+ *
+ * @return  array   Array of formats as key and today's date in that format as value.
+ */
+function get_date_formats() {
+    $formats = [];
+
+    // Add supported formats to array.
+    $formats['d/m/Y'] = date('d/m/Y');
+    $formats['m-d-Y'] = date('m-d-Y');
+    $formats['j M y'] = date('j M y');
+    $formats['j F Y'] = date('j F Y');
+
+    return $formats;
 }
