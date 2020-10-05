@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.3.11 - 05/10/2020
+
+### Added
+* Gruntfile.
+
+### Changed
+* Various travis & moodle plugin db-recommended code style fixes.
+* Bumped version number.
+
 ## v1.3.10 - 02/10/2020
 
 ### Added

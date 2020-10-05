@@ -42,8 +42,9 @@ class advnotifications_notifications_table extends advnotifications_base_table {
      * This function is called for each data row to allow processing of the
      * actions value.
      *
-     * @param object $values Contains object with all the values of record.
-     * @return $string Return url to view the individual transaction
+     * @param   object $values Contains object with all the values of record.
+     * @return  string Return url to view the individual transaction
+     * @throws  coding_exception
      */
     public function col_actions($values) {
         global $CFG;
@@ -59,13 +60,14 @@ class advnotifications_notifications_table extends advnotifications_base_table {
                     <input type="hidden" class="edit_notification_tableaction" name="tableaction" value="' . $values->id . '">
                     <input type="submit" class="edit_notification_edit btn btn-secondary" name="edit" value="' .
                         get_string('advnotifications_edit_label', 'block_advnotifications') . '">
-                </form> <form id="trdelete'.$values->id.'" data-delete="' . $values->id . '" method="POST" action="' . $CFG->wwwroot .
+                </form>
+                <form id="trdelete'.$values->id.'" data-delete="' . $values->id . '" method="POST" action="' . $CFG->wwwroot .
                 '/blocks/advnotifications/pages/process.php">
                     <input type="hidden" class="delete_notification_sesskey" name="sesskey" value="' . sesskey() . '">
                     <input type="hidden" class="delete_notification_purpose" name="purpose" value="delete">
                     <input type="hidden" class="delete_notification_tableaction" name="tableaction" value="' . $values->id . '">
                     <input type="submit" class="delete_notification_delete btn btn-danger" name="delete" value="' .
-                get_string('advnotifications_delete_label', 'block_advnotifications') . '">
+                        get_string('advnotifications_delete_label', 'block_advnotifications') . '">
                 </form>';
         }
     }

@@ -64,7 +64,7 @@ define(['jquery'], function($) {
 
                         // User deleted/edited notification.
                         if (parseInt(data.done, 10) > 0) {
-                            $('#tr' + data.done).closest("tr").fadeOut(250, function() {
+                            $('#tr' + senddata.purpose + data.done).closest("tr").fadeOut(250, function() {
                                 $(this).remove();
                                 clearForm();
                                 refreshPreview();
@@ -136,7 +136,7 @@ define(['jquery'], function($) {
                         // User deleted/restored notification.
                         // Object 'done' is returned for both restore & delete.
                         if (parseInt(data.done, 10) > 0) {
-                            $('#tr' + data.done).closest("tr").fadeOut(250, function() {
+                            $('#tr' + senddata.purpose + data.done).closest("tr").fadeOut(250, function() {
                                 $(this).remove();
                             });
                         }
@@ -266,15 +266,19 @@ define(['jquery'], function($) {
                     // Check if dismissable.
                     if (!$('#add_notification_dismissible')[0].checked) {
                         $('.preview-alert-dismissible').hide();
+                        previewalert.removeClass('dismissible');
                     } else {
                         $('.preview-alert-dismissible').show();
+                        previewalert.addClass('dismissible');
                     }
 
                     // Check if icon should be shown.
                     if (!$('#add_notification_aicon')[0].checked) {
                         $('.preview-aicon').hide();
+                        previewalert.removeClass('aicon');
                     } else {
                         $('.preview-aicon').show();
+                        previewalert.addClass('aicon');
                     }
                 };
 

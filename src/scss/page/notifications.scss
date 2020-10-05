@@ -19,23 +19,32 @@ body {
         .alert.preview-alert {
             position: relative;
             padding-right: 14px;
+            &.aicon {
+                padding-left: 3em;
+            }
+            &.dismissible {
+                padding-right: 2em;
+            }
+
             > * {
                 display: inline;
             }
             > .preview-aicon {
-                margin-left: 2em;
+                display: block;
                 img {
                     height: 1.5em;
                     position: absolute;
-                    top: 50%;
-                    bottom: 50%;
+                    top: calc(50% - 0.75em);
                     margin-left: -2em;
                     opacity: 0.5;
-                    transform: translateY(-50%);
                 }
             }
             > .preview-alert-dismissible {
-                float: right;
+                position: absolute;
+                font-size: 1em;
+                line-height: 1em;
+                top: calc(50% - 0.5em);
+                right: 1em;
 
                 > * {
                     cursor: pointer;
@@ -59,6 +68,9 @@ body {
                 #add_notification_message {
                     width: 100%;
                     margin-bottom: 1.5em;
+                    resize: both;
+                    min-width: 50px;
+                    min-height: 1.5em;
                 }
                 .requiredfield {
                     background-color: color(required_background);
@@ -78,8 +90,8 @@ body {
                     vertical-align: top;
                 }
 
-                textarea {
-                    resize: both;
+                input[type="date"] {
+                    width: calc(100% / 12 * 7); // Fix Bootstrap.
                 }
 
                 .btn {

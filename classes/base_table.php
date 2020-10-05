@@ -114,7 +114,7 @@ class advnotifications_base_table extends table_sql {
      * @return $string Returns notification's title - easier sorting
      */
     public function col_title($values) {
-        return $values->title;
+        return shorten_text($values->title, 20, true);
     }
 
     /**

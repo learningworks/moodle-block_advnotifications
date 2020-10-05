@@ -23,9 +23,9 @@
  * @author     Zander Potgieter <zander.potgieter@learningworks.co.nz>
  */
 
-require_once('locallib.php');
-
 defined('MOODLE_INTERNAL') || die;
+
+require_once('locallib.php');
 
 global $CFG;
 
@@ -71,18 +71,6 @@ if ($ADMIN->fulltree) {
         )
     );
 
-    $options = get_date_formats();
-    // ALLOW HTML TOGGLE.
-    $settings->add(
-        new admin_setting_configselect(
-            'block_advnotifications/dateformat',                                                            // NAME.
-            get_string('setting/dateformat', 'block_advnotifications'),                                     // TITLE.
-            get_string('setting/dateformat_desc', 'block_advnotifications'),                                // DESCRIPTION.
-            key(reset($options)),                                                                           // DEFAULT.
-            $options                                                                                        // OPTIONS.
-        )
-    );
-
     // ALLOW HTML TOGGLE.
     $settings->add(
         new admin_setting_configcheckbox(
@@ -100,6 +88,18 @@ if ($ADMIN->fulltree) {
             get_string('setting/multilang', 'block_advnotifications'),                                      // TITLE.
             get_string('setting/multilang_desc', 'block_advnotifications'),                                 // DESCRIPTION.
             get_string('setting/multilang_default', 'block_advnotifications')                               // DEFAULT.
+        )
+    );
+
+    $options = get_date_formats();
+    // ALLOW HTML TOGGLE.
+    $settings->add(
+        new admin_setting_configselect(
+            'block_advnotifications/dateformat',                                                            // NAME.
+            get_string('setting/dateformat', 'block_advnotifications'),                                     // TITLE.
+            get_string('setting/dateformat_desc', 'block_advnotifications'),                                // DESCRIPTION.
+            key(reset($options)),                                                                           // DEFAULT.
+            $options                                                                                        // OPTIONS.
         )
     );
 

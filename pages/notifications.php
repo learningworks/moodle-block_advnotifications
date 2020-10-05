@@ -119,7 +119,7 @@ echo '<div id="advnotifications_manage">
 // Add a wrapper with an id, which makes reloading the table easier (when using ajax).
 echo '<div id="advnotifications_table_wrapper">';
 $table->out(20, true);
-echo '</div>';
+echo '</div><hr>';
 
 echo $renderer->add_notification($params);
 

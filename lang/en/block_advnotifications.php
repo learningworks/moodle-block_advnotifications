@@ -96,24 +96,24 @@ $string['advnotifications_add_done'] = 'Done!';
 
 // Admin Settings.
 $string['setting/navigation'] = 'Navigation:';
-$string['setting/navigation_desc'] = '<div id="advnotifications_manage">{$a->manage}&nbsp;&nbsp;&nbsp;{$a->restore}</div>';
+$string['setting/navigation_desc'] = '<div id="advnotifications_manage">{$a->manage}&nbsp;&nbsp;&nbsp;{$a->restore}</div><br>';
 
 $string['setting/settings'] = 'Settings:';
 
 $string['setting/enable'] = 'Enable:';
-$string['setting/enable_desc'] = 'Toggles whether all notifications are enabled/disabled';
+$string['setting/enable_desc'] = 'Toggles whether all notifications are enabled/disabled<hr>';
 $string['setting/enable_default'] = '';
-
-$string['setting/dateformat'] = 'Date format:';
-$string['setting/dateformat_desc'] = 'Dates will be shown in the chosen format.';
 
 $string['setting/html'] = 'Allow HTML:';
 $string['setting/html_desc'] = 'Toggles whether basic HTML is allowed in notifications\' titles/messages';
 $string['setting/html_default'] = '';
 
 $string['setting/multilang'] = 'Multi-lang/Filter support:';
-$string['setting/multilang_desc'] = 'Toggles whether the multilang filter (and others) are supported in notifications\' titles/messages.<br>Note - This is for more advanced users & HTML needs to be enabled (above).';
+$string['setting/multilang_desc'] = 'Toggles whether the multilang filter (and others) are supported in notifications\' titles/messages.<br>Note - This is for more advanced users & HTML needs to be enabled (above).<hr>';
 $string['setting/multilang_default'] = '';
+
+$string['setting/dateformat'] = 'Date format:';
+$string['setting/dateformat_desc'] = 'Dates will be shown in the chosen format.<hr>';
 
 $string['setting/auto_delete'] = 'Auto delete:';
 $string['setting/auto_delete_desc'] = 'Toggles whether a notification that go past the set end-date is automatically deleted - but can be restored again.<br>(Helps with housekeeping/management)';
@@ -124,7 +124,7 @@ $string['setting/auto_perma_delete_desc'] = 'Toggles whether notifications that 
 $string['setting/auto_perma_delete_default'] = '';
 
 $string['setting/auto_delete_user_data'] = 'Auto delete user data:';
-$string['setting/auto_delete_user_data_desc'] = 'Toggles whether user data (such as whether the user has seen/dismissed notifications that don\'t exist anymore, etc) related to advanced notifications is automatically deleted.<br>(Helps with housekeeping/management)';
+$string['setting/auto_delete_user_data_desc'] = 'Toggles whether user data (such as whether the user has seen/dismissed notifications that don\'t exist anymore, etc) related to advanced notifications is automatically deleted.<br>(Helps with housekeeping/management)<hr>';
 $string['setting/auto_delete_user_data_default'] = '';
 
 // Navigation Links.

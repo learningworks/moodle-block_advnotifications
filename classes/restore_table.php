@@ -50,20 +50,21 @@ class advnotifications_restore_table extends advnotifications_base_table {
             return get_string('advnotifications_restore_label', 'block_advnotifications') . ' | ' .
                     get_string('advnotifications_delete_label', 'block_advnotifications');
         } else {
-            return '<form id="trrestore'.$values->id.'" data-restore="' . $values->id . '" method="POST" action="' . $CFG->wwwroot .
-                '/blocks/advnotifications/pages/process.php">
+            return '<form id="trrestore'.$values->id.'" data-restore="' . $values->id . '" method="POST" action="' .
+                    $CFG->wwwroot . '/blocks/advnotifications/pages/process.php">
                     <input type="hidden" class="restore_notification_sesskey" name="sesskey" value="' . sesskey() . '">
                     <input type="hidden" class="restore_notification_purpose" name="purpose" value="restore">
                     <input type="hidden" class="restore_notification_tableaction" name="tableaction" value="' . $values->id . '">
-                    <input type="submit" class="restore_notification_restore btn btn-light" name="edit" value="' .
-                get_string('advnotifications_restore_label', 'block_advnotifications') . '">
-                </form> <form id="trpermdelete'.$values->id.'" data-permdelete="' . $values->id . '" method="POST" action="' . $CFG->wwwroot .
-                '/blocks/advnotifications/pages/process.php">
+                    <input type="submit" class="restore_notification_restore btn btn-secondary" name="edit" value="' .
+                        get_string('advnotifications_restore_label', 'block_advnotifications') . '">
+                </form>
+                <form id="trpermdelete'.$values->id.'" data-permdelete="' . $values->id . '" method="POST" action="' .
+                    $CFG->wwwroot . '/blocks/advnotifications/pages/process.php">
                     <input type="hidden" class="delete_notification_sesskey" name="sesskey" value="' . sesskey() . '">
                     <input type="hidden" class="delete_notification_purpose" name="purpose" value="permdelete">
                     <input type="hidden" class="delete_notification_tableaction" name="tableaction" value="' . $values->id . '">
-                    <input type="submit" class="delete_notification_delete btn btn-light" name="delete" value="' .
-                get_string('advnotifications_delete_label', 'block_advnotifications') . '">
+                    <input type="submit" class="delete_notification_delete btn btn-danger" name="delete" value="' .
+                        get_string('advnotifications_delete_label', 'block_advnotifications') . '">
                 </form>';
         }
     }

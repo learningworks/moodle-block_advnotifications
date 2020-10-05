@@ -36,8 +36,8 @@ class block_advnotifications_renderer extends plugin_renderer_base
     /**
      * Renders notification on page.
      *
-     * @param array $notifications - attributes about notifications to render.
-     * @return string - returns HTML to render notification.
+     * @param   array $notifications Attributes about notifications to render.
+     * @return  string Returns HTML to render notification.
      */
     public function render_notification($notifications) {
         $html = '';
@@ -75,9 +75,9 @@ class block_advnotifications_renderer extends plugin_renderer_base
     /**
      * Render interface to add a notification.
      *
-     * @param array $params - passes information such whether notification is new or the block's instance id.
-     * @return string - returns HTML to render (add notification form HTML).
-     * @throws coding_exception
+     * @param   array $params - passes information such whether notification is new or the block's instance id.
+     * @return  string - returns HTML to render (add notification form HTML).
+     * @throws  coding_exception
      */
     public function add_notification($params) {
         global $CFG;
@@ -99,29 +99,29 @@ class block_advnotifications_renderer extends plugin_renderer_base
                                     get_string('advnotifications_enabled', 'block_advnotifications') .
                                 '</label>
                             </div>' .
-                                ((array_key_exists('blockid', $params)) ? '
-                            <div class="form-check">
+                            ((array_key_exists('blockid', $params)) ?
+                            '<div class="form-check">
                                 <input type="checkbox" id="add_notification_global" class="form-check-input" name="global"/>
                                 <label for="add_notification_global" class="form-check-label">' .
                                     get_string('advnotifications_global', 'block_advnotifications') .
                                 '</label>
                                 <input type="hidden" id="add_notification_blockid" name="blockid" value="' . $params['blockid'] .
                                     '"/>
-                            </div>' : '
-                            <div class="form-group">
+                            </div>' :
+                            '<div class="form-group">
                                 <strong>
                                     <em>' . get_string('add_notification_global_notice', 'block_advnotifications') . '</em>
                                 </strong>
                                 <input type="hidden" id="add_notification_global" name="global" value="1"/>
                             </div>') .
-                            '<div class="form-group">
+                            '<div class="form-group row">
                                 <input type="text" id="add_notification_title" class="form-control" name="title" placeholder="' .
                                     get_string('advnotifications_title', 'block_advnotifications') . '"/>
                                 <textarea id="add_notification_message" class="form-control" name="message" placeholder="' .
                                     get_string('advnotifications_message', 'block_advnotifications') . '"></textarea>
                             </div>
                             <div class="form-group row">
-                                <select id="add_notification_type" class="form-control col-6" name="type" required>
+                                <select id="add_notification_type" class="form-control col-7" name="type" required>
                                     <option selected disabled>' .
                                         get_string('advnotifications_type', 'block_advnotifications') .
                                     '</option>
@@ -141,12 +141,12 @@ class block_advnotifications_renderer extends plugin_renderer_base
                                         get_string('advnotifications_add_option_announcement', 'block_advnotifications') .
                                     '</option>
                                 </select>
-                                <label for="add_notification_times" class="col">
+                                <label for="add_notification_type" class="col">
                                     <strong class="required">*</strong>
                                 </label>
                             </div>
                             <div class="form-group row">
-                                <select id="add_notification_times" class="form-control col-6" name="times" required>
+                                <select id="add_notification_times" class="form-control col-7" name="times" required>
                                     <option selected disabled>' .
                                         get_string('advnotifications_times', 'block_advnotifications') . '</option>
                                     <option value="0">0</option>
@@ -167,30 +167,48 @@ class block_advnotifications_renderer extends plugin_renderer_base
                                 <small class="form-text text-muted">' .
                                     get_string('advnotifications_times_label', 'block_advnotifications') . '</small>
                             </div>
-                            <div class="form-check">
-                                <input type="checkbox" id="add_notification_aicon" class="form-check-input" name="aicon"/>
-                                <label for="add_notification_aicon" class="form-check-label">' .
-                                    get_string('advnotifications_aicon', 'block_advnotifications') . '</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" id="add_notification_dismissible" class="form-check-input" name="dismissible"/>
-                                <label for="add_notification_dismissible" class="form-check-label">' .
-                                    get_string('advnotifications_dismissible', 'block_advnotifications') . '</label>
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input type="checkbox" id="add_notification_aicon" class="form-check-input" name="aicon"/>
+                                    <label for="add_notification_aicon" class="form-check-label">' .
+                                        get_string('advnotifications_aicon', 'block_advnotifications') . '</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox"
+                                        id="add_notification_dismissible"
+                                        class="form-check-input"
+                                        name="dismissible"/>
+                                    <label for="add_notification_dismissible" class="form-check-label">' .
+                                        get_string('advnotifications_dismissible', 'block_advnotifications') . '</label>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="add_notification_date_from">' .
+                                <label for="add_notification_date_from" class="form-text">' .
                                     get_string('advnotifications_date_from', 'block_advnotifications') . '</label>
-                                <input type="date" id="add_notification_date_from" class="form-control" name="date_from" placeholder="yyyy-mm-dd"/>
-                                <label for="add_notification_to">' .
+                                <input type="date"
+                                    id="add_notification_date_from"
+                                    class="form-control"
+                                    name="date_from"
+                                    placeholder="yyyy-mm-dd"/>
+                                <label for="add_notification_date_to" class="form-text">' .
                                     get_string('advnotifications_date_to', 'block_advnotifications') . '</label>
-                                <input type="date" id="add_notification_date_to" class="form-control" name="date_to" placeholder="yyyy-mm-dd"/>
-                                <small class="form-text text-muted">' . get_string('advnotifications_date_info', 'block_advnotifications') . '</small>
+                                <input type="date"
+                                    id="add_notification_date_to"
+                                    class="form-control"
+                                    name="date_to"
+                                    placeholder="yyyy-mm-dd"/>
+                                <small class="form-text text-muted">' .
+                                    get_string('advnotifications_date_info', 'block_advnotifications') . '</small>
                             </div>
                             <input type="hidden" id="add_notification_sesskey" name="sesskey" value="' . sesskey() . '"/>
                             <input type="hidden" id="add_notification_purpose" name="purpose" value="add"/>
                             <div class="form-group">
-                                <input type="submit" id="add_notification_save" class="btn btn-primary" role="button" name="save" value="' .
-                                    get_string('advnotifications_save', 'block_advnotifications') . '"/>
+                                <input type="submit"
+                                    id="add_notification_save"
+                                    class="btn btn-primary"
+                                    role="button"
+                                    name="save"
+                                    value="' . get_string('advnotifications_save', 'block_advnotifications') . '"/>
                                 <a href="' . $CFG->wwwroot . '/blocks/advnotifications/pages/notifications.php"
                                     id="add_notification_cancel" class="btn btn-danger">' .
                                 get_string('advnotifications_cancel', 'block_advnotifications') . '</a>
