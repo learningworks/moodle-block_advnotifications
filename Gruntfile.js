@@ -43,7 +43,8 @@
  * Based on https://gitlab.com/jezhops/moodle-theme_adaptable/  Gruntfile.js - thank you!
  *
  * @package     block_advnotifications
- * @author      Based on code originally written by Willian Mano - {@link https://conecti.me} & G J Barnard - {@link https://moodle.org/user/profile.php?id=442195}
+ * @author      Based on code originally written by:
+ *              Willian Mano - {@link https://conecti.me} & G J Barnard - {@link https://moodle.org/user/profile.php?id=442195}
  * @copyright   2020 LearningWorks <selma@learningworks.ac.nz>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -98,7 +99,7 @@ module.exports = function(grunt) {
             }
         },
         uglify: {
-            my_target: {
+            dist: {
                 files: {
                     'amd/build/custom.min.js': 'amd/src/custom.js',
                     'amd/build/notif.min.js': 'amd/src/notif.js',
