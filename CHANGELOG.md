@@ -1,13 +1,19 @@
 # Changelog
 
-## v1.3.11 - 05/10/2020
+## v1.3.11 - 06/10/2020
 
 ### Added
-* Gruntfile.
+* Gruntfile - scss & js processing.
+* More date formats available.
 
 ### Changed
-* Various travis & moodle plugin db-recommended code style fixes.
+* UI/UX Improvements.
+* Cleaned up unused SCSS variables & functions.
 * Bumped version number.
+
+### Fixed
+* 'Date-to' would not be shown if 'Date-from' was not set (0). It now correctly checks if date-to is set instead.
+* Various travis & moodle plugin db-recommended code style fixes. 
 
 ## v1.3.10 - 02/10/2020
 

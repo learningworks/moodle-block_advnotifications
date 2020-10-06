@@ -114,7 +114,7 @@ class advnotifications_base_table extends table_sql {
      * @return $string Returns notification's title - easier sorting
      */
     public function col_title($values) {
-        return shorten_text($values->title, 20, true);
+        return shorten_text($values->title, 22, true);
     }
 
     /**
@@ -208,7 +208,7 @@ class advnotifications_base_table extends table_sql {
      * @throws dml_exception
      */
     public function col_date_to($values) {
-        if ($values->date_from <= 0 || $values->date_from === $values->date_to) {
+        if ($values->date_to <= 0 || $values->date_from === $values->date_to) {
             return '-';
         }
 

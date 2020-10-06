@@ -82,10 +82,6 @@ class block_advnotifications extends block_base
      *
      * This internally calls ->get_content(), and then adds the editing controls etc.
      *
-     * You probably should not override this method, but instead override
-     * {@see html_attributes()}, {@see formatted_contents()} or {@see get_content()},
-     * {@see hide_header()}, {@see get_edit_controls()}, etc.
-     *
      * @param   renderer_base $output The core_renderer to use when generating the output.
      * @return  block_contents $bc A representation of the block, for rendering.
      * @since   Moodle 2.0.

@@ -81,7 +81,7 @@ $string['advnotifications_date_info'] = 'Same date = forever';
 $string['advnotifications_save'] = 'Save';
 $string['advnotifications_update'] = 'Update';
 $string['advnotifications_cancel'] = 'Cancel';
-$string['advnotifications_req'] = 'Required field...';
+$string['advnotifications_req'] = 'Required...';
 $string['advnotifications_preview'] = 'Preview';
 
 // Renderer.

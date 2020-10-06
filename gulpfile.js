@@ -14,8 +14,8 @@ var gulp = require('gulp'),
 // Path variables.
 var path = {
     styles: {
-        src:    'src/scss/',
-        build:  'src/..'
+        src:    'scss/',
+        build:  './'
     }
 };
 

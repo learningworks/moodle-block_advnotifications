@@ -1,0 +1,10 @@
+//
+// FILE CONTAINING HANDY DANDY SASS FUNCTIONS/MIXINS FOR USE
+//
+
+//
+// Returns the matching value from the colors SASS map
+//
+@function color($key) {
+    @return map-get($colors, $key);
+}

@@ -6,8 +6,27 @@ body {
             > form {
                 display: inline;
 
-                input {
-                    margin-bottom: 0;
+                button {
+                    border: none;
+                    background: none;
+                    transform: scale(1.1);
+                    transition: 100ms;
+
+                    &[class*="restore"],
+                    &[class*="edit"] {
+                        color: color(green--dark);
+                    }
+
+                    &[class*="delete"] {
+                        color: color(red--dark);
+                    }
+
+                    &:hover,
+                    &:focus {
+                        outline: none;
+                        transform: scale(1.25);
+                        transition: 100ms;
+                    }
                 }
             }
         }

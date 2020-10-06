@@ -2,7 +2,7 @@
 body {
     .block.block_advnotifications {
         .content {
-            margin-top: 0 !important;  // To overcome core '!important' CSS :( .
+            margin-top: 0 !important; // Override core !important CSS :( . /* stylelint-disable-line declaration-no-important */
             .notification-block-wrapper {
                 margin-bottom: 1em;
                 .alert {
@@ -24,7 +24,7 @@ body {
                     }
                 }
 
-                // Moodle automatically bolds the class 'warning', so this is to negate that (for the notifications specifically).
+                // Moodle automatically bolds class 'warning', so this negates that (for the notifications specifically).
                 &.warning {
                     font-weight: 400;
                 }
@@ -55,12 +55,12 @@ body {
             box-shadow: none;
             border: none;
             background-color: transparent;
-            margin-bottom: 0 !important; // To overcome core '!important' CSS :( .
+            margin-bottom: 0 !important; // Override core !important CSS :( . /* stylelint-disable-line declaration-no-important */
             padding: 0;
             min-height: 0;
 
             .card-body {
-                padding: 0 !important; // To overcome core '!important' CSS :( .
+                padding: 0 !important; // Override core !important CSS :( . /* stylelint-disable-line declaration-no-important */
             }
 
             .header {

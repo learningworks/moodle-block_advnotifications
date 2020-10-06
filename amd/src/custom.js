@@ -22,14 +22,14 @@ define(['jquery'], function($) {
                 var strings = {
                     save: 'Save',
                     update: 'Update',
-                    req: 'Required field...',
+                    req: 'Required...',
                     preview: 'Preview',
                     title: 'Title',
                     message: 'Message'
                 };
 
                 // MANAGING NOTIFICATIONS.
-                mainregion.on('click', '.notifications_table tr > td > form > input[type=submit]', function(e) {
+                mainregion.on('click', '.notifications_table tr > td > form > button[type=submit]', function(e) {
                     e.preventDefault();
                     var senddata = {}; // Data Object.
                     senddata.call = 'ajax';
@@ -80,7 +80,9 @@ define(['jquery'], function($) {
                                         // Because we're doing a standard submit, we need extra inputs to pass params.
                                         // But first, remove old hidden inputs.
                                         $('#add_notification_id').remove();
-                                        form.prepend('<input type="hidden" id="add_notification_id" name="id" value="' + data[i] + '"/>');
+                                        form.prepend(
+                                            '<input type="hidden" id="add_notification_id" name="id" value="' + data[i] + '"/>'
+                                        );
 
                                         $('#add_notification_purpose').val('update');
                                     }
@@ -89,9 +91,19 @@ define(['jquery'], function($) {
 
                                     // Check whether checkboxes should be checked or not.
                                     // We also don't assign a value to checkbox input fields.
-                                    if ((i === 'enabled' || i === 'global' || i === 'dismissible' || i === 'aicon') && data[i] == 1) {
+                                    if (
+                                        (
+                                            i === 'enabled' ||
+                                            i === 'global' ||
+                                            i === 'dismissible' ||
+                                            i === 'aicon'
+                                        ) && data[i] == 1) {
                                         affectelement.prop('checked', true);
-                                    } else if ((i === 'enabled' || i === 'global' || i === 'dismissible' || i === 'aicon') && data[i] == 0) {
+                                    } else if (
+                                        (i === 'enabled' ||
+                                            i === 'global' ||
+                                            i === 'dismissible' ||
+                                            i === 'aicon') && data[i] == 0) {
                                         affectelement.prop('checked', false);
                                     } else {
                                         affectelement.val(data[i]);
@@ -104,7 +116,7 @@ define(['jquery'], function($) {
                 });
 
                 // Restore & Permanently delete notifications.
-                mainregion.on('click', '.notifications_restore_table tr > td > form > input[type=submit]', function(e) {
+                mainregion.on('click', '.notifications_restore_table tr > td > form > button[type=submit]', function(e) {
 
                     e.preventDefault();
                     var senddata = {}; // Data Object.
@@ -177,7 +189,9 @@ define(['jquery'], function($) {
                             if (error.hasOwnProperty(i)) {
                                 var sfield = form.find('select[name=' + error[i] + ']');
                                 sfield.addClass('requiredfield');
-                                $('<strong class="requiredfield"><em>' + strings.req + '</em><strong>').insertAfter(sfield[0].nextSibling);
+                                $(
+                                    '<strong class="requiredfield"><em>' + strings.req + '</em></strong>'
+                                ).insertAfter(sfield[0].nextSibling);
                             }
                         }
 
@@ -293,21 +307,35 @@ define(['jquery'], function($) {
                     $.post(callpath, senddata).fail(function() {
                         console.error("No 'strings' response received.");
                     }).done(function(data) {
-                        // Store strings and update preview (TODO: ONLY DO THIS IF AJAX SUCCESSFUL - don't render with English first?).
+                        // TODO: ONLY DO THIS IF AJAX SUCCESSFUL - don't render with English first?).
+                        // Store strings and update preview.
                         strings = data;
                     }).always(function() {
-                        // Always prepend live preview. Will use langstrings if AJAX successful, otherwise the strings declared at top.
+                        // Always prepend live preview. Use langstrings if AJAX successful, otherwise use strings declared at top.
                         refreshPreview();
                     });
 
                     // JS is enabled, so we can use AJAX in the new notification form.
-                    $('#add_notification_form').append('<input type="hidden" id="add_notification_call" name="call" value="ajax"/>');
+                    $('#add_notification_form').append(
+                        '<input type="hidden" id="add_notification_call" name="call" value="ajax"/>'
+                    );
                 };
 
                 // Shiny new and fresh preview.
                 var refreshPreview = function() {
                     var previewelem = $('#notification_preview_wrapper');
-                    var previewdom = '<div id="notification_preview_wrapper"><strong>' + strings.preview + '</strong><br><div class="alert alert-info preview-alert"><div class="preview-aicon" style="display: none;"><img src="' + M.util.image_url('info', 'block_advnotifications') + '" /></div><strong class="preview-title">' + strings.title + '</strong> <div class="preview-message">' + strings.message + '</div> <div class="preview-alert-dismissible" style="display: none;"><strong>&times;</strong></div></div></div>';
+                    var previewdom =
+                        '<div id="notification_preview_wrapper">' +
+                            '<strong>' + strings.preview + '</strong><br>' +
+                            '<div class="alert alert-info preview-alert">' +
+                                '<div class="preview-aicon" style="display: none;">' +
+                                    '<img src="' + M.util.image_url('info', 'block_advnotifications') + '" />' +
+                                '</div>' +
+                                '<strong class="preview-title">' + strings.title + '</strong> ' +
+                                '<div class="preview-message">' + strings.message + '</div> ' +
+                                '<div class="preview-alert-dismissible" style="display: none;"><strong>&times;</strong></div>' +
+                            '</div>' +
+                        '</div>';
 
                     // If it exists already, remove before adding again.
                     if (previewelem.length > 0) {
@@ -327,7 +355,7 @@ define(['jquery'], function($) {
                         if (disselopt.hasOwnProperty(opt)) {
                             if ($(disselopt[opt]).prop('disabled')) {
                                 $(disselopt[opt]).closest('select').addClass('requiredfield');
-                                $('<strong class="requiredfield"><em>' + strings.req + '</em><strong>')
+                                $('<strong class="requiredfield"><em>' + strings.req + '</em></strong>')
                                     .insertAfter($(disselopt[opt]).closest('select')[0].nextSibling);
 
                                 return false;

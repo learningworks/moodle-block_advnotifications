@@ -1,0 +1,15 @@
+//
+// VARIABLES FILE
+//
+
+// SASS Map containing plugin's colours
+$colors: (
+    black:                  #000,
+    red:                    #f00,
+    red--dark:              #730000,
+    green--dark: #006600,
+
+    // Utility
+    required:               rgba(175, 30, 30, 1),
+    required_background:    rgba(255, 0, 0, 0.075)
+);

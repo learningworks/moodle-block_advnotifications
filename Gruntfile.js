@@ -19,7 +19,8 @@
  * -------------
  * node and npm: instructions at https://nodejs.org/
  *
- * run: `[sudo] npm install -g grunt-cli --save-dev`
+ * run for each task (and grunt-cli): `[sudo] npm install -g grunt-cli --save-dev`
+ * run for each task to install locally:: `[sudo] npm install grunt-cli --save-dev`
  *
  * node dependencies: run `npm install` in the root directory.
  *
@@ -50,6 +51,7 @@
 module.exports = function(grunt) {
 
     let decachephp = "../../admin/cli/purge_caches.php";
+    const sass = require('node-sass');
 
     grunt.initConfig({
         watch: {
@@ -58,24 +60,31 @@ module.exports = function(grunt) {
                 livereload: true
             },
             css: {
-                files: ["src/scss/**/*.scss"],
+                files: ["scss/**/*.scss"],
                 tasks: ["css", "decache"]
+            },
+            js: {
+                files: ["amd/src/*.js"],
+                tasks: ["uglify", "decache"]
             }
         },
         sass: {
             dist: {
                 files: {
-                    "styles.css": "src/scss/styles.scss"
+                    "styles.css": "scss/styles.scss"
                 }
             },
             options: {
-                includePaths: ["src/"]
+                includePaths: ["scss"],
+                implementation: sass,
+                indentWidth: 4,
+                outputStyle: "expanded"
             }
         },
         stylelint: {
             scss: {
                 options: {syntax: "scss"},
-                src: ["src/scss/**/*.scss"]
+                src: ["scss/**/*.scss"]
             },
             css: {
                 src: ["styles.css"],
@@ -85,6 +94,14 @@ module.exports = function(grunt) {
                             "at-rule-no-unknown": true,
                         }
                     }
+                }
+            }
+        },
+        uglify: {
+            my_target: {
+                files: {
+                    'amd/build/custom.min.js': 'amd/src/custom.js',
+                    'amd/build/notif.min.js': 'amd/src/notif.js',
                 }
             }
         },
@@ -108,9 +125,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-watch");
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks("grunt-stylelint");
+    grunt.loadNpmTasks('grunt-contrib-uglify');
 
     // Register tasks.
     grunt.registerTask("default", ["watch"]);
     grunt.registerTask("css", ["stylelint:scss", "sass"]);
+    grunt.registerTask("js", ["uglify"]);
     grunt.registerTask("decache", ["exec:decache"]);
 };
