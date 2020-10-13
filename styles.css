@@ -18,7 +18,8 @@ body #advnotifications_restore_table_wrapper td > form button {
     transition: 100ms;
 }
 
-body #advnotifications_table_wrapper td > form button[class*="restore"], body #advnotifications_table_wrapper td > form button[class*="edit"],
+body #advnotifications_table_wrapper td > form button[class*="restore"],
+body #advnotifications_table_wrapper td > form button[class*="edit"],
 body #advnotifications_restore_table_wrapper td > form button[class*="restore"],
 body #advnotifications_restore_table_wrapper td > form button[class*="edit"] {
     color: #060;
@@ -179,7 +180,7 @@ body #add_notification_wrapper_id .add_notification_form_wrapper #add_notificati
 }
 
 body .block.block_advnotifications .content {
-    margin-top: 0 !important;
+    margin-top: 0 !important; /* stylelint-disable-line declaration-no-important */
 }
 
 body .block.block_advnotifications .content .notification-block-wrapper {
@@ -231,13 +232,13 @@ body:not(.editing) .block.block_advnotifications {
     box-shadow: none;
     border: none;
     background-color: transparent;
-    margin-bottom: 0 !important;
+    margin-bottom: 0 !important; /* stylelint-disable-line declaration-no-important */
     padding: 0;
     min-height: 0;
 }
 
 body:not(.editing) .block.block_advnotifications .card-body {
-    padding: 0 !important;
+    padding: 0 !important; /* stylelint-disable-line declaration-no-important */
 }
 
 body:not(.editing) .block.block_advnotifications .header {

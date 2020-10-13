@@ -14,11 +14,11 @@ body {
 
                     &[class*="restore"],
                     &[class*="edit"] {
-                        color: color(green--dark);
+                        color: color(green--dark); /* stylelint-disable-line csstree/validator */
                     }
 
                     &[class*="delete"] {
-                        color: color(red--dark);
+                        color: color(red--dark); /* stylelint-disable-line csstree/validator */
                     }
 
                     &:hover,
@@ -92,18 +92,18 @@ body {
                     min-height: 1.5em;
                 }
                 .requiredfield {
-                    background-color: color(required_background);
-                    border: 1px solid color(red);
+                    background-color: color(required_background); /* stylelint-disable-line csstree/validator */
+                    border: 1px solid color(red); /* stylelint-disable-line csstree/validator */
                 }
                 strong.requiredfield {
                     padding: 0.25em;
                     border-color: transparent;
                     border-radius: 5px;
-                    color: color(required);
+                    color: color(required); /* stylelint-disable-line csstree/validator */
                 }
 
                 strong.required {
-                    color: color(required);
+                    color: color(required); /* stylelint-disable-line csstree/validator */
                     font-size: 1.25em;
                     padding: 0 5px;
                     vertical-align: top;

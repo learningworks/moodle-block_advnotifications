@@ -2,7 +2,7 @@
 body {
     .block.block_advnotifications {
         .content {
-            margin-top: 0 !important; // Override core !important CSS :( . /* stylelint-disable-line declaration-no-important */
+            margin-top: 0 !important; /* stylelint-disable-line declaration-no-important */ // Override core !important CSS :( .
             .notification-block-wrapper {
                 margin-bottom: 1em;
                 .alert {
@@ -18,7 +18,7 @@ body {
                         line-height: 1em;
                         transition: 250ms;
                         &:hover {
-                            color: color(black);
+                            color: color(black); /* stylelint-disable-line csstree/validator */
                             transition: 250ms;
                         }
                     }
@@ -55,12 +55,12 @@ body {
             box-shadow: none;
             border: none;
             background-color: transparent;
-            margin-bottom: 0 !important; // Override core !important CSS :( . /* stylelint-disable-line declaration-no-important */
+            margin-bottom: 0 !important; /* stylelint-disable-line declaration-no-important */ // Override core !important CSS :( .
             padding: 0;
             min-height: 0;
 
             .card-body {
-                padding: 0 !important; // Override core !important CSS :( . /* stylelint-disable-line declaration-no-important */
+                padding: 0 !important; /* stylelint-disable-line declaration-no-important */ // Override core !important CSS :( .
             }
 
             .header {
