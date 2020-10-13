@@ -91,14 +91,14 @@ if ($ADMIN->fulltree) {
         )
     );
 
+    // DATE FORMAT.
     $options = get_date_formats();
-    // ALLOW HTML TOGGLE.
     $settings->add(
         new admin_setting_configselect(
             'block_advnotifications/dateformat',                                                            // NAME.
             get_string('setting/dateformat', 'block_advnotifications'),                                     // TITLE.
             get_string('setting/dateformat_desc', 'block_advnotifications'),                                // DESCRIPTION.
-            key(reset($options)),                                                                           // DEFAULT.
+            array_keys($options)[0],                                                                        // DEFAULT.
             $options                                                                                        // OPTIONS.
         )
     );

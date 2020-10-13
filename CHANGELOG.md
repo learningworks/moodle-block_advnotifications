@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.3.12 - 13/10/2020
+
+### Changed
+* Bumped version number.
+
+### Fixed
+* Improper default settings value. Now sets first date format as default. 
+
 ## v1.3.11 - 06/10/2020
 
 ### Added
