@@ -1,0 +1,27 @@
+{
+  "name": "block-advnotifications-tasks",
+  "version": "0.1.0",
+  "description": "Grunt tasks for Advanced Notifications block plugin.",
+  "main": "Gruntfile.js",
+  "author": {
+    "name": "LearningWorks Ltd",
+    "url": "https://learningworks.co.nz/"
+  },
+  "devDependencies": {
+    "grunt": "^1.3.0",
+    "grunt-contrib-uglify": "^5.0.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-exec": "^0.4.7",
+    "grunt-sass": "^2.1.0",
+    "grunt-stylelint": "^0.6.0",
+    "stylelint": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "license": "GPL-3.0",
+  "dependencies": {
+    "grunt-cli": "^1.3.2",
+    "stylelint-csstree-validator": "^1.9.0"
+  }
+}

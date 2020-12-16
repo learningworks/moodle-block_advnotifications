@@ -93,7 +93,10 @@ class block_advnotifications extends block_base
         // Only do this if bc has been set (block has content, editing mode on, etc).
         if (isset($bc)) {
             $context = context_system::instance();
-            if ($this->page->user_can_edit_blocks() && has_capability('block/advnotifications:managenotifications', $context)) {
+            $bcontext = context_block::instance($bc->blockinstanceid);
+            if ($this->page->user_can_edit_blocks() &&
+                (has_capability('block/advnotifications:managenotifications', $context) ||
+                    has_capability('block/advnotifications:manageownnotifications', $bcontext))) {
                 // Edit config icon - always show - needed for positioning UI.
                 $str = new lang_string('advnotifications_table_title', 'block_advnotifications');
                 $controls = new action_menu_link_secondary(

@@ -29,6 +29,7 @@ $string['pluginname'] = 'Advanced notifications';
 $string['advnotifications:addinstance'] = 'Add a new Advanced notifications block';
 $string['advnotifications:myaddinstance'] = 'Add a new Advanced notifications block to the my Moodle page';
 $string['advnotifications:managenotifications'] = 'Manage notifications and the relative settings';
+$string['advnotifications:manageownnotifications'] = 'Manage own notifications and the relative settings';
 
 // Block Configuration.
 $string['advnotifications'] = 'Advanced notifications';
@@ -96,7 +97,7 @@ $string['advnotifications_add_done'] = 'Done!';
 
 // Admin Settings.
 $string['setting/navigation'] = 'Navigation:';
-$string['setting/navigation_desc'] = '<div id="advnotifications_manage">{$a->manage}&nbsp;&nbsp;&nbsp;{$a->restore}</div><br>';
+$string['setting/navigation_desc'] = '{$a->left}{$a->right}';
 
 $string['setting/settings'] = 'Settings:';
 
@@ -137,6 +138,7 @@ $string['advnotifications_nav_settings'] = 'Settings';
 $string['advnotifications_err_forbidden'] = 'Forbidden, please login again...';
 $string['advnotifications_err_nojsedit'] = 'Editing only supported with JavaScript enabled. Re-create the desired notification or enable JavaScript and try again.';
 $string['advnotifications_err_req'] = 'The following fields are required: {$a}';
+$string['advnotifications_err_nocapability'] = 'You don\'t have permission to do that...';
 
 // Cron Messages.
 $string['advnotifications_task_name'] = 'Advanced notifications';

@@ -35,10 +35,12 @@ define(['jquery'], function($) {
                     senddata.call = 'ajax';
                     senddata.purpose = '';
                     senddata.tableaction = '';
+                    senddata.blockid = '';
 
                     // Check if user wants to edit/delete.
                     var eattr = $(this).closest('form').attr('data-edit');
                     var dattr = $(this).closest('form').attr('data-delete');
+                    senddata.blockid = $(this).closest('form').find('[name=blockid]')[0].value;
                     refreshRequired();
 
                     // Check if anchor element has attribute, retrieved from above.
@@ -123,10 +125,12 @@ define(['jquery'], function($) {
                     senddata.call = 'ajax';
                     senddata.purpose = '';
                     senddata.tableaction = '';
+                    senddata.blockid = '';
 
                     // Check if user wants to restore/delete.
                     var rattr = $(this).closest('form').attr('data-restore');
                     var pdattr = $(this).closest('form').attr('data-permdelete');
+                    senddata.blockid = $(this).closest('form').find('[name=blockid]')[0].value;
 
                     // Check if anchor element has attribute, retrieved from above.
                     if (typeof rattr !== typeof undefined && rattr !== false) {

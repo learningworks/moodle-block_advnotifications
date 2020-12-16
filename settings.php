@@ -39,16 +39,21 @@ if ($ADMIN->fulltree) {
         $param = '?blockid=' . $blockid;
     }
 
+    $navbuttons['left'] = '<a class="btn btn-secondary instance"
+                                href="' . $CFG->wwwroot . '/blocks/advnotifications/pages/notifications.php' . $param . '">' .
+                                get_string('advnotifications_nav_manage', 'block_advnotifications') . '</a>';
+    $navbuttons['right'] = '<a class="btn btn-secondary instance"
+                                href="' . $CFG->wwwroot . '/blocks/advnotifications/pages/restore.php' . $param . '">' .
+                                get_string('advnotifications_nav_restore', 'block_advnotifications') . '</a>';
+
     // SETTINGS' NAVIGATIONAL LINKS HEADING & LINKS.
     $settings->add(
         new admin_setting_heading(
             'block_advnotifications/navigation',                                                            // NAME.
             get_string('setting/navigation', 'block_advnotifications'),                                     // TITLE.
-                        get_string('setting/navigation_desc', 'block_advnotifications',
-                        array('manage' => '<a class="btn btn-secondary instance" href="' . $CFG->wwwroot .
-                            '/blocks/advnotifications/pages/notifications.php' . $param . '">Manage</a>',
-                            'restore' => '<a class="btn btn-secondary instance" href="' . $CFG->wwwroot .
-                                '/blocks/advnotifications/pages/restore.php' . $param . '">Restore</a>'))   // DESCRIPTION.
+                        '<div id="advnotifications_manage">' .
+                            get_string('setting/navigation_desc', 'block_advnotifications', $navbuttons) .
+                        '</div><br>'                                                                        // DESCRIPTION.
         )
     );
 

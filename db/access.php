@@ -26,34 +26,26 @@
 defined('MOODLE_INTERNAL') || die;
 
     $capabilities = array(
-
         'block/advnotifications:myaddinstance' => array(
             'captype' => 'write',
             'contextlevel' => CONTEXT_SYSTEM,
             'archetypes' => array(
                 'user' => CAP_ALLOW
             ),
-
             'clonepermissionsfrom' => 'moodle/my:manageblocks'
         ),
-
         'block/advnotifications:addinstance' => array(
             'riskbitmask' => RISK_SPAM | RISK_XSS,
-
             'captype' => 'write',
             'contextlevel' => CONTEXT_BLOCK,
             'archetypes' => array(
                 'editingteacher' => CAP_ALLOW,
                 'manager' => CAP_ALLOW
             ),
-
             'clonepermissionsfrom' => 'moodle/site:manageblocks'
         ),
-
         'block/advnotifications:managenotifications' => array(
-
             'riskbitmask' => RISK_SPAM,
-
             'captype' => 'write',
             'contextlevel' => CONTEXT_SYSTEM,
             'archetypes' => array(
@@ -65,6 +57,21 @@ defined('MOODLE_INTERNAL') || die;
                 'editingteacher' => CAP_PREVENT,
                 'coursecreator' => CAP_PREVENT,
                 'manager' => CAP_ALLOW,
-            ),
+            )
         ),
+        'block/advnotifications:manageownnotifications' => array(
+            'riskbitmask' => RISK_SPAM,
+            'captype' => 'write',
+            'contextlevel' => CONTEXT_BLOCK,
+            'archetypes' => array(
+                'frontpage' => CAP_PREVENT,
+                'guest' => CAP_PREVENT,
+                'user' => CAP_PREVENT,
+                'student' => CAP_PREVENT,
+                'teacher' => CAP_PREVENT,
+                'editingteacher' => CAP_PREVENT,
+                'coursecreator' => CAP_PREVENT,
+                'manager' => CAP_ALLOW,
+            )
+        )
     );

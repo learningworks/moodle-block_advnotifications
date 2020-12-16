@@ -9,14 +9,15 @@
 //
 // BASE STYLES
 //
-@import "base/variables",
-    "base/utils";
+@import "base/variables";
+@import "base/utils";
 
 
 //
 // PAGE STYLES
 //
 @import "page/notifications";
+@import "page/navigation";
 
 
 //

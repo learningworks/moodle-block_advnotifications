@@ -39,8 +39,6 @@ require_login();
 
 global $USER;
 
-$context = context_system::instance();
-
 header('HTTP/1.0 200 OK');
 
 // TODO - Check if insertions/updates/deletions were successful, and return appropriate message.
@@ -130,8 +128,22 @@ if (isset($dismiss) && $dismiss != '') {
     }
 }
 
-// Any logged-in user can dismiss notification, but any other actions require manage capabilities.
-require_capability('block/advnotifications:managenotifications', $context);
+$context = context_system::instance();
+$allnotifs = has_capability('block/advnotifications:managenotifications', $context);
+$ownnotifs = false;
+
+// TODO - move to using Moodle's core ajax string retrieval method.
+// The 'strings' purpose/action is just getting strings.
+if (isset($purpose) && $purpose !== 'strings') {
+    if (!$allnotifs) {
+        $bcontext = context_block::instance($blockinstance);
+        $ownnotifs = has_capability('block/advnotifications:manageownnotifications', $bcontext);
+    }
+
+    if (!$allnotifs && !$ownnotifs) {
+        throw new moodle_exception('advnotifications_err_nocapability', 'enrol_selma');
+    }
+}
 
 // Handle Delete/Edit early as it requires few resources, and then we can quickly exit(),
 // this is the new AJAX/JS deletion/editing method.

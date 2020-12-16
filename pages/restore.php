@@ -59,23 +59,30 @@ if ( !!$download ) {
 
 if ( !!$delete ) {
     // If wanting to delete a notification, delete from DB immediately before the table is rendered.
-
     $DB->delete_records('block_advnotifications', array('id' => $delete));
 }
-
-$context = context_system::instance();
-$url = new moodle_url($CFG->wwwroot . '/blocks/advnotifications/pages/restore.php');
-
-// Set PAGE variables.
-$PAGE->set_context($context);
-$PAGE->set_url($url, $params);
 
 // Force the user to login/create an account to access this page.
 require_login();
 
-if ( !has_capability('block/advnotifications:managenotifications', $context) ) {
-    require_capability('block/advnotifications:managenotifications', $context);
+$context = context_system::instance();
+$allnotifs = has_capability('block/advnotifications:managenotifications', $context);
+$ownnotifs = false;
+
+if (!$allnotifs) {
+    $bcontext = context_block::instance($blockid);
+    $ownnotifs = has_capability('block/advnotifications:manageownnotifications', $bcontext);
 }
+
+if (!$allnotifs && !$ownnotifs) {
+    throw new moodle_exception('advnotifications_err_nocapability', 'enrol_selma');
+}
+
+// Set PAGE variables.
+$url = new moodle_url($CFG->wwwroot . '/blocks/advnotifications/pages/restore.php');
+$PAGE->set_context($context);
+$PAGE->set_url($url, $params);
+
 
 $table = new advnotifications_restore_table('advnotifications-list-restore');
 $table->is_downloading($download, 'advnotifications-list-restore', 'Advanced Notifications List Restore');
@@ -105,7 +112,15 @@ $table->collapsible(false);
 $table->is_downloadable(true);
 $table->show_download_buttons_at(array(TABLE_P_BOTTOM));
 
-$table->set_sql('*', "{block_advnotifications}", "deleted = 1");
+// Set SQL params for table.
+$sqlwhere = 'deleted = :deleted';
+$sqlparams = array('deleted' => 1);
+if ($ownnotifs && !$allnotifs) {
+    $sqlwhere .= ' AND created_by = :created_by';
+    $sqlparams['created_by'] = $USER->id;
+}
+
+$table->set_sql('*', "{block_advnotifications}", $sqlwhere, $sqlparams);
 
 // Print warning about permanently deleting notifications.
 echo '<div class="restore_notification-block-wrapper">
@@ -114,16 +129,20 @@ echo '<div class="restore_notification-block-wrapper">
         </div>
       </div>';
 
+$navbuttons['left'] = '<a class="btn btn-secondary instance" href="' .
+                            $CFG->wwwroot . '/blocks/advnotifications/pages/notifications.php' . $param . '">' .
+                            get_string('advnotifications_nav_manage', 'block_advnotifications') . '</a>';
+$navbuttons['right'] = '';
+if ($allnotifs) {
+    $navbuttons['right'] = '<a class="btn btn-secondary instance" href="' .
+                                $CFG->wwwroot . '/admin/settings.php?section=blocksettingadvnotifications' . $xparam . '">' .
+                                get_string('advnotifications_nav_settings', 'block_advnotifications') . '</a>';
+}
+
 // Add navigation controls before the table.
-echo '<div id="advnotifications_manage">
-      <a class="btn btn-secondary instance" href="' .
-          $CFG->wwwroot . '/blocks/advnotifications/pages/notifications.php' . $param . '">' .
-          get_string('advnotifications_nav_manage', 'block_advnotifications') .
-      '</a>&nbsp;&nbsp;
-      <a class="btn btn-secondary instance" href="' .
-          $CFG->wwwroot . '/admin/settings.php?section=blocksettingadvnotifications' . $xparam . '">' .
-          get_string('advnotifications_nav_settings', 'block_advnotifications') .
-      '</a><br><br></div>';
+echo '<div id="advnotifications_manage">' .
+        get_string('setting/navigation_desc', 'block_advnotifications', $navbuttons) .
+        '</div><br><br>';
 
 // Add a wrapper with an id, which makes reloading the table easier (when using ajax).
 echo '<div id="advnotifications_restore_table_wrapper">';

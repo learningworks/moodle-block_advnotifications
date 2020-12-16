@@ -18,8 +18,7 @@ body #advnotifications_restore_table_wrapper td > form button {
     transition: 100ms;
 }
 
-body #advnotifications_table_wrapper td > form button[class*="restore"],
-body #advnotifications_table_wrapper td > form button[class*="edit"],
+body #advnotifications_table_wrapper td > form button[class*="restore"], body #advnotifications_table_wrapper td > form button[class*="edit"],
 body #advnotifications_restore_table_wrapper td > form button[class*="restore"],
 body #advnotifications_restore_table_wrapper td > form button[class*="edit"] {
     color: #060;
@@ -30,8 +29,7 @@ body #advnotifications_restore_table_wrapper td > form button[class*="delete"] {
     color: #730000;
 }
 
-body #advnotifications_table_wrapper td > form button:hover,
-body #advnotifications_table_wrapper td > form button:focus,
+body #advnotifications_table_wrapper td > form button:hover, body #advnotifications_table_wrapper td > form button:focus,
 body #advnotifications_restore_table_wrapper td > form button:hover,
 body #advnotifications_restore_table_wrapper td > form button:focus {
     outline: none;
@@ -177,6 +175,10 @@ body #add_notification_wrapper_id .add_notification_form_wrapper #add_notificati
         transform: scale(1.2);
         opacity: 0;
     }
+}
+
+#advnotifications_manage .btn.instance {
+    margin-right: 0.5rem;
 }
 
 body .block.block_advnotifications .content {
