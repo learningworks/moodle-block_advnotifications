@@ -70,12 +70,15 @@ $allnotifs = has_capability('block/advnotifications:managenotifications', $conte
 $ownnotifs = false;
 
 if (!$allnotifs) {
+    if (empty($blockid) || !isset($blockid) || $blockid === -1) {
+        throw new moodle_exception('advnotifications_err_nocapability', 'block_advnotifications');
+    }
     $bcontext = context_block::instance($blockid);
     $ownnotifs = has_capability('block/advnotifications:manageownnotifications', $bcontext);
 }
 
 if (!$allnotifs && !$ownnotifs) {
-    throw new moodle_exception('advnotifications_err_nocapability', 'enrol_selma');
+    throw new moodle_exception('advnotifications_err_nocapability', 'block_advnotifications');
 }
 
 // Set PAGE variables.

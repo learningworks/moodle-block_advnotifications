@@ -141,7 +141,7 @@ if (isset($purpose) && $purpose !== 'strings') {
     }
 
     if (!$allnotifs && !$ownnotifs) {
-        throw new moodle_exception('advnotifications_err_nocapability', 'enrol_selma');
+        throw new moodle_exception('advnotifications_err_nocapability', 'block_advnotifications');
     }
 }
 
@@ -227,6 +227,11 @@ if ($purpose == 'update') {
     // Only check for id parameter when updating.
     $id = optional_param('id', null, PARAM_INT);
 
+    // Prevent users from making notifications global if they aren't allowed to.
+    if (!$allnotifs) {
+        $global = 0;
+    }
+
     // Update an existing notification.
     $urow = new stdClass();
 
@@ -288,6 +293,10 @@ if ($purpose == "add") {
         }
     }
 
+    // Prevent users from making notifications global if they aren't allowed to.
+    if (!$allnotifs) {
+        $global = 0;
+    }
 
     // Create a new notification - Used for both Ajax Calls & NON-JS calls.
     $row = new stdClass();

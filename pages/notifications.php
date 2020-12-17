@@ -65,12 +65,15 @@ $allnotifs = has_capability('block/advnotifications:managenotifications', $conte
 $ownnotifs = false;
 
 if (!$allnotifs) {
+    if (empty($blockinstance) || !isset($blockinstance) || $blockinstance === -1) {
+        throw new moodle_exception('advnotifications_err_nocapability', 'block_advnotifications');
+    }
     $bcontext = context_block::instance($blockinstance);
     $ownnotifs = has_capability('block/advnotifications:manageownnotifications', $bcontext);
 }
 
 if (!$allnotifs && !$ownnotifs) {
-    throw new moodle_exception('advnotifications_err_nocapability', 'enrol_selma');
+    throw new moodle_exception('advnotifications_err_nocapability', 'block_advnotifications');
 }
 
 // Set PAGE variables.
@@ -128,6 +131,8 @@ if ($allnotifs) {
         $CFG->wwwroot . '/admin/settings.php?section=blocksettingadvnotifications' . $xparam . '">' .
         get_string('advnotifications_nav_settings', 'block_advnotifications') .
         '</a>';
+
+    $params['global'] = true;
 }
 
 // Add navigation controls before the table.

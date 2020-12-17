@@ -69,6 +69,7 @@ $string['advnotifications_restore_table_heading'] = 'Advanced notifications rest
 $string['advnotifications_enabled'] = 'Enabled?';
 $string['advnotifications_global'] = 'Global notification?';
 $string['add_notification_global_notice'] = 'This notification will be displayed globally/site-wide!';
+$string['add_notif_local_notice'] = 'This notification will <em>only</em> be displayed on the page you\'re managing this block from!';
 $string['advnotifications_title'] = 'Title';
 $string['advnotifications_message'] = 'Message';
 $string['advnotifications_type'] = 'Type';

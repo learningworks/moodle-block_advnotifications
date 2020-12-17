@@ -99,7 +99,9 @@ class block_advnotifications_renderer extends plugin_renderer_base
                                     get_string('advnotifications_enabled', 'block_advnotifications') .
                                 '</label>
                             </div>' .
-                            ((array_key_exists('blockid', $params)) ?
+                            ((array_key_exists('blockid', $params) &&
+                                array_key_exists('global', $params) &&
+                                $params['global'] === true) ?
                             '<div class="form-check">
                                 <input type="checkbox" id="add_notification_global" class="form-check-input" name="global"/>
                                 <label for="add_notification_global" class="form-check-label">' .
@@ -108,12 +110,18 @@ class block_advnotifications_renderer extends plugin_renderer_base
                                 <input type="hidden" id="add_notification_blockid" name="blockid" value="' . $params['blockid'] .
                                     '"/>
                             </div>' :
-                            '<div class="form-group">
-                                <strong>
-                                    <em>' . get_string('add_notification_global_notice', 'block_advnotifications') . '</em>
-                                </strong>
-                                <input type="hidden" id="add_notification_global" name="global" value="1"/>
-                            </div>') .
+                                ((array_key_exists('global', $params) &&
+                                    $params['global'] === true) ?
+                                    '<div class="form-group">
+                                        <strong>
+                                            <em>' . get_string('add_notification_global_notice', 'block_advnotifications') . '</em>
+                                        </strong>
+                                        <input type="hidden" id="add_notification_global" name="global" value="1"/>
+                                    </div>' :
+                                    '<div class="form-group">
+                                        <strong>' . get_string('add_notif_local_notice', 'block_advnotifications') . '</strong>
+                                        <input type="hidden" id="add_notification_global" name="global" value="0"/>
+                                    </div>')) .
                             '<div class="form-group row">
                                 <input type="text" id="add_notification_title" class="form-control" name="title" placeholder="' .
                                     get_string('advnotifications_title', 'block_advnotifications') . '"/>
@@ -202,6 +210,10 @@ class block_advnotifications_renderer extends plugin_renderer_base
                             </div>
                             <input type="hidden" id="add_notification_sesskey" name="sesskey" value="' . sesskey() . '"/>
                             <input type="hidden" id="add_notification_purpose" name="purpose" value="add"/>
+                            <input type="hidden" id="add_notification_blockid" name="blockid" value="' .
+                            (array_key_exists('blockid', $params) ?
+                                $params['blockid'] :
+                                '-1') . '"/>
                             <div class="form-group">
                                 <input type="submit"
                                     id="add_notification_save"
