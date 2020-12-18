@@ -54,7 +54,7 @@ $string['advnotifications_table_empty'] = 'No notifications to show!';
 $string['advnotifications_cell_yes'] = 'Yes';
 $string['advnotifications_cell_no'] = 'No';
 
-$string['advnotifications_restore_table_warning'] = '<strong>Warning!</strong> Deleting notifications from this table will permanently delete it from the database. We recommend using the auto-delete features of the plugin...';
+$string['advnotifications_restore_table_warning'] = '<strong>Warning!</strong> Deleting notifications from this table will permanently delete it from the database. It is recommended to use the auto-delete features of the plugin...';
 
 // Manage Advanced Notification Lang Strings.
 $string['advnotifications_table_title'] = 'Manage notifications';

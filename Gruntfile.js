@@ -50,7 +50,6 @@
  */
 
 module.exports = function(grunt) {
-
     let decachephp = "../../admin/cli/purge_caches.php";
     const sass = require('node-sass');
 
@@ -130,7 +129,8 @@ module.exports = function(grunt) {
 
     // Register tasks.
     grunt.registerTask("default", ["watch"]);
-    grunt.registerTask("css", ["stylelint:scss", "sass"]);
+    grunt.registerTask("css", ["stylelint:scss", "sass", "stylelint:css"]);
+    grunt.registerTask("stylecheck", ["stylelint:scss", "stylelint:css"]);
     grunt.registerTask("js", ["uglify"]);
     grunt.registerTask("decache", ["exec:decache"]);
 };

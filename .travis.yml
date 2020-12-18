@@ -20,8 +20,6 @@ env:
     - MOODLE_BRANCH=MOODLE_310_STABLE
     - MOODLE_BRANCH=MOODLE_39_STABLE
     - MOODLE_BRANCH=MOODLE_38_STABLE
-    - MOODLE_BRANCH=MOODLE_37_STABLE
-    - MOODLE_BRANCH=MOODLE_36_STABLE
     - MOODLE_BRANCH=MOODLE_35_STABLE
 
   matrix:
@@ -72,4 +70,4 @@ script:
   - moodle-plugin-ci phpdoc
   - moodle-plugin-ci validate
   - moodle-plugin-ci savepoints
-  - moodle-plugin-ci grunt
+  - moodle-plugin-ci grunt -t stylecheck

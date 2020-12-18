@@ -145,6 +145,12 @@ if (isset($purpose) && $purpose !== 'strings') {
     }
 }
 
+// Build redirect url params.
+$params = [];
+if (isset($blockinstance) && $blockinstance > -1) {
+    $params['blockid'] = $blockinstance;
+}
+
 // Handle Delete/Edit early as it requires few resources, and then we can quickly exit(),
 // this is the new AJAX/JS deletion/editing method.
 if (isset($tableaction) && $tableaction != '') {
@@ -158,7 +164,7 @@ if (isset($tableaction) && $tableaction != '') {
             echo json_encode($enotification);
             exit();
         } else {
-            redirect(new moodle_url('/blocks/advnotifications/pages/notifications.php'),
+            redirect(new moodle_url('/blocks/advnotifications/pages/notifications.php', $params),
                 get_string('advnotifications_err_nojsedit', 'block_advnotifications'));
         }
     } else if ($purpose == 'delete') {
@@ -174,7 +180,7 @@ if (isset($tableaction) && $tableaction != '') {
             echo json_encode(array("done" => $tableaction));
             exit();
         } else {
-            redirect(new moodle_url('/blocks/advnotifications/pages/notifications.php'));
+            redirect(new moodle_url('/blocks/advnotifications/pages/notifications.php', $params));
         }
     } else if ($purpose == 'restore') {
         $rnotification = new stdClass();
@@ -189,7 +195,7 @@ if (isset($tableaction) && $tableaction != '') {
             echo json_encode(array("done" => $tableaction));
             exit();
         } else {
-            redirect(new moodle_url('/blocks/advnotifications/pages/restore.php'));
+            redirect(new moodle_url('/blocks/advnotifications/pages/restore.php', $params));
         }
     } else if ($purpose == 'permdelete') {
         $DB->delete_records('block_advnotifications', array('id' => $tableaction));
@@ -198,7 +204,7 @@ if (isset($tableaction) && $tableaction != '') {
             echo json_encode(array('done' => $tableaction));
             exit();
         } else {
-            redirect(new moodle_url('/blocks/advnotifications/pages/restore.php'));
+            redirect(new moodle_url('/blocks/advnotifications/pages/restore.php', $params));
         }
     }
 }
@@ -254,7 +260,7 @@ if ($purpose == 'update') {
         echo json_encode(array("updated" => $title));
         exit();
     } else {
-        redirect(new moodle_url('/blocks/advnotifications/pages/notifications.php'),
+        redirect(new moodle_url('/blocks/advnotifications/pages/notifications.php', $params),
             get_string('advnotifications_err_nojsedit', 'block_advnotifications'));
     }
 }
@@ -288,7 +294,7 @@ if ($purpose == "add") {
             exit();
         } else {
             // Redirect with Error.
-            redirect(new moodle_url('/blocks/advnotifications/pages/notifications.php'),
+            redirect(new moodle_url('/blocks/advnotifications/pages/notifications.php', $params),
                 get_string('advnotifications_err_req', 'block_advnotifications', $error));
         }
     }
@@ -325,6 +331,6 @@ if ($purpose == "add") {
         echo json_encode("I: Successful");
         exit();
     } else {
-        redirect(new moodle_url('/blocks/advnotifications/pages/notifications.php'));
+        redirect(new moodle_url('/blocks/advnotifications/pages/notifications.php', $params));
     }
 }

@@ -18,7 +18,8 @@ body #advnotifications_restore_table_wrapper td > form button {
     transition: 100ms;
 }
 
-body #advnotifications_table_wrapper td > form button[class*="restore"], body #advnotifications_table_wrapper td > form button[class*="edit"],
+body #advnotifications_table_wrapper td > form button[class*="restore"],
+body #advnotifications_table_wrapper td > form button[class*="edit"],
 body #advnotifications_restore_table_wrapper td > form button[class*="restore"],
 body #advnotifications_restore_table_wrapper td > form button[class*="edit"] {
     color: #060;
@@ -29,7 +30,8 @@ body #advnotifications_restore_table_wrapper td > form button[class*="delete"] {
     color: #730000;
 }
 
-body #advnotifications_table_wrapper td > form button:hover, body #advnotifications_table_wrapper td > form button:focus,
+body #advnotifications_table_wrapper td > form button:hover,
+body #advnotifications_table_wrapper td > form button:focus,
 body #advnotifications_restore_table_wrapper td > form button:hover,
 body #advnotifications_restore_table_wrapper td > form button:focus {
     outline: none;

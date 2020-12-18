@@ -14,19 +14,20 @@ This could be useful in cases such as alerting users of scheduled outages, welco
 * Customisable title & message
 * Basic HTML tags allowed for advanced users
 * Multi-lingual/filter support
-* Multiple types of notifications (Bootstrap-based)
+* Multiple types of notifications (Bootstrap-based styles)
 * Type-based icons (optional setting)
 * Dismissible/Non-Dismissible
 * Customisable date range to show notifications
 * Display a notification to the user a set amount of times
 * Instance-based or global/site-wide notifications
+* Users (e.g. teachers) can create and manage their own instance-based notifications - **disabled by default**
 * Enable/Disable a/all notifications (Site-wide and instance-based)
 * Edit/Delete/Restore notifications
 * Option to auto-delete notification after end date
 * Option to permanently delete notifications that's had the deleted flag for more than 30 days
 * Option to automatically remove user (dismissed/seen) records that relates to notifications that don't exist anymore
 * AJAX used to improve user-experience and simplify processes
-* Live-preview when making/editing a notification
+* Live-preview when adding/editing a notification
 * Easy to use, but fully documented with all the nitty-gritty information
 * Implements Privacy API (GDPR Compliance)
 

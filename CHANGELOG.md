@@ -1,5 +1,20 @@
 # Changelog
 
+## v1.4.0 - 18/12/2020
+
+### Added
+* Users can now create/manage their own (instance-based/non-global) notifications
+  * Enable via capability/permissions - `manageownnotifications`.
+* A package.json file for easier (local) testing, checks & generation of code.
+
+### Changed
+* General code, UI & language strings cleanup.
+* Updated README.md with new feature listed.
+* Bumped version number.
+
+### Fixed
+* TravisCI file - updated moodle-plugin-ci to use Moodle HQ's.
+
 ## v1.3.12 - 13/10/2020
 
 ### Changed
