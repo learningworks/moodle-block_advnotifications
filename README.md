@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/learningworks/moodle-block_advnotifications.svg?branch=master)](https://travis-ci.org/learningworks/moodle-block_advnotifications)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](README.md)
 
-## Allows for notifications to be easily managed and set to be displayed to users
+## Easily create, manage and display notifications/alerts to users
 
 [![Functionality](docs/AdvNotifications.gif)](docs/AdvNotifications.gif)
 
