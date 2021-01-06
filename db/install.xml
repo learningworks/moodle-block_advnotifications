@@ -30,7 +30,7 @@
         <FIELD NAME="user_id" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="User related to occurrence of notification"/>
         <FIELD NAME="not_id" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="Notification user interaction relates to"/>
         <FIELD NAME="dismissed" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="Flag of whether user dismissed occurrence of notification or not"/>
-        <FIELD NAME="seen" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Record of number of times a user has seen the notification"/>
+        <FIELD NAME="seen" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Record of number of times a user has seen the notification"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

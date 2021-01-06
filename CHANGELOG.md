@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.4.1 - 06/01/2021
+
+### Added
+* JS source maps.
+
+### Changed
+* Increased 'precision'/length of `seen` field in database (from 4 to 10).
+* Minor Moodle code-check fixes.
+* Bumped version number.
+
 ## v1.4.0 - 18/12/2020
 
 ### Added

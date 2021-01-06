@@ -1,4 +1,4 @@
-/* eslint no-console: ["error", { allow: ["error"] }] */
+/* eslint no-console: ["error", { allow: ["error"] }], max-nested-callbacks: ["error", 7] */
 /**
  * @package    block_advnotifications
  * @copyright  2019 onwards LearningWorks Ltd {@link https://learningworks.co.nz/}

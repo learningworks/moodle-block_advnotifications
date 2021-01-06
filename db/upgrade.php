@@ -25,18 +25,18 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-
 /**
  * When upgrading plugin, execute the following code.
  *
- * @param int $oldversion - previous version of plugin (from DB).
+ * @param int $oldversion Previous version of plugin (from DB).
+ * @return bool Successful upgrade or not.
  */
 function xmldb_block_advnotifications_upgrade($oldversion) {
     global $DB;
     $dbman = $DB->get_manager();
 
+    // This was needed to add tables during development - probably not even need anymore. Leaving just-in-case (for now).
     if ($oldversion < 2017100217) {
-
         // Define table block_advnotifications to be created.
         $table = new xmldb_table('block_advnotifications');
 
@@ -86,6 +86,20 @@ function xmldb_block_advnotifications_upgrade($oldversion) {
 
         // Advnotifications savepoint reached.
         upgrade_block_savepoint(true, 2017100217, 'advnotifications');
+    }
+
+    // If upgrading from version earlier than v1.4.1 - max for 'seen' needs to be increased.
+    if ($oldversion < 2021010616) {
+
+        // Increase length/precision of field 'seen' in table 'block_advnotificationsdissed' to '10'.
+        $table = new xmldb_table('block_advnotificationsdissed');
+        $field = new xmldb_field('seen', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+
+        // Update DB.
+        $dbman->change_field_precision($table, $field);
+
+        // Upgrade savepoint reached.
+        upgrade_block_savepoint(true, 2021010616, 'advnotifications');
     }
 
     // Add future upgrade points here.

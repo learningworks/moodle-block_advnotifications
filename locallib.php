@@ -128,7 +128,7 @@ function prep_notifications($instanceid) {
                 'alerttype' => $notif->type,                                                                // Alert type (styling).
                 'aiconflag' => $notif->aicon,                                                               // Render icon flag.
                 'aicon' => $aicon,                                                                          // Which icon to render.
-                'title' => $filternotif ? format_text($notif->title, FORMAT_HTML) : $notif->title,          // Title
+                'title' => $filternotif ? format_text($notif->title, FORMAT_HTML) : $notif->title,          // Title.
                 'message' => $filternotif ? format_text($notif->message, FORMAT_HTML) : $notif->message,    // Notification text.
                 'dismissible' => $notif->dismissible);                                                      // Dismissible flag.
         }
