@@ -57,5 +57,4 @@ Pull requests are welcome - submit pull requests to address issues, add features
 
 #### TODO:
 
-* Allow user that created notification to delete the notification.
 * Add time (hh:mm) to 'From/To' setting.
