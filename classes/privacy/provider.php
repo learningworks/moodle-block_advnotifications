@@ -65,34 +65,32 @@ class provider implements
      * @return  collection  $collection The collection returned as a whole.
      */
     public static function get_metadata(collection $collection) : collection {
-        mtrace("\tGetting metadata...");
 
         // Add items to collection.
         $collection->add_database_table(
-            'advnotifications',
+            'block_advnotifications',
             [
-                'title' => 'privacy:metadata:advnotifications:title',
-                'message' => 'privacy:metadata:advnotifications:message',
-                'blockid' => 'privacy:metadata:advnotifications:blockid',
-                'deleted' => 'privacy:metadata:advnotifications:deleted',
-                'deleted_by' => 'privacy:metadata:advnotifications:deleted_by',
-                'created_by' => 'privacy:metadata:advnotifications:created_by'
+                'title' => 'privacy:metadata:block_advnotifications:title',
+                'message' => 'privacy:metadata:block_advnotifications:message',
+                'blockid' => 'privacy:metadata:block_advnotifications:blockid',
+                'deleted' => 'privacy:metadata:block_advnotifications:deleted',
+                'deleted_by' => 'privacy:metadata:block_advnotifications:deleted_by',
+                'created_by' => 'privacy:metadata:block_advnotifications:created_by'
             ],
-            'privacy:metadata:advnotifications'
+            'privacy:metadata:block_advnotifications'
         );
 
         $collection->add_database_table(
-            'advnotificationsdissed',
+            'block_advnotificationsdissed',
             [
-                'user_id' => 'privacy:metadata:advnotificationsdissed:user_id',
-                'not_id' => 'privacy:metadata:advnotificationsdissed:not_id',
-                'dismissed' => 'privacy:metadata:advnotificationsdissed:dismissed',
-                'seen' => 'privacy:metadata:advnotificationsdissed:seen'
+                'user_id' => 'privacy:metadata:block_advnotificationsdissed:user_id',
+                'not_id' => 'privacy:metadata:block_advnotificationsdissed:not_id',
+                'dismissed' => 'privacy:metadata:block_advnotificationsdissed:dismissed',
+                'seen' => 'privacy:metadata:block_advnotificationsdissed:seen'
             ],
-            'privacy:metadata:advnotificationsdissed'
+            'privacy:metadata:block_advnotificationsdissed'
         );
 
-        mtrace("\tDone 'Getting metadata...'");
 
         return $collection;
     }
@@ -104,7 +102,6 @@ class provider implements
      * @return contextlist  $contextlist    List of contexts used by the plugin.
      */
     public static function get_contexts_for_userid(int $userid) : contextlist {
-        mtrace("\tGetting contexts for userid...");
 
         // User data only on system/block context.
         global $DB;
@@ -139,7 +136,6 @@ class provider implements
             }
         }
 
-        mtrace("\tDone 'Getting contexts for userid...'");
 
         return $contextlist;
     }
@@ -150,7 +146,6 @@ class provider implements
      * @param   userlist $userlist The userlist containing the list of users who have data in this context/plugin combination.
      */
     public static function get_users_in_context(userlist $userlist) {
-        mtrace("\tGetting users in context...");
 
         $context = $userlist->get_context();
 
@@ -181,7 +176,6 @@ class provider implements
             );
         }
 
-        mtrace("\tDone 'Getting users in context...'");
     }
 
     /**
@@ -190,7 +184,6 @@ class provider implements
      * @param   approved_contextlist $contextlist The approved contexts to export information for.
      */
     public static function export_user_data(approved_contextlist $contextlist) {
-        mtrace("\tExporting user data...");
 
         global $DB;
 
@@ -261,7 +254,6 @@ class provider implements
             ], $data);
         }
 
-        mtrace("\tDone 'Exporting user data...'");
     }
 
     /**
@@ -270,7 +262,6 @@ class provider implements
      * @param   \context $context The specific context to delete data for.
      */
     public static function delete_data_for_all_users_in_context(\context $context) {
-        mtrace("\tDeleting data for all users in context...");
 
         global $DB;
 
@@ -302,7 +293,6 @@ class provider implements
             }
         }
 
-        mtrace("\tDone 'Deleting data for all users in context...'");
     }
 
     /**
@@ -311,7 +301,6 @@ class provider implements
      * @param   approved_contextlist $contextlist The approved contexts and user information to delete information for.
      */
     public static function delete_data_for_user(approved_contextlist $contextlist) {
-        mtrace("\tDeleting data for user...");
 
         // Get user id.
         $userid = $contextlist->get_user()->id;
@@ -319,7 +308,6 @@ class provider implements
         // Delete their data.
         static::adv_delete_user_data($userid);
 
-        mtrace("\tDone 'Deleting data for user...'");
     }
 
     /**
@@ -328,14 +316,12 @@ class provider implements
      * @param   approved_userlist $userlist The approved context and user information to delete information for.
      */
     public static function delete_data_for_users(approved_userlist $userlist) {
-        mtrace("\tDeleting data for users...");
 
         // For each user, delete the user data.
         foreach ($userlist->get_userids() as $userid) {
             static::adv_delete_user_data($userid);
         }
-
-        mtrace("\tDone 'Deleting data for users...'");
+            
     }
 
     /**
