@@ -65,7 +65,6 @@ class provider implements
      * @return  collection  $collection The collection returned as a whole.
      */
     public static function get_metadata(collection $collection) : collection {
-
         // Add items to collection.
         $collection->add_database_table(
             'block_advnotifications',
@@ -91,7 +90,6 @@ class provider implements
             'privacy:metadata:block_advnotificationsdissed'
         );
 
-
         return $collection;
     }
 
@@ -102,7 +100,6 @@ class provider implements
      * @return contextlist  $contextlist    List of contexts used by the plugin.
      */
     public static function get_contexts_for_userid(int $userid) : contextlist {
-
         // User data only on system/block context.
         global $DB;
         $contextlist = new \core_privacy\local\request\contextlist();
@@ -136,7 +133,6 @@ class provider implements
             }
         }
 
-
         return $contextlist;
     }
 
@@ -146,7 +142,6 @@ class provider implements
      * @param   userlist $userlist The userlist containing the list of users who have data in this context/plugin combination.
      */
     public static function get_users_in_context(userlist $userlist) {
-
         $context = $userlist->get_context();
 
         // Check if contexts are one block or system-level (others not allowed).
@@ -175,7 +170,6 @@ class provider implements
                 array('contextlevel' => CONTEXT_BLOCK)
             );
         }
-
     }
 
     /**
@@ -184,7 +178,6 @@ class provider implements
      * @param   approved_contextlist $contextlist The approved contexts to export information for.
      */
     public static function export_user_data(approved_contextlist $contextlist) {
-
         global $DB;
 
         $blockdata = [];
@@ -206,7 +199,6 @@ class provider implements
 
         // Get and export user data.
         foreach ($alluserdata as $userdata) {
-
             if ($userdata->blockid !== SITE_NOTIFICATION) {
                 $blockdata[] = (object)[
                     'title' => $userdata->title,
@@ -253,7 +245,6 @@ class provider implements
                 get_string('pluginname', 'block_advnotifications')
             ], $data);
         }
-
     }
 
     /**
@@ -262,7 +253,6 @@ class provider implements
      * @param   \context $context The specific context to delete data for.
      */
     public static function delete_data_for_all_users_in_context(\context $context) {
-
         global $DB;
 
         // Check if approved context.
@@ -292,7 +282,6 @@ class provider implements
                 static::adv_delete_record_data($delrecord->id);
             }
         }
-
     }
 
     /**
@@ -301,13 +290,11 @@ class provider implements
      * @param   approved_contextlist $contextlist The approved contexts and user information to delete information for.
      */
     public static function delete_data_for_user(approved_contextlist $contextlist) {
-
         // Get user id.
         $userid = $contextlist->get_user()->id;
 
         // Delete their data.
         static::adv_delete_user_data($userid);
-
     }
 
     /**
@@ -316,7 +303,6 @@ class provider implements
      * @param   approved_userlist $userlist The approved context and user information to delete information for.
      */
     public static function delete_data_for_users(approved_userlist $userlist) {
-
         // For each user, delete the user data.
         foreach ($userlist->get_userids() as $userid) {
             static::adv_delete_user_data($userid);
@@ -330,8 +316,8 @@ class provider implements
      * @param   int $userid The userid of the user which data need to be deleted.
      */
     public static function adv_delete_user_data($userid) {
-        global $DB;
         // We won't delete notification due to user data being deleted - just 'clear' user id.
+        global $DB;
 
         // If user created notification.
         $DB->set_field('block_advnotifications', 'created_by', -1, array('created_by' => $userid));
