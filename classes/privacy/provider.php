@@ -307,7 +307,6 @@ class provider implements
         foreach ($userlist->get_userids() as $userid) {
             static::adv_delete_user_data($userid);
         }
-            
     }
 
     /**

@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.4.2 - 10/02/2021
+
+### Changed
+* Bumped version number.
+
+### Fixed
+* Privacy API provider cleanup - removed mtrace (prevent Unit Test warnings) & whitespaces.
+
 ## v1.4.1 - 06/01/2021
 
 ### Added
