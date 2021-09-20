@@ -323,7 +323,14 @@ if ($purpose == "add") {
     $row->deleted_by = -1;
     $row->created_by = $USER->id;
 
-    $DB->insert_record('block_advnotifications', $row);
+    $id = $DB->insert_record('block_advnotifications', $row);
+
+    $params = [
+        'context' => context_block::instance($blockinstance),
+        'objectid' => $id
+    ];
+    $event = \block_advnotifications\event\notification_created::create($params);
+    $event->trigger();
 
     // Send JSON response if AJAX call was made, otherwise simply redirect to origin page.
     if ($ajax) {
