@@ -64,11 +64,11 @@ $context = context_system::instance();
 $allnotifs = has_capability('block/advnotifications:managenotifications', $context);
 $ownnotifs = false;
 
+$bcontext = context_block::instance($blockinstance);
 if (!$allnotifs) {
     if (empty($blockinstance) || !isset($blockinstance) || $blockinstance === -1) {
         throw new moodle_exception('advnotifications_err_nocapability', 'block_advnotifications');
     }
-    $bcontext = context_block::instance($blockinstance);
     $ownnotifs = has_capability('block/advnotifications:manageownnotifications', $bcontext);
 }
 
@@ -94,6 +94,10 @@ if (!$table->is_downloading()) {
     $PAGE->set_heading(get_string('advnotifications_table_heading', 'block_advnotifications'));
     $PAGE->requires->jquery();
     $PAGE->requires->js_call_amd('block_advnotifications/custom', 'initialise');
+    if ($ccontext = $bcontext->get_course_context(false)) {
+        $course = $DB->get_field('course', 'fullname', ['id' => $ccontext->instanceid]);
+        $PAGE->navbar->add(format_string($course), new moodle_url('/course/view.php', ['id' => $ccontext->instanceid]));
+    }
     $PAGE->navbar->add(get_string('blocks'));
     $PAGE->navbar->add(get_string('pluginname', 'block_advnotifications'));
     $PAGE->navbar->add(get_string('advnotifications_table_title_short', 'block_advnotifications'));
