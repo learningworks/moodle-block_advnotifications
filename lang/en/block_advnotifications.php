@@ -85,6 +85,7 @@ $string['advnotifications_update'] = 'Update';
 $string['advnotifications_cancel'] = 'Cancel';
 $string['advnotifications_req'] = 'Required...';
 $string['advnotifications_preview'] = 'Preview';
+$string['advnotifications_sendnotifications'] = 'Send notitications via site notification system (usually will appear on the bell icon on top)';
 
 // Renderer.
 $string['advnotifications_add_heading'] = 'New notification';

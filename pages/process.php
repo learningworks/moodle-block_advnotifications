@@ -61,6 +61,7 @@ if (get_config('block_advnotifications', 'html')) {
 $type = optional_param('type', null, PARAM_TEXT);
 $times = optional_param('times', null, PARAM_INT);
 $aicon = optional_param('aicon', null, PARAM_TEXT);
+$sendnotifications = optional_param('sendnotifications', null, PARAM_TEXT);
 $dismissible = optional_param('dismissible', null, PARAM_TEXT);
 $datefrom = optional_param('date_from', null, PARAM_TEXT);
 $dateto = optional_param('date_to', null, PARAM_TEXT);
@@ -100,6 +101,11 @@ if ($dismissible == 'on' || $dismissible == '1') {
     $dismissible = 1;
 } else {
     $dismissible = 0;
+}
+if ($sendnotifications == 'on' || $sendnotifications == '1') {
+    $sendnotifications = 1;
+} else {
+    $sendnotifications = 0;
 }
 
 // TODO: Check if successful?
@@ -246,6 +252,7 @@ if ($purpose == 'update') {
     $urow->message = $message;
     $urow->type = $type;
     $urow->aicon = $aicon;
+    $urow->sendnotifications = $sendnotifications;
     $urow->enabled = $enabled;
     $urow->global = $global;
     $urow->blockid = $blockinstance;
@@ -311,6 +318,7 @@ if ($purpose == "add") {
     $row->message = $message;
     $row->type = $type;
     $row->aicon = $aicon;
+    $row->sendnotifications = $sendnotifications;
     $row->enabled = $enabled;
     $row->global = $global;
     $row->blockid = $blockinstance;

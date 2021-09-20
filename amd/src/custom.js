@@ -98,14 +98,17 @@ define(['jquery'], function($) {
                                             i === 'enabled' ||
                                             i === 'global' ||
                                             i === 'dismissible' ||
-                                            i === 'aicon'
+                                            i === 'aicon' ||
+                                            i === 'sendnotifications'
                                         ) && data[i] == 1) {
                                         affectelement.prop('checked', true);
                                     } else if (
                                         (i === 'enabled' ||
                                             i === 'global' ||
                                             i === 'dismissible' ||
-                                            i === 'aicon') && data[i] == 0) {
+                                            i === 'aicon' ||
+                                            i === 'sendnotifications'
+                                        ) && data[i] == 0) {
                                         affectelement.prop('checked', false);
                                     } else {
                                         affectelement.val(data[i]);
@@ -236,6 +239,11 @@ define(['jquery'], function($) {
                 });
 
                 $('#add_notification_aicon').on('change', function() {
+                    // Checking specifically whether ticked/checked or not to ensure it's displayed correctly (not toggling).
+                    reloadPreview();
+                });
+
+                $('#add_notification_sendnotifications').on('change', function() {
                     // Checking specifically whether ticked/checked or not to ensure it's displayed correctly (not toggling).
                     reloadPreview();
                 });

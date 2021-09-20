@@ -102,6 +102,21 @@ function xmldb_block_advnotifications_upgrade($oldversion) {
         upgrade_block_savepoint(true, 2021010616, 'advnotifications');
     }
 
+    if ($oldversion < 2021092000) {
+
+        // Define field id to be added to block_advnotifications.
+        $table = new xmldb_table('block_advnotifications');
+        $field = new xmldb_field('sendnotifications', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'aicon');
+
+        // Conditionally launch add field id.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Advnotifications savepoint reached.
+        upgrade_block_savepoint(true, 2021092000, 'advnotifications');
+    }
+
     // Add future upgrade points here.
 
     return true;
