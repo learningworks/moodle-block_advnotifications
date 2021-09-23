@@ -176,6 +176,13 @@ if (isset($tableaction) && $tableaction != '') {
 
         $DB->update_record('block_advnotifications', $dnotification);
 
+        $params = [
+            'context' => context_block::instance($blockinstance),
+            'objectid' => $dnotification->id
+        ];
+        $event = \block_advnotifications\event\notification_deleted::create($params);
+        $event->trigger();
+
         if ($ajax) {
             echo json_encode(array("done" => $tableaction));
             exit();
@@ -255,6 +262,13 @@ if ($purpose == 'update') {
     $urow->times = $times;
 
     $DB->update_record('block_advnotifications', $urow);
+
+    $params = [
+        'context' => context_block::instance($blockinstance),
+        'objectid' => $urow->id
+    ];
+    $event = \block_advnotifications\event\notification_updated::create($params);
+    $event->trigger();
 
     if ($ajax) {
         echo json_encode(array("updated" => $title));

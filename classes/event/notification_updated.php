@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The block_advnotifications notification created event.
+ * The block_advnotifications notification updated event.
  *
  * @package    block_advnotifications
  * @copyright  2021 Daniel Neis Araujo <daniel@adapta.online>
@@ -26,20 +26,20 @@ namespace block_advnotifications\event;
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * The block_advnotifications notification created event class.
+ * The block_advnotifications notification updated event class.
  *
  * @package    block_advnotifications
  * @copyright  2021 Daniel Neis Araujo <daniel@adapta.online>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class notification_created extends \core\event\base {
+class notification_updated extends \core\event\base {
 
     /**
      * Init method.
      */
     protected function init() {
         $this->data['objecttable'] = 'block_advnotifications';
-        $this->data['crud'] = 'c';
+        $this->data['crud'] = 'u';
         $this->data['edulevel'] = self::LEVEL_PARTICIPATING;
     }
 
@@ -58,7 +58,7 @@ class notification_created extends \core\event\base {
      * @return string
      */
     public function get_description() {
-        return "The user with id '$this->userid' created the notification with id '$this->objectid'
+        return "The user with id '$this->userid' updated the notification with id '$this->objectid'
           for the block with id '$this->contextinstanceid'.";
     }
 }
