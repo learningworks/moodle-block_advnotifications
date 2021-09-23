@@ -263,6 +263,15 @@ if ($purpose == 'update') {
 
     $DB->update_record('block_advnotifications', $urow);
 
+    if ($urow->sendnotifications) {
+        $task = new block_advnotifications\task\sendnotifications();
+        $task->set_custom_data(['notificationid' => $id]);
+        if ($datefrom > time()) {
+            $task->set_next_run_time($datefrom);
+        }
+        \core\task\manager::reschedule_or_queue_adhoc_task($task);
+    }
+
     if ($ajax) {
         echo json_encode(array("updated" => $title));
         exit();
@@ -331,7 +340,16 @@ if ($purpose == "add") {
     $row->deleted_by = -1;
     $row->created_by = $USER->id;
 
-    $DB->insert_record('block_advnotifications', $row);
+    $id = $DB->insert_record('block_advnotifications', $row);
+
+    if ($row->sendnotifications) {
+        $task = new block_advnotifications\task\sendnotifications();
+        $task->set_custom_data(['notificationid' => $id]);
+        if ($datefrom > time()) {
+            $task->set_next_run_time($datefrom);
+        }
+        \core\task\manager::queue_adhoc_task($task);
+    }
 
     // Send JSON response if AJAX call was made, otherwise simply redirect to origin page.
     if ($ajax) {
