@@ -162,6 +162,8 @@ $string['operator_beginwith'] = 'Begin with';
 $string['operator_contains'] = 'Contains';
 $string['operator_equals'] = 'Equals';
 
+$string['messageprovider:sendadvnotifications'] = 'Send advanced notifications to users';
+
 // Privacy API.
 $string['privacy:metadata:block_advnotifications'] = 'Information about notifications the user has been exposed to and recorded interactions.';
 $string['privacy:metadata:block_advnotifications:title'] = 'The title of the notification.';

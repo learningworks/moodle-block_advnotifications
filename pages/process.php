@@ -299,6 +299,15 @@ if ($purpose == 'update') {
     $event = \block_advnotifications\event\notification_updated::create($params);
     $event->trigger();
 
+    if ($urow->sendnotifications) {
+        $task = new block_advnotifications\task\sendnotifications();
+        $task->set_custom_data(['notificationid' => $id]);
+        if ($datefrom > time()) {
+            $task->set_next_run_time($datefrom);
+        }
+        \core\task\manager::reschedule_or_queue_adhoc_task($task);
+    }
+
     if ($ajax) {
         echo json_encode(array("updated" => $title));
         exit();
@@ -377,6 +386,15 @@ if ($purpose == "add") {
     }
     $event = \block_advnotifications\event\notification_created::create($params);
     $event->trigger();
+
+    if ($row->sendnotifications) {
+        $task = new block_advnotifications\task\sendnotifications();
+        $task->set_custom_data(['notificationid' => $id]);
+        if ($datefrom > time()) {
+            $task->set_next_run_time($datefrom);
+        }
+        \core\task\manager::queue_adhoc_task($task);
+    }
 
     // Send JSON response if AJAX call was made, otherwise simply redirect to origin page.
     if ($ajax) {
