@@ -43,6 +43,7 @@ $string['advnotifications_field_enabled'] = 'Enabled';
 $string['advnotifications_field_global'] = 'Global';
 $string['advnotifications_field_aicon'] = 'Icon';
 $string['advnotifications_field_dismissible'] = 'Dismissible';
+$string['advnotifications_field_sendnotifications'] = 'Send notifications';
 $string['advnotifications_field_times'] = 'View Times';
 $string['advnotifications_field_date_from'] = 'From';
 $string['advnotifications_field_date_to'] = 'To';

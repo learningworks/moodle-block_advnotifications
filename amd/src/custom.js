@@ -243,11 +243,6 @@ define(['jquery'], function($) {
                     reloadPreview();
                 });
 
-                $('#add_notification_sendnotifications').on('change', function() {
-                    // Checking specifically whether ticked/checked or not to ensure it's displayed correctly (not toggling).
-                    reloadPreview();
-                });
-
                 // Check if preview is displaying correct (Update it).
                 var reloadPreview = function() {
                     // Update title.
