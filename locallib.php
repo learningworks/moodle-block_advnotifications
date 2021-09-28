@@ -146,6 +146,7 @@ function get_date_formats() {
     $formats = [];
 
     // Add supported formats to array.
+    $formats['d/m/Y h:i A'] = date('d/m/Y h:i A');
     $formats['d/m/Y'] = date('d/m/Y');
     $formats['j/n/y'] = date('j/n/y');
     $formats['m-d-Y'] = date('m-d-Y');
