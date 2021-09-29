@@ -70,7 +70,8 @@ class advnotifications_notifications_table extends advnotifications_base_table {
                     <input type="hidden" class="delete_notification_blockid" name="blockid" value="' . $values->blockid . '">
                     <button type="submit" class="delete_notification_delete icon fa fa-trash-o fa-fw" name="delete"
                         title="' . get_string('advnotifications_delete_label', 'block_advnotifications') . '"></button>
-                </form>';
+                </form>
+                <a href="'. (new moodle_url('/blocks/advnotifications/pages/audience.php', ['id' => $values->id])).'"><i class="icon fa fa-users"/></a>';
         }
     }
 }
