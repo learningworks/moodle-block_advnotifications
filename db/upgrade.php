@@ -102,6 +102,67 @@ function xmldb_block_advnotifications_upgrade($oldversion) {
         upgrade_block_savepoint(true, 2021010616, 'advnotifications');
     }
 
+    if ($oldversion < 2021101400) {
+
+        // Define table block_advnotifications_coh to be created.
+        $table = new xmldb_table('block_advnotifications_coh');
+
+        // Adding fields to table block_advnotifications_coh.
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('notificationid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('cohortid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+
+        // Adding keys to table block_advnotifications_coh.
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+        $table->add_key('notificationid', XMLDB_KEY_FOREIGN, ['notificationid'], 'block_advnotifications', ['id']);
+        $table->add_key('cohortid', XMLDB_KEY_FOREIGN, ['cohortid'], 'cohort', ['id']);
+
+        // Conditionally launch create table for block_advnotifications_coh.
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+
+                // Define table block_advnotifications_field to be created.
+        $table = new xmldb_table('block_advnotifications_field');
+
+        // Adding fields to table block_advnotifications_field.
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('notificationid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('userfield', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('operator', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('fieldvalue', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null);
+
+        // Adding keys to table block_advnotifications_field.
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+        $table->add_key('notificationid', XMLDB_KEY_FOREIGN, ['notificationid'], 'block_advnotifications', ['id']);
+
+        // Conditionally launch create table for block_advnotifications_field.
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+
+        // Define table block_advnotifications_roles to be created.
+        $table = new xmldb_table('block_advnotifications_roles');
+
+        // Adding fields to table block_advnotifications_roles.
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('notificationid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('roleid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+
+        // Adding keys to table block_advnotifications_roles.
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+        $table->add_key('notificationid', XMLDB_KEY_FOREIGN, ['notificationid'], 'block_advnotifications', ['id']);
+        $table->add_key('roleid', XMLDB_KEY_FOREIGN, ['roleid'], 'role', ['id']);
+
+        // Conditionally launch create table for block_advnotifications_roles.
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+
+        // Advnotifications savepoint reached.
+        upgrade_block_savepoint(true, 2021101400, 'advnotifications');
+    }
+
     // Add future upgrade points here.
 
     return true;
