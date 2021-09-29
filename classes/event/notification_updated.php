@@ -40,7 +40,16 @@ class notification_updated extends \core\event\base {
     protected function init() {
         $this->data['objecttable'] = 'block_advnotifications';
         $this->data['crud'] = 'u';
-        $this->data['edulevel'] = self::LEVEL_PARTICIPATING;
+        $this->data['edulevel'] = self::LEVEL_OTHER;
+    }
+
+    /**
+     * Get event name.
+     *
+     * @return string
+     */
+    public static function get_name() {
+        return get_string('event_notification_updated', 'block_advnotifications');
     }
 
     /**
@@ -59,6 +68,10 @@ class notification_updated extends \core\event\base {
      */
     public function get_description() {
         return "The user with id '$this->userid' updated the notification with id '$this->objectid'
-          for the block with id '$this->contextinstanceid'.";
+          for the block with id '$this->contextinstanceid'.
+          The title was changed from '" . $this->other['old_title'] . "' to '" . $this->other['new_title'] . "'.
+          The message was changed from '" . $this->other['old_message'] . "' to '" . $this->other['new_message'] . "'.
+          The date from was changed from '" . userdate($this->other['old_date_from']) . "' to '" . userdate($this->other['new_date_from']) . "'.
+          The date to was changed from '" . userdate($this->other['old_date_to']) . "' to '" . userdate($this->other['new_date_to']) . "'.";
     }
 }

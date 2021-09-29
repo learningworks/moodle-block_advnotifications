@@ -150,6 +150,9 @@ $string['advnotifications_cron_auto_delete_udata'] = 'Remove user records that r
 
 // Misc.
 $string['advnotifications_join'] = ' & ';
+$string['event_notification_created'] = 'Advanced notification created';
+$string['event_notification_deleted'] = 'Advanced notification deleted';
+$string['event_notification_updated'] = 'Advanced notification updated';
 
 // Privacy API.
 $string['privacy:metadata:block_advnotifications'] = 'Information about notifications the user has been exposed to and recorded interactions.';

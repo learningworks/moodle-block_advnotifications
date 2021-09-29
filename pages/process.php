@@ -174,11 +174,18 @@ if (isset($tableaction) && $tableaction != '') {
         $dnotification->deleted_at = time();
         $dnotification->deleted_by = $USER->id;
 
+        $old = $DB->get_record('block_advnotifications', ['id' => $tableaction]);
         $DB->update_record('block_advnotifications', $dnotification);
 
         $params = [
             'context' => context_block::instance($blockinstance),
-            'objectid' => $dnotification->id
+            'objectid' => $dnotification->id,
+            'other' => [
+                'old_title' => $old->title,
+                'old_message' => $old->message,
+                'old_date_from' => $old->date_from,
+                'old_date_to' => $old->date_to,
+            ]
         ];
         $event = \block_advnotifications\event\notification_deleted::create($params);
         $event->trigger();
@@ -245,6 +252,7 @@ if ($purpose == 'update') {
         $global = 0;
     }
 
+    $old = $DB->get_record('block_advnotifications', ['id' => $id]);
     // Update an existing notification.
     $urow = new stdClass();
 
@@ -265,7 +273,17 @@ if ($purpose == 'update') {
 
     $params = [
         'context' => context_block::instance($blockinstance),
-        'objectid' => $urow->id
+        'objectid' => $urow->id,
+        'other' => [
+           'old_title' => $old->title,
+           'old_message' => $old->message,
+           'old_date_from' => $old->date_from,
+           'old_date_to' => $old->date_to,
+           'new_title' => $urow->title,
+           'new_message' => $urow->message,
+           'new_date_from' => $urow->date_from,
+           'new_date_to' => $urow->date_to
+        ]
     ];
     $event = \block_advnotifications\event\notification_updated::create($params);
     $event->trigger();

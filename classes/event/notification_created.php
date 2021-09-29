@@ -44,6 +44,15 @@ class notification_created extends \core\event\base {
     }
 
     /**
+     * Get event name.
+     *
+     * @return string
+     */
+    public static function get_name() {
+        return get_string('event_notification_created', 'block_advnotifications');
+    }
+
+    /**
      * Get URL related to the action.
      *
      * @return \moodle_url
