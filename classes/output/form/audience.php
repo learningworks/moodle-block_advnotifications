@@ -39,30 +39,12 @@ use moodleform;
 class audience extends moodleform {
 
     public function definition() {
-        global $DB;
 
         $mform = $this->_form;
 
-  //      $mform->addElement('hidden', 'id');
-  //      $mform->setType('id', PARAM_INT);
-
-        $options = [];
-        $values = [];
-
         $notificationid = $this->_customdata['notificationid'];
 
-        $cohortssql =
-            'SELECT c.id, c.name, nc.id as inuse
-               FROM {cohort} c
-          LEFT JOIN {block_advnotifications_coh} nc
-                 ON c.id = nc.cohortid AND nc.notificationid = ?';
-        $cohorts = $DB->get_records_sql($cohortssql, [$notificationid]);
-        foreach ($cohorts as $c) {
-            $options[$c->id] = $c->name;
-            if (!is_null($c->inuse)) {
-                $values[] = $c->id;
-            }
-        }
+        list($options, $values) = \block_advnotifications\audience::get_cohorts_for_autocomplete($notificationid);
 
         $autocomplete = $mform->addElement(
             'autocomplete',
@@ -73,16 +55,7 @@ class audience extends moodleform {
         );
         $autocomplete->setSelected($values);
 
-        $roles = role_get_names();
-        $selectedroles = $DB->get_fieldset_select('block_advnotifications_roles', 'roleid', 'notificationid = ?', [$notificationid]);
-        $options = [];
-        $values = [];
-        foreach ($roles as $r) {
-            $options[$r->id] = $r->localname;
-            if (in_array($r->id, $selectedroles)) {
-                $values[] = $r->id;
-            }
-        }
+        list($options, $values) = \block_advnotifications\audience::get_roles_for_autocomplete($notificationid);
         $autocomplete = $mform->addElement(
             'autocomplete',
             'roles',
@@ -98,14 +71,17 @@ class audience extends moodleform {
             $mform->createElement('text', 'fieldvalue', '', ['size' => 12]),
         ];
         $filters = $mform->createElement('group', 'userfieldfilters', get_string('filter_userfield', 'block_advnotifications'), $elements);
+        $deletebutton = $mform->createElement('submit', 'deletefieldrule', 'X', [], false);
 
         $rules = [
             'userfieldfilters[userfield]' => ['type' => PARAM_TEXT],
             'userfieldfilters[operator]' => ['type' => PARAM_TEXT],
             'userfieldfilters[fieldvalue]' => ['type' => PARAM_TEXT]
         ];
-        $this->repeat_elements([$filters], $this->_customdata['filterscount'], $rules,
-            'filterscount', 'adduserfieldfilter', 1, get_string('adduserfieldfilter', 'block_advnotifications'));
+
+        $this->repeat_elements([$filters, $deletebutton], $this->_customdata['filterscount'], $rules,
+            'filterscount', 'adduserfieldfilter', 1, get_string('adduserfieldfilter', 'block_advnotifications'),
+            true, 'deletefieldrule');
 
         $this->add_action_buttons();
     }
@@ -114,6 +90,7 @@ class audience extends moodleform {
         global $DB;
 
         $filters = [
+            ''            => get_string('choosedots'),
             'id'          => 'id',
             'username'    => get_string('username'),
             'idnumber'    => get_string('idnumber'),
@@ -142,9 +119,10 @@ class audience extends moodleform {
 
     protected function operator_options() {
         return [
-          'beginwith' => get_string('operator_beginwith', 'block_advnotifications'),
-          'contains' => get_string('operator_contains', 'block_advnotifications'),
-          'equals' => get_string('operator_equals', 'block_advnotifications')
+            '' => get_string('choosedots'),
+            'beginwith' => get_string('operator_beginwith', 'block_advnotifications'),
+            'contains' => get_string('operator_contains', 'block_advnotifications'),
+            'equals' => get_string('operator_equals', 'block_advnotifications')
         ];
     }
 }
