@@ -57,7 +57,6 @@ $PAGE->navbar->add($str);
 
 $output = $PAGE->get_renderer('block_advnotifications');
 
-// TODO!
 $userfieldfilters = $DB->get_records('block_advnotifications_field', ['notificationid' => $id]);
 $notification->userfieldfilters = [];
 foreach ($userfieldfilters as $f) {
@@ -87,11 +86,15 @@ if ($form->is_cancelled()) {
         $DB->insert_record_raw('block_advnotifications_coh', $coh);
     }
     $field = (object)['notificationid' => $id];
-    foreach ($data->userfieldfilters as $f) {
-        $field->userfield = $f['userfield'];
-        $field->operator = $f['operator'];
-        $field->fieldvalue = $f['fieldvalue'];
-        $DB->insert_record_raw('block_advnotifications_field', $field);
+    if (isset($data->userfieldfilters)) {
+        foreach ($data->userfieldfilters as $f) {
+            if (!empty($f['userfield']) && !empty($f['operator']) && !empty($f['fieldvalue'])) {
+                $field->userfield = $f['userfield'];
+                $field->operator = $f['operator'];
+                $field->fieldvalue = $f['fieldvalue'];
+                $DB->insert_record_raw('block_advnotifications_field', $field);
+            }
+        }
     }
     $role = (object)['notificationid' => $id];
     foreach ($data->roles as $r) {
