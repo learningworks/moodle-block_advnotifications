@@ -59,14 +59,7 @@ class sendnotifications extends \core\task\adhoc_task {
             return;
         }
 
-        if (!empty($notification->blockid)) {
-            $bcontext = \context_block::instance($notification->blockid);
-        }
-        if (isset($bcontext) && $ccontext = $bcontext->get_course_context(false)) {
-            $users = get_enrolled_users($ccontext, '', 0 , 'u.id');
-        } else {
-            $users = $DB->get_records('user', ['deleted' => 0, 'suspended' => 0], '', 'id');
-        }
+        $users = \block_advnotifications\audience::get_users_for_notification($notification);
 
         foreach ($users as $u) {
             $eventdata = new \core\message\message();

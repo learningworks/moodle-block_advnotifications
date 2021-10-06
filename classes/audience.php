@@ -138,4 +138,104 @@ class audience {
         }
         return true;
     }
+
+    public static function get_users_for_notification($notification) {
+        global $DB;
+
+        $joins = [];
+        $wheres = [];
+        $params = [];
+
+        if (!empty($notification->blockid) && $notification->blockid > 0) {
+            $bcontext = \context_block::instance($notification->blockid);
+            $coursecontext = $bcontext->get_course_context(false);
+        } else {
+            $coursecontext = \context_system::instance();
+        }
+
+        if ($DB->record_exists('block_advnotifications_coh', ['notificationid' => $notification->id])) {
+           $joins[] =
+            ' JOIN {cohort_members} cm
+                ON cm.userid = u.id
+              JOIN {block_advnotifications_coh} anc
+                ON anc.cohortid = cm.cohortid';
+           $wheres[] = 'anc.notificationid = :notificationid';
+           $params['notificationid'] = $notification->id;
+        }
+
+        if ($roles = $DB->get_records_menu('block_advnotifications_roles', ['notificationid' => $notification->id], '', 'roleid')) {
+
+            // TODO: role assignments in sub-contexts.
+            $roles = array_keys($roles);
+            list($rolesql, $roleparams) = $DB->get_in_or_equal($roles, SQL_PARAMS_NAMED, 'roleid');
+            $joins[] =
+             ' JOIN {role_assignments} ra
+                 ON ra.userid = u.id';
+            $wheres[] = ' ra.contextid = :contextid ';
+            $wheres[] = ' ra.roleid ' . $rolesql;
+            $params['contextid'] = $coursecontext->id;
+            $params = array_merge($params, $roleparams);
+        }
+
+        if ($fields = $DB->get_records('block_advnotifications_field', ['notificationid' => $notification->id])) {
+            $customfields = [];
+            $fieldsapi = \core_user\fields::for_name();
+            foreach ($fields as $key => $f) {
+                if (strpos($f->userfield, 'profile_field_') === false) {
+                    switch ($f->operator) {
+                        case 'equals':
+                            $wheres[] = " u.{$f->userfield} = :field{$key}";
+                            $params['field'.$key] = $f->fieldvalue;
+                            break;
+                        case 'beginwith':
+                            $wheres[] = $DB->sql_like("u.{$f->userfield}", ":field{$key}", false);
+                            $params['field'.$key] = $f->fieldvalue . '%';
+                            break;
+                        case 'contains':
+                            $wheres[] = $DB->sql_like("u.{$f->userfield}", ":field{$key}", false);
+                            $params['field'.$key] = '%' . $f->fieldvalue . '%';
+                            break;
+                    }
+                } else {
+                    $fieldsapi->including($f->userfield);
+                    $customfields[] = $f;
+                }
+            }
+            $fieldsall = $fieldsapi->get_sql('u', true);
+            $joins[] = $fieldsall->joins;
+            $params = array_merge($params, $fieldsall->params);
+            foreach ($customfields as $key => $f) {
+                switch ($f->operator) {
+                    case 'equals':
+                        $wheres[] = " {$fieldsall->mappings[$f->userfield]} = :field{$key}";
+                        $params['field'.$key] = $f->fieldvalue;
+                        break;
+                    case 'beginwith':
+                        $wheres[] = $DB->sql_like($fieldsall->mappings[$f->userfield], ":field{$key}", false);
+                        $params['field'.$key] = $f->fieldvalue . '%';
+                        break;
+                    case 'contains':
+                        $wheres[] = $DB->sql_like($fieldsall->mappings[$f->userfield], ":field{$key}", false);
+                        $params['field'.$key] = '%' . $f->fieldvalue . '%';
+                        break;
+                }
+            }
+        }
+
+        if (isset($coursecontext)) {
+            // TODO: enrolment in sub contexts.
+            $enrolledjoin = get_enrolled_join($coursecontext, 'u.id', true);
+            $joins[] = $enrolledjoin->joins;
+            $wheres[] = $enrolledjoin->wheres;
+            $params = array_merge($params, $enrolledjoin->params);
+        }
+
+        $sql = "SELECT u.id
+                  FROM {user} u
+                   " . implode("\n", $joins) . "
+                 WHERE u.deleted = 0
+                   AND " . implode("\n AND ", $wheres);
+
+        return $DB->get_records_sql($sql, $params);
+    }
 }

@@ -28,7 +28,7 @@ $id = required_param('id', PARAM_INT);
 
 $notification = $DB->get_record('block_advnotifications', ['id' => $id]);
 
-if ($notification->blockid) {
+if ($notification->blockid > 0) {
     $bcontext = context_block::instance($notification->blockid);
     $ctx = $bcontext->get_course_context(false);
 }
