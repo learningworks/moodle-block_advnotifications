@@ -256,14 +256,21 @@ if ($purpose == 'update') {
     $urow->blockid = $blockinstance;
     $urow->dismissible = $dismissible;
 
-    list($hours, $minutes) = explode(':', $timefrom, 2);
-    $seconds = $minutes * 60 + $hours * 3600;
-    $urow->date_from = $datefrom + $seconds;
+    if (empty($timefrom)) {
+        $urow->date_from = $datefrom;
+    } else {
+        list($hours, $minutes) = explode(':', $timefrom, 2);
+        $seconds = $minutes * 60 + $hours * 3600;
+        $urow->date_from = $datefrom + $seconds;
+    }
 
-    list($hours, $minutes) = explode(':', $timeto, 2);
-    $seconds = $minutes * 60 + $hours * 3600;
-    $urow->date_to = $dateto + $seconds;
-    $urow->times = $times;
+    if (empty($timeto)) {
+        $urow->date_to = $dateto;
+    } else {
+        list($hours, $minutes) = explode(':', $timeto, 2);
+        $seconds = $minutes * 60 + $hours * 3600;
+        $urow->date_to = $dateto + $seconds;
+    }
 
     $DB->update_record('block_advnotifications', $urow);
 
@@ -326,8 +333,23 @@ if ($purpose == "add") {
     $row->global = $global;
     $row->blockid = $blockinstance;
     $row->dismissible = $dismissible;
-    $row->date_from = $datefrom;
-    $row->date_to = $dateto;
+
+    if (empty($timefrom)) {
+        $row->date_from = $datefrom;
+    } else {
+        list($hours, $minutes) = explode(':', $timefrom, 2);
+        $seconds = $minutes * 60 + $hours * 3600;
+        $row->date_from = $datefrom + $seconds;
+    }
+
+    if (empty($timeto)) {
+        $row->date_to = $dateto;
+    } else {
+        list($hours, $minutes) = explode(':', $timeto, 2);
+        $seconds = $minutes * 60 + $hours * 3600;
+        $row->date_to = $dateto + $seconds;
+    }
+
     $row->times = $times;
     $row->deleted = 0;
     $row->deleted_at = 0;
