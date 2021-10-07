@@ -123,20 +123,35 @@ class audience {
 
     public static function meets_roles_requirements($notificationid, $userid, $blockid) {
         global $DB;
-        if (!$roles = $DB->get_records('block_advnotifications_roles', ['notificationid' => $notificationid])) {
+        if (!$roles = $DB->get_records('block_advnotifications_roles', ['notificationid' => $notificationid], '', 'roleid')) {
             return true; // There is no role restriction.
         }
-        if ($blockid) {
+        $roles = array_keys($roles);
+
+        if ($blockid > 0) {
             $context = \context_block::instance($blockid);
+            if ($coursecontext = $context->get_course_context(false)) {
+                $context = $coursecontext;
+            } else {
+                $context = $context->get_parent_context(); // It may be category or user context.
+                if ($context instanceof \context_user) {
+                    $context = \context_system::instance();
+                }
+            }
         } else {
             $context = \context_system::instance();
         }
-        foreach ($roles as $r) {
-            if (!user_has_role_assignment($userid, $r->roleid, $context->id)) {
-                return false;
-            }
-        }
-        return true;
+        list($rolessql, $params) = $DB->get_in_or_equal($roles, SQL_PARAMS_NAMED, 'roleid');
+        $sql =
+            'SELECT 1
+               FROM {role_assignments} ra
+               JOIN {context} ctx
+                 ON ctx.id = ra.contextid
+              WHERE ' . $DB->sql_like('ctx.path', ':ctxpath', false) . '
+                AND roleid ' . $rolessql;
+        $params['ctxpath'] = $context->path . '%';
+
+        return $DB->record_exists_sql($sql, $params);
     }
 
     public static function get_users_for_notification($notification) {
@@ -146,11 +161,15 @@ class audience {
         $wheres = [];
         $params = [];
 
-        if (!empty($notification->blockid) && $notification->blockid > 0) {
-            $bcontext = \context_block::instance($notification->blockid);
-            $coursecontext = $bcontext->get_course_context(false);
+        if ($notification->blockid > 0) {
+            $context = \context_block::instance($notification->blockid);
+            if ($coursecontext = $context->get_course_context(false)) {
+                $context = $coursecontext;
+            } else {
+                $context = $context->get_parent_context(); // It may be category context.
+            }
         } else {
-            $coursecontext = \context_system::instance();
+            $context = \context_system::instance();
         }
 
         if ($DB->record_exists('block_advnotifications_coh', ['notificationid' => $notification->id])) {
@@ -165,16 +184,17 @@ class audience {
 
         if ($roles = $DB->get_records_menu('block_advnotifications_roles', ['notificationid' => $notification->id], '', 'roleid')) {
 
-            // TODO: role assignments in sub-contexts.
             $roles = array_keys($roles);
-            list($rolesql, $roleparams) = $DB->get_in_or_equal($roles, SQL_PARAMS_NAMED, 'roleid');
+            list($rolessql, $rolesparams) = $DB->get_in_or_equal($roles, SQL_PARAMS_NAMED, 'roleid');
             $joins[] =
              ' JOIN {role_assignments} ra
-                 ON ra.userid = u.id';
-            $wheres[] = ' ra.contextid = :contextid ';
-            $wheres[] = ' ra.roleid ' . $rolesql;
-            $params['contextid'] = $coursecontext->id;
-            $params = array_merge($params, $roleparams);
+                 ON ra.userid = u.id
+               JOIN {context} ctx
+                 ON ctx.id = ra.contextid';
+            $wheres[] = $DB->sql_like('ctx.path', ':ctxpath', false);
+            $wheres[] = ' ra.roleid ' . $rolessql;
+            $params['ctxpath'] = $context->path . '%';
+            $params = array_merge($params, $rolesparams);
         }
 
         if ($fields = $DB->get_records('block_advnotifications_field', ['notificationid' => $notification->id])) {
@@ -220,14 +240,6 @@ class audience {
                         break;
                 }
             }
-        }
-
-        if (isset($coursecontext)) {
-            // TODO: enrolment in sub contexts.
-            $enrolledjoin = get_enrolled_join($coursecontext, 'u.id', true);
-            $joins[] = $enrolledjoin->joins;
-            $wheres[] = $enrolledjoin->wheres;
-            $params = array_merge($params, $enrolledjoin->params);
         }
 
         $sql = "SELECT u.id
