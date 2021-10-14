@@ -64,6 +64,7 @@ class advnotifications_base_table extends table_sql {
             'global',
             'aicon',
             'dismissible',
+            'sendnotifications',
             'times',
             'date_from',
             'date_to',
@@ -80,6 +81,7 @@ class advnotifications_base_table extends table_sql {
             get_string('advnotifications_field_global', 'block_advnotifications'),      // Global: Yes.
             get_string('advnotifications_field_aicon', 'block_advnotifications'),       // AIcon: Yes.
             get_string('advnotifications_field_dismissible', 'block_advnotifications'), // Dismissible: Yes.
+            get_string('advnotifications_field_sendnotifications', 'block_advnotifications'), // Send notifications: Yes.
             get_string('advnotifications_field_times', 'block_advnotifications'),       // Times: 10.
             get_string('advnotifications_field_date_from', 'block_advnotifications'),   // Date From: dd/mm/yyyy.
             get_string('advnotifications_field_date_to', 'block_advnotifications'),     // Date To: dd/mm/yyyy.
@@ -170,6 +172,17 @@ class advnotifications_base_table extends table_sql {
      */
     public function col_dismissible($values) {
         return ($values->dismissible == 1 ? $this->yes : $this->no);
+    }
+
+    /**
+     * This function is called for each data row to allow processing of the
+     * sendnotifications value.
+     *
+     * @param object $values Contains object with all the values of record.
+     * @return $string Return whether notification is sent via moodle notifications system or not.
+     */
+    public function col_sendnotifications($values) {
+        return ($values->sendnotifications == 1 ? $this->yes : $this->no);
     }
 
     /**

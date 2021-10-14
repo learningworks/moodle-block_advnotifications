@@ -189,6 +189,11 @@ class block_advnotifications_renderer extends plugin_renderer_base
                                     <label for="add_notification_dismissible" class="form-check-label">' .
                                         get_string('advnotifications_dismissible', 'block_advnotifications') . '</label>
                                 </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="add_notification_sendnotifications" class="form-check-input" name="sendnotifications"/>
+                                    <label for="add_notification_sendnotifications" class="form-check-label">' .
+                                        get_string('advnotifications_sendnotifications', 'block_advnotifications') . '</label>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="add_notification_date_from" class="form-text">' .

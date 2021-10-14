@@ -43,6 +43,7 @@ $string['advnotifications_field_enabled'] = 'Enabled';
 $string['advnotifications_field_global'] = 'Global';
 $string['advnotifications_field_aicon'] = 'Icon';
 $string['advnotifications_field_dismissible'] = 'Dismissible';
+$string['advnotifications_field_sendnotifications'] = 'Send notifications';
 $string['advnotifications_field_times'] = 'View Times';
 $string['advnotifications_field_date_from'] = 'From';
 $string['advnotifications_field_date_to'] = 'To';
@@ -85,6 +86,7 @@ $string['advnotifications_update'] = 'Update';
 $string['advnotifications_cancel'] = 'Cancel';
 $string['advnotifications_req'] = 'Required...';
 $string['advnotifications_preview'] = 'Preview';
+$string['advnotifications_sendnotifications'] = 'Send notitications via site notification system (usually will appear on the bell icon on top)';
 
 // Renderer.
 $string['advnotifications_add_heading'] = 'New notification';
@@ -150,9 +152,18 @@ $string['advnotifications_cron_auto_delete_udata'] = 'Remove user records that r
 
 // Misc.
 $string['advnotifications_join'] = ' & ';
+$string['adduserfieldfilter'] = 'Add another user field filter';
+$string['audiencesaved'] = 'Audience save successfully.';
+$string['editing_audiences'] = 'Editing audiences';
 $string['event_notification_created'] = 'Advanced notification created';
 $string['event_notification_deleted'] = 'Advanced notification deleted';
 $string['event_notification_updated'] = 'Advanced notification updated';
+$string['filter_userfield'] = 'User field';
+$string['operator_beginwith'] = 'Begin with';
+$string['operator_contains'] = 'Contains';
+$string['operator_equals'] = 'Equals';
+
+$string['messageprovider:sendadvnotifications'] = 'Send advanced notifications to users';
 
 // Privacy API.
 $string['privacy:metadata:block_advnotifications'] = 'Information about notifications the user has been exposed to and recorded interactions.';

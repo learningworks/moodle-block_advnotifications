@@ -81,6 +81,16 @@ function prep_notifications($instanceid) {
             $render = false;
         }
 
+        if ($render && !\block_advnotifications\audience::meets_profile_requirements($notif->id, $USER->id)) {
+            $render = false;
+        }
+        if ($render && !\block_advnotifications\audience::meets_cohorts_requirements($notif->id, $USER->id)) {
+            $render = false;
+        }
+        if ($render && !\block_advnotifications\audience::meets_roles_requirements($notif->id, $USER->id, $notif->blockid)) {
+            $render = false;
+        }
+
         if ($render) {
             // Update how many times the user has seen the notification.
             if ($userseen === false) {

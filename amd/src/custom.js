@@ -98,14 +98,17 @@ define(['jquery'], function($) {
                                             i === 'enabled' ||
                                             i === 'global' ||
                                             i === 'dismissible' ||
-                                            i === 'aicon'
+                                            i === 'aicon' ||
+                                            i === 'sendnotifications'
                                         ) && data[i] == 1) {
                                         affectelement.prop('checked', true);
                                     } else if (
                                         (i === 'enabled' ||
                                             i === 'global' ||
                                             i === 'dismissible' ||
-                                            i === 'aicon') && data[i] == 0) {
+                                            i === 'aicon' ||
+                                            i === 'sendnotifications'
+                                        ) && data[i] == 0) {
                                         affectelement.prop('checked', false);
                                     } else {
                                         affectelement.val(data[i]);
