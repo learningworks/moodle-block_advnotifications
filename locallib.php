@@ -143,16 +143,24 @@ function prep_notifications($instanceid) {
  * @return  array   Array of formats as key and today's date in that format as value.
  */
 function get_date_formats() {
-    $formats = [];
+    // Hard-code date so users can see the difference between short dates with and without the leading zero.
+    // Eg. 06/07/18 vs 6/07/18.
+    $date = 1530849658;
 
     // Add supported formats to array.
-    $formats['d/m/Y h:i A'] = date('d/m/Y h:i A');
-    $formats['d/m/Y'] = date('d/m/Y');
-    $formats['j/n/y'] = date('j/n/y');
-    $formats['m-d-Y'] = date('m-d-Y');
-    $formats['n-j-y'] = date('n-j-y');
-    $formats['j M y'] = date('j M y');
-    $formats['j F Y'] = date('j F Y');
+    $dateformats = [];
 
-    return $formats;
+    $strdateformats = [
+        'strftimedatetime',
+        'strftimedatetimeshort',
+        'strftimedaydatetime',
+        'strftimerecent',
+        'strftimerecentfull',
+    ];
+
+    foreach ($strdateformats as $strdateformat) {
+        $dateformats[$strdateformat] = userdate($date, get_string($strdateformat, 'langconfig'));
+    }
+
+    return $dateformats;
 }
