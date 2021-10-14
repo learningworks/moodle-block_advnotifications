@@ -174,7 +174,25 @@ if (isset($tableaction) && $tableaction != '') {
         $dnotification->deleted_at = time();
         $dnotification->deleted_by = $USER->id;
 
+        $old = $DB->get_record('block_advnotifications', ['id' => $tableaction]);
         $DB->update_record('block_advnotifications', $dnotification);
+
+        $params = [
+            'objectid' => $dnotification->id,
+            'other' => [
+                'old_title' => $old->title,
+                'old_message' => $old->message,
+                'old_date_from' => $old->date_from,
+                'old_date_to' => $old->date_to,
+            ]
+        ];
+        if ($blockinstance > 0) {
+            $params['context'] = context_block::instance($blockinstance);
+        } else {
+            $params['context'] = context_system::instance();
+        }
+        $event = \block_advnotifications\event\notification_deleted::create($params);
+        $event->trigger();
 
         if ($ajax) {
             echo json_encode(array("done" => $tableaction));
@@ -238,6 +256,7 @@ if ($purpose == 'update') {
         $global = 0;
     }
 
+    $old = $DB->get_record('block_advnotifications', ['id' => $id]);
     // Update an existing notification.
     $urow = new stdClass();
 
@@ -255,6 +274,23 @@ if ($purpose == 'update') {
     $urow->times = $times;
 
     $DB->update_record('block_advnotifications', $urow);
+
+    $params = [
+        'context' => context_block::instance($blockinstance),
+        'objectid' => $urow->id,
+        'other' => [
+           'old_title' => $old->title,
+           'old_message' => $old->message,
+           'old_date_from' => $old->date_from,
+           'old_date_to' => $old->date_to,
+           'new_title' => $urow->title,
+           'new_message' => $urow->message,
+           'new_date_from' => $urow->date_from,
+           'new_date_to' => $urow->date_to
+        ]
+    ];
+    $event = \block_advnotifications\event\notification_updated::create($params);
+    $event->trigger();
 
     if ($ajax) {
         echo json_encode(array("updated" => $title));
@@ -323,7 +359,16 @@ if ($purpose == "add") {
     $row->deleted_by = -1;
     $row->created_by = $USER->id;
 
-    $DB->insert_record('block_advnotifications', $row);
+    $id = $DB->insert_record('block_advnotifications', $row);
+
+    $params = ['objectid' => $id];
+    if ($blockinstance > 0) {
+        $params['context'] = context_block::instance($blockinstance);
+    } else {
+        $params['context'] = context_system::instance();
+    }
+    $event = \block_advnotifications\event\notification_created::create($params);
+    $event->trigger();
 
     // Send JSON response if AJAX call was made, otherwise simply redirect to origin page.
     if ($ajax) {
