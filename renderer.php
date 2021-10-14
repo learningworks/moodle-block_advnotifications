@@ -197,14 +197,26 @@ class block_advnotifications_renderer extends plugin_renderer_base
                                     id="add_notification_date_from"
                                     class="form-control"
                                     name="date_from"
-                                    placeholder="yyyy-mm-dd"/>
+                                    placeholder="yyyy-mm-dd"
+                                    style="width: 10em;"/>
+                                <input type="time"
+                                    id="add_notification_time_from"
+                                    class="form-control"
+                                    name="time_from"
+                                    style="width: 10em;"/>
                                 <label for="add_notification_date_to" class="form-text">' .
                                     get_string('advnotifications_date_to', 'block_advnotifications') . '</label>
                                 <input type="date"
                                     id="add_notification_date_to"
                                     class="form-control"
                                     name="date_to"
-                                    placeholder="yyyy-mm-dd"/>
+                                    placeholder="yyyy-mm-dd"
+                                    style="width: 10em;"/>
+                                <input type="time"
+                                    id="add_notification_time_to"
+                                    class="form-control"
+                                    name="time_to"
+                                    style="width: 10em;"/>
                                 <small class="form-text text-muted">' .
                                     get_string('advnotifications_date_info', 'block_advnotifications') . '</small>
                             </div>

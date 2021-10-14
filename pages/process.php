@@ -64,6 +64,8 @@ $aicon = optional_param('aicon', null, PARAM_TEXT);
 $dismissible = optional_param('dismissible', null, PARAM_TEXT);
 $datefrom = optional_param('date_from', null, PARAM_TEXT);
 $dateto = optional_param('date_to', null, PARAM_TEXT);
+$timefrom = optional_param('time_from', null, PARAM_TEXT);
+$timeto = optional_param('time_to', null, PARAM_TEXT);
 
 $dismiss = optional_param('dismiss', null, PARAM_TEXT);                 // User dismissed notification.
 $purpose = optional_param('purpose', null, PARAM_TEXT);                 // Purpose of request.
@@ -156,6 +158,9 @@ if (isset($blockinstance) && $blockinstance > -1) {
 if (isset($tableaction) && $tableaction != '') {
     if ($purpose == 'edit') {
         $enotification = $DB->get_record('block_advnotifications', array('id' => $tableaction));
+
+        $enotification->time_from = date('H:i', $enotification->date_from);
+        $enotification->time_to = date('H:i', $enotification->date_to);
 
         $enotification->date_from = date('Y-m-d', $enotification->date_from);
         $enotification->date_to = date('Y-m-d', $enotification->date_to);
@@ -269,9 +274,22 @@ if ($purpose == 'update') {
     $urow->global = $global;
     $urow->blockid = $blockinstance;
     $urow->dismissible = $dismissible;
-    $urow->date_from = $datefrom;
-    $urow->date_to = $dateto;
-    $urow->times = $times;
+
+    if (empty($timefrom)) {
+        $urow->date_from = $datefrom;
+    } else {
+        list($hours, $minutes) = explode(':', $timefrom, 2);
+        $seconds = $minutes * 60 + $hours * 3600;
+        $urow->date_from = $datefrom + $seconds;
+    }
+
+    if (empty($timeto)) {
+        $urow->date_to = $dateto;
+    } else {
+        list($hours, $minutes) = explode(':', $timeto, 2);
+        $seconds = $minutes * 60 + $hours * 3600;
+        $urow->date_to = $dateto + $seconds;
+    }
 
     $DB->update_record('block_advnotifications', $urow);
 
@@ -351,8 +369,23 @@ if ($purpose == "add") {
     $row->global = $global;
     $row->blockid = $blockinstance;
     $row->dismissible = $dismissible;
-    $row->date_from = $datefrom;
-    $row->date_to = $dateto;
+
+    if (empty($timefrom)) {
+        $row->date_from = $datefrom;
+    } else {
+        list($hours, $minutes) = explode(':', $timefrom, 2);
+        $seconds = $minutes * 60 + $hours * 3600;
+        $row->date_from = $datefrom + $seconds;
+    }
+
+    if (empty($timeto)) {
+        $row->date_to = $dateto;
+    } else {
+        list($hours, $minutes) = explode(':', $timeto, 2);
+        $seconds = $minutes * 60 + $hours * 3600;
+        $row->date_to = $dateto + $seconds;
+    }
+
     $row->times = $times;
     $row->deleted = 0;
     $row->deleted_at = 0;

@@ -196,7 +196,7 @@ class advnotifications_base_table extends table_sql {
             return '-';
         }
 
-        return date(get_config('block_advnotifications', 'dateformat'), $values->date_from);
+        return userdate($values->date_from, get_string(get_config('block_advnotifications', 'dateformat'), 'langconfig'));
     }
 
     /**
@@ -212,7 +212,7 @@ class advnotifications_base_table extends table_sql {
             return '-';
         }
 
-        return date(get_config('block_advnotifications', 'dateformat'), $values->date_to);
+        return userdate($values->date_to, get_string(get_config('block_advnotifications', 'dateformat'), 'langconfig'));
     }
 
     /**
