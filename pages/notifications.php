@@ -68,7 +68,6 @@ if (!$allnotifs) {
     if (empty($blockinstance) || !isset($blockinstance) || $blockinstance === -1) {
         throw new moodle_exception('advnotifications_err_nocapability', 'block_advnotifications');
     }
-    $bcontext = context_block::instance($blockinstance);
     $ownnotifs = has_capability('block/advnotifications:manageownnotifications', $bcontext);
 }
 

@@ -148,8 +148,10 @@ class audience {
                JOIN {context} ctx
                  ON ctx.id = ra.contextid
               WHERE ' . $DB->sql_like('ctx.path', ':ctxpath', false) . '
-                AND roleid ' . $rolessql;
+                AND roleid ' . $rolessql . '
+                AND userid = :userid';
         $params['ctxpath'] = $context->path . '%';
+        $params['userid'] = $userid;
 
         return $DB->record_exists_sql($sql, $params);
     }
